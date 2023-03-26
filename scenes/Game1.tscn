@@ -1,0 +1,1001 @@
+[gd_scene load_steps=75 format=3 uid="uid://ddkg1wg31hr7p"]
+
+[ext_resource type="Script" path="res://game/LevelManager.gd" id="1_4d807"]
+[ext_resource type="TileSet" uid="uid://7j8scg7ptix6" path="res://art/world/interior.tres" id="2_i3osn"]
+[ext_resource type="Script" path="res://ui/Textbox.gd" id="3_mkgh6"]
+[ext_resource type="Script" path="res://game/NPC.gd" id="3_ohj4y"]
+[ext_resource type="Texture2D" uid="uid://cbbw78q0tmr71" path="res://art/characters/sigmund.png" id="4_3kwbg"]
+[ext_resource type="FontFile" uid="uid://fq2pv7o6q6kd" path="res://ui/TimesNewPixel.ttf" id="4_77ac3"]
+[ext_resource type="FontFile" uid="uid://cjjk7gwqjreyh" path="res://ui/HelvetiPixel.ttf" id="5_18yfw"]
+[ext_resource type="Script" path="res://ui/DialogueTree.gd" id="5_owufg"]
+[ext_resource type="SpriteFrames" uid="uid://3b7od2atskhd" path="res://art/dialogue/seer1.tres" id="6_f78pm"]
+[ext_resource type="Script" path="res://ui/Dialogue.gd" id="6_xs7cf"]
+[ext_resource type="Texture2D" uid="uid://hiyjedbctrk" path="res://art/dialogue/intro/generic.png" id="7_36uj4"]
+[ext_resource type="Script" path="res://ui/OptionSet.gd" id="8_21ppy"]
+[ext_resource type="PackedScene" uid="uid://cxd0qectcpfqa" path="res://ui/option_container.tscn" id="8_u5nrw"]
+[ext_resource type="Script" path="res://game/Door.gd" id="9_mcdlw"]
+[ext_resource type="Texture2D" uid="uid://c2djxxduij6kj" path="res://art/world/door2.png" id="10_v1r54"]
+[ext_resource type="Script" path="res://game/Player.gd" id="11_8dq8c"]
+[ext_resource type="Script" path="res://game/Sequence.gd" id="11_qagl1"]
+[ext_resource type="Texture2D" uid="uid://cntnh17pgysok" path="res://art/characters/universal-lpc-sprite_male_01_full.png" id="12_w3p7s"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sgvwu"]
+size = Vector2(16, 18)
+
+[sub_resource type="Animation" id="Animation_iahto"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_clvtx"]
+resource_name = "door_open"
+length = 0.5
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_u4162"]
+_data = {
+"RESET": SubResource("Animation_iahto"),
+"door_open": SubResource("Animation_clvtx")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_34vai"]
+size = Vector2(16, 18)
+
+[sub_resource type="Animation" id="Animation_ceqj8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_o3hxp"]
+resource_name = "door_open"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ovcyg"]
+_data = {
+"RESET": SubResource("Animation_ceqj8"),
+"door_open": SubResource("Animation_o3hxp")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o05bp"]
+size = Vector2(26, 22)
+
+[sub_resource type="Animation" id="Animation_1otpk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [130]
+}
+
+[sub_resource type="Animation" id="Animation_cyjf4"]
+resource_name = "idle_down"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [130]
+}
+
+[sub_resource type="Animation" id="Animation_bfh5q"]
+resource_name = "idle_left"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [117]
+}
+
+[sub_resource type="Animation" id="Animation_2nvb3"]
+resource_name = "idle_right"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [143]
+}
+
+[sub_resource type="Animation" id="Animation_g4yj6"]
+resource_name = "idle_up"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [104]
+}
+
+[sub_resource type="Animation" id="Animation_lgff3"]
+resource_name = "walk_down"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [131, 132, 133, 134, 135, 136, 137, 138]
+}
+
+[sub_resource type="Animation" id="Animation_l1iqe"]
+resource_name = "walk_left"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [118, 119, 120, 121, 122, 123, 124, 125]
+}
+
+[sub_resource type="Animation" id="Animation_fl2o0"]
+resource_name = "walk_right"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [144, 145, 146, 147, 148, 149, 150, 151]
+}
+
+[sub_resource type="Animation" id="Animation_vo5gt"]
+resource_name = "walk_up"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [105, 106, 107, 108, 109, 110, 111, 112]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nyfnu"]
+_data = {
+"RESET": SubResource("Animation_1otpk"),
+"idle_down": SubResource("Animation_cyjf4"),
+"idle_left": SubResource("Animation_bfh5q"),
+"idle_right": SubResource("Animation_2nvb3"),
+"idle_up": SubResource("Animation_g4yj6"),
+"walk_down": SubResource("Animation_lgff3"),
+"walk_left": SubResource("Animation_l1iqe"),
+"walk_right": SubResource("Animation_fl2o0"),
+"walk_up": SubResource("Animation_vo5gt")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_drjhp"]
+animation = &"idle_down"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5meom"]
+animation = &"idle_left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_p7mpx"]
+animation = &"idle_right"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vv7jm"]
+animation = &"idle_up"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_qjjqu"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_drjhp")
+blend_point_0/pos = Vector2(0, 1)
+blend_point_1/node = SubResource("AnimationNodeAnimation_5meom")
+blend_point_1/pos = Vector2(-1, 0)
+blend_point_2/node = SubResource("AnimationNodeAnimation_p7mpx")
+blend_point_2/pos = Vector2(1, 0)
+blend_point_3/node = SubResource("AnimationNodeAnimation_vv7jm")
+blend_point_3/pos = Vector2(0, -1)
+blend_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_t0pky"]
+animation = &"walk_down"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_cmxpm"]
+animation = &"walk_up"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ubwbu"]
+animation = &"walk_right"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_oywwr"]
+animation = &"walk_left"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_4yy8b"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_t0pky")
+blend_point_0/pos = Vector2(0, 1)
+blend_point_1/node = SubResource("AnimationNodeAnimation_cmxpm")
+blend_point_1/pos = Vector2(0, -1)
+blend_point_2/node = SubResource("AnimationNodeAnimation_ubwbu")
+blend_point_2/pos = Vector2(1, 0)
+blend_point_3/node = SubResource("AnimationNodeAnimation_oywwr")
+blend_point_3/pos = Vector2(-1, 0)
+blend_mode = 1
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_h8ck5"]
+states/End/position = Vector2(200, 208)
+states/Idle/node = SubResource("AnimationNodeBlendSpace2D_qjjqu")
+states/Idle/position = Vector2(511, 100)
+states/Move/node = SubResource("AnimationNodeBlendSpace2D_4yy8b")
+states/Move/position = Vector2(511, 208)
+graph_offset = Vector2(-136.08, 29.6309)
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_q0k0y"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6xt1x"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_36uj4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_qmrx0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LevelManager/Level/Sigmund:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-56, -64)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LevelManager/Level/Sigmund:animated")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("LevelManager/Level/Sigmund:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("LevelManager/Player:active")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("LevelManager/Level/Sigmund/AnimationTree:parameters/Idle/blend_position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("LevelManager/Level/Sequences/IntroTree:active")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_ci7y6"]
+resource_name = "cycle1"
+length = 2.3
+tracks/0/type = "animation"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Effects/EffectPlayer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": PackedStringArray("fade_out"),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LevelManager/Level/Sigmund:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1, 1.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-56, -64), Vector2(-72, -64)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("LevelManager/Level/Sigmund/AnimationTree:parameters/Idle/blend_position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.8, 0.9, 1.7, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 0), Vector2(1, 0), Vector2(-1, 0), Vector2(-1, 0), Vector2(1, 0)]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("LevelManager/Level/Sigmund/DialogueTree")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(2.3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"play"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_7g3ed"]
+resource_name = "cycle2"
+length = 2.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LevelManager/Level/Sigmund:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5, 1.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-72, -64), Vector2(-88, -64), Vector2(-88, -80), Vector2(-88, -80), Vector2(-88, -92)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LevelManager/Level/Sigmund:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("LevelManager/Level/Door/Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1, 1.1, 1.2, 1.3, 1.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 3]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("LevelManager/Player:active")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("LevelManager/Level/Sigmund:animated")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = false
+tracks/5/path = NodePath("LevelManager/Level/Sequences/IntroTree:active")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_fcgaq"]
+resource_name = "dialogue1"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LevelManager/Level/Sigmund/DialogueTree")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"play"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0evd4"]
+_data = {
+"RESET": SubResource("Animation_qmrx0"),
+"cycle1": SubResource("Animation_ci7y6"),
+"cycle2": SubResource("Animation_7g3ed"),
+"dialogue1": SubResource("Animation_fcgaq")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2fb2v"]
+animation = &"cycle1"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_woxx4"]
+animation = &"cycle2"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6e1hi"]
+animation = &"dialogue1"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wbugh"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_s025p"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_v12ab"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4c3ym"]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_pe6en"]
+states/End/position = Vector2(798, 99.9123)
+states/Start/position = Vector2(159, 99.9123)
+states/cycle1/node = SubResource("AnimationNodeAnimation_2fb2v")
+states/cycle1/position = Vector2(466, 99.9123)
+states/cycle2/node = SubResource("AnimationNodeAnimation_woxx4")
+states/cycle2/position = Vector2(618, 99.9123)
+states/dialogue1/node = SubResource("AnimationNodeAnimation_6e1hi")
+states/dialogue1/position = Vector2(316, 99.9123)
+transitions = ["cycle2", "End", SubResource("AnimationNodeStateMachineTransition_wbugh"), "Start", "dialogue1", SubResource("AnimationNodeStateMachineTransition_s025p"), "dialogue1", "cycle1", SubResource("AnimationNodeStateMachineTransition_v12ab"), "cycle1", "cycle2", SubResource("AnimationNodeStateMachineTransition_4c3ym")]
+graph_offset = Vector2(-43, 43.0877)
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_l30wg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fwhgl"]
+size = Vector2(24.5, 23.375)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bhhme"]
+radius = 15.0
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_xs78p"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t45rf"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dmlth"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_tki2i"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_7c51y"]
+resource_name = "fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dshb3"]
+_data = {
+"RESET": SubResource("Animation_tki2i"),
+"fade_out": SubResource("Animation_7c51y")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7bebr"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_okey6"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="LevelManager" type="Node" parent="."]
+script = ExtResource("1_4d807")
+
+[node name="Level" type="Node2D" parent="LevelManager"]
+
+[node name="Bedroom" type="TileMap" parent="LevelManager/Level"]
+y_sort_enabled = true
+tile_set = ExtResource("2_i3osn")
+format = 2
+layer_0/name = "Ground"
+layer_0/z_index = -1
+layer_0/tile_data = PackedInt32Array(-131077, 262148, 0, -393216, 393220, 0, -327681, 393220, 0, -327682, 393220, 0, -327683, 393220, 0, -327684, 393220, 0, -327685, 393220, 0, -327686, 393220, 0, -327687, 393220, 0, -327688, 393220, 0, -262148, 393220, 0, -262147, 393220, 0, -262146, 393220, 0, -262145, 393220, 0, -327680, 393220, 0, -262149, 393220, 0, -262150, 393220, 0, -262151, 393220, 0, -262152, 393220, 0, -196616, 393220, 0, -131080, 393220, 0, -131079, 393220, 0, -196614, 393220, 0, -196613, 393220, 0, -196612, 393220, 0, -196611, 393220, 0, -196610, 393220, 0, -196609, 393220, 0, -262144, 393220, 0, -196615, 393220, 0, -131078, 196612, 0, -65542, 196612, 1, -65543, 393220, 0, -8, 393220, 0, -65544, 393220, 0, 65528, 393220, 0, 131065, 393220, 0, 131066, 393220, 0, 65530, 393220, 0, -6, 393220, 0, -7, 393220, 0, 65529, 393220, 0, 131064, 393220, 0, -5, 393220, 0, -65541, 262148, 1, -65540, 327684, 1, -131076, 327684, 0, 65531, 393220, 0, 131067, 393220, 0, 131068, 393220, 0, 65532, 393220, 0, -4, 393220, 0, -65539, 393220, 0, -3, 393220, 0, 65533, 393220, 0, 131069, 393220, 0, 131070, 393220, 0, 65534, 393220, 0, -2, 393220, 0, -65538, 393220, 0, -131075, 393220, 0, 131071, 393220, 0, 65535, 393220, 0, -1, 393220, 0, -65537, 393220, 0, -131073, 393220, 0, -131074, 393220, 0, -131072, 393220, 0, -196608, 393220, 0, -65536, 393220, 0, 0, 393220, 0, 65536, 393220, 0)
+layer_1/name = "Walls"
+layer_1/enabled = true
+layer_1/modulate = Color(1, 1, 1, 1)
+layer_1/y_sort_enabled = true
+layer_1/y_sort_origin = 0
+layer_1/z_index = 0
+layer_1/tile_data = PackedInt32Array(-327688, 4, 4, -327687, 65540, 4, -327686, 65540, 4, -327685, 65540, 4, -327684, 65540, 4, -327683, 65540, 4, -327682, 65540, 4, -327681, 65540, 4, -393216, 131076, 4, -327680, 131076, 5, -262144, 131076, 5, -196608, 131076, 5, -131072, 131076, 5, -65536, 131076, 5, 0, 131076, 5, 65536, 131076, 6, 131071, 65540, 6, 131070, 65540, 6, 131069, 65540, 6, 131068, 65540, 6, 131067, 65540, 6, 131066, 65540, 6, 131065, 65540, 6, 65528, 4, 5, -8, 4, 5, -65544, 4, 5, -131080, 4, 5, -196616, 4, 5, -262152, 4, 5, 131064, 4, 6)
+layer_2/name = "Items"
+layer_2/enabled = true
+layer_2/modulate = Color(1, 1, 1, 1)
+layer_2/y_sort_enabled = true
+layer_2/y_sort_origin = 0
+layer_2/z_index = 0
+layer_2/tile_data = PackedInt32Array(-2, 327684, 7, -1, 393220, 7, 65535, 393220, 8, 65534, 327684, 8, 65533, 196612, 3, -8, 393220, 4, -3, 196612, 2, -196610, 262148, 5, -327680, 262148, 7, -262145, 196612, 7, -262146, 262148, 4, -262147, 393221, 0, -262148, 196612, 5, -327681, 196612, 6, -393216, 262148, 6, -327684, 196612, 4)
+
+[node name="LivingRoom" type="TileMap" parent="LevelManager/Level"]
+y_sort_enabled = true
+position = Vector2(0, -300)
+tile_set = ExtResource("2_i3osn")
+format = 2
+layer_0/name = "Ground"
+layer_0/z_index = -1
+layer_0/tile_data = PackedInt32Array(-393216, 393220, 0, -327681, 393220, 0, -327682, 393220, 0, -327683, 393220, 0, -327684, 393220, 0, -327685, 393220, 0, -327686, 393220, 0, -327687, 393220, 0, -327688, 393220, 0, -262148, 393220, 0, -262147, 393220, 0, -262146, 393220, 0, -262145, 393220, 0, -327680, 393220, 0, -262151, 393220, 0, -262152, 393220, 0, -196616, 393220, 0, -131080, 393220, 0, -131079, 393220, 0, -196614, 393220, 0, -196613, 393220, 0, -196611, 393220, 0, -196610, 393220, 0, -196609, 393220, 0, -262144, 393220, 0, -196615, 393220, 0, -65543, 393220, 0, -8, 393220, 0, -65544, 393220, 0, 65528, 393220, 0, 131065, 393220, 0, 131066, 393220, 0, 65530, 393220, 0, -6, 393220, 0, -7, 393220, 0, 65529, 393220, 0, 131064, 393220, 0, -5, 393220, 0, 65531, 393220, 0, 131067, 393220, 0, 131068, 393220, 0, 65532, 393220, 0, -4, 393220, 0, -65539, 393220, 0, -3, 393220, 0, 65533, 393220, 0, 131069, 393220, 0, 131070, 393220, 0, 65534, 393220, 0, -2, 393220, 0, -65538, 393220, 0, -131075, 393220, 0, 131071, 393220, 0, 65535, 393220, 0, -1, 393220, 0, -65537, 393220, 0, -131073, 393220, 0, -131074, 393220, 0, -131072, 393220, 0, -196608, 393220, 0, -65536, 393220, 0, 0, 393220, 0, 65536, 393220, 0, -131078, 393220, 0, -65542, 393220, 0, -65541, 393220, 0, -131077, 393220, 0, -65540, 393220, 0, -262150, 393220, 0, -262149, 393220, 0, -196612, 393220, 0, -131076, 393220, 0, -327679, 393220, 0, -327678, 393220, 0, -262143, 393220, 0, -65534, 393220, 0, 2, 393220, 0, 65538, 393220, 0, 65537, 393220, 0, 1, 393220, 0, -65535, 393220, 0, 3, 393220, 0, 65539, 393220, 0, -65533, 393220, 0, -262141, 393220, 0, -262140, 393220, 0, -327677, 393220, 0, -327676, 393220, 0, -196604, 393220, 0, -131068, 393220, 0, -65532, 393220, 0, 4, 393220, 0, 65540, 393220, 0, -327675, 393220, 0, -262139, 393220, 0, -196603, 393220, 0, -131067, 393220, 0, -65531, 393220, 0, 5, 393220, 0, 65541, 393220, 0, 65542, 393220, 0, 6, 393220, 0, -65530, 393220, 0, -131066, 393220, 0, -196602, 393220, 0, -262138, 393220, 0, -327674, 393220, 0, -327689, 393220, 0, -262153, 393220, 0, -196617, 393220, 0, -131081, 393220, 0, -65545, 393220, 0, -9, 393220, 0, 65527, 393220, 0, 131063, 393220, 0, 196599, 393220, 0, 196600, 393220, 0, 196601, 393220, 0, 196602, 393220, 0, 196603, 393220, 0, 196604, 393220, 0, 196605, 393220, 0, 196606, 393220, 0, 196607, 393220, 0, 131072, 393220, 0, 131073, 393220, 0, 131074, 393220, 0, 131075, 393220, 0, 131076, 393220, 0, 131077, 393220, 0, 131078, 393220, 0, 196614, 393220, 0, 196613, 393220, 0, 196612, 393220, 0, 196611, 393220, 0, 196610, 393220, 0, 196609, 393220, 0, 196608, 393220, 0, 262143, 393220, 0, 262142, 393220, 0, 262141, 393220, 0, 262140, 393220, 0, 262139, 393220, 0, 262138, 393220, 0, 262137, 393220, 0, 262136, 393220, 0, 262135, 393220, 0, 262150, 393220, 0, 262149, 393220, 0, 262148, 393220, 0, 262147, 393220, 0, 262146, 393220, 0, 262145, 393220, 0, 262144, 393220, 0, 327679, 393220, 0, 327678, 393220, 0, 327677, 393220, 0, 327676, 393220, 0, 327675, 393220, 0, 327674, 393220, 0, 327673, 393220, 0, 327672, 393220, 0, 327671, 393220, 0, -196607, 393220, 0, -131069, 393220, 0, -131071, 393220, 0, -196605, 393220, 0, -262142, 393220, 0, -196606, 393220, 0, -131070, 393220, 0)
+layer_1/name = "GroundItems"
+layer_1/enabled = true
+layer_1/modulate = Color(1, 1, 1, 1)
+layer_1/y_sort_enabled = false
+layer_1/y_sort_origin = 0
+layer_1/z_index = -1
+layer_1/tile_data = PackedInt32Array(-196611, 4, 0, -131075, 4, 1, -196610, 65540, 0, -131074, 65540, 1, -196609, 131076, 0, -131073, 131076, 1, -262142, 196612, 0, -196606, 196612, 1, -262141, 262148, 0, -196605, 262148, 1, -262140, 327684, 0, -196604, 327684, 1, -327677, 4, 7)
+layer_2/name = "Walls"
+layer_2/enabled = true
+layer_2/modulate = Color(1, 1, 1, 1)
+layer_2/y_sort_enabled = true
+layer_2/y_sort_origin = 0
+layer_2/z_index = 0
+layer_2/tile_data = PackedInt32Array(-327687, 65540, 4, -327686, 65540, 4, -327685, 65540, 4, -327684, 65540, 4, -327683, 65540, 4, -327682, 65540, 4, -327681, 65540, 4, -327689, 4, 4, -327688, 65540, 4, -262153, 4, 5, -196617, 4, 5, -131081, 4, 5, -65545, 4, 5, -9, 4, 5, 65527, 4, 5, 131063, 4, 5, 196599, 4, 5, 262135, 4, 5, 327671, 4, 6, 327672, 65540, 6, 327673, 65540, 6, 327674, 65540, 6, 327675, 65540, 6, 327676, 65540, 6, 327677, 65540, 6, 327678, 65540, 6, 327679, 65540, 6, 262144, 65540, 6, 262145, 65540, 6, 262146, 65540, 6, 262147, 65540, 6, 262148, 65540, 6, 262149, 65540, 6, 262150, 131076, 6, 196614, 131076, 5, 131078, 131076, 5, 65542, 131076, 5, 6, 131076, 5, -65530, 131076, 5, -131066, 131076, 5, -196602, 131076, 5, -262138, 131076, 5, -327674, 131076, 5, -393210, 131076, 4, -393211, 65540, 4, -393212, 65540, 4, -393213, 65540, 4, -393214, 65540, 4, -393215, 65540, 4, -393216, 65540, 4)
+layer_3/name = "Items"
+layer_3/enabled = true
+layer_3/modulate = Color(1, 1, 1, 1)
+layer_3/y_sort_enabled = true
+layer_3/y_sort_origin = 0
+layer_3/z_index = 0
+layer_3/tile_data = PackedInt32Array(-196608, 65540, 2, -131072, 65540, 3, -65535, 4, 2, 1, 4, 3, -65537, 196612, 2, -1, 196612, 3, -131070, 131076, 2, -65534, 131076, 3, -65536, 4, 2, 0, 4, 3, -196607, 65540, 2, -131071, 65540, 3, 65542, 393220, 2, -393213, 393220, 5, -196617, 393220, 4, 131063, 393220, 4, -327682, 393220, 5)
+layer_4/name = "Items2"
+layer_4/enabled = true
+layer_4/modulate = Color(1, 1, 1, 1)
+layer_4/y_sort_enabled = true
+layer_4/y_sort_origin = 0
+layer_4/z_index = 0
+layer_4/tile_data = PackedInt32Array(-262138, 393220, 1, -131072, 262148, 2, -65536, 262148, 3, -131071, 327684, 2, -65535, 327684, 3, -393212, 196612, 6, -327676, 196612, 7, -393211, 262148, 6, -327675, 262148, 7, -393215, 196612, 6, -327679, 196612, 7, -393214, 262148, 6, -327678, 262148, 7, -327681, 196612, 6, -262145, 196612, 7, -393216, 262148, 6, -327680, 262148, 7)
+
+[node name="Door" type="StaticBody2D" parent="LevelManager/Level" node_paths=PackedStringArray("linked_point")]
+y_sort_enabled = true
+position = Vector2(-88, -88)
+collision_layer = 5
+script = ExtResource("9_mcdlw")
+linked_point = NodePath("../Door2/SpawnPoint")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelManager/Level/Door"]
+position = Vector2(-2, 0)
+shape = SubResource("RectangleShape2D_sgvwu")
+
+[node name="Sprite2D" type="Sprite2D" parent="LevelManager/Level/Door"]
+position = Vector2(-2, 0)
+texture = ExtResource("10_v1r54")
+vframes = 4
+frame = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="LevelManager/Level/Door"]
+libraries = {
+"": SubResource("AnimationLibrary_u4162")
+}
+
+[node name="SpawnPoint" type="Node2D" parent="LevelManager/Level/Door"]
+position = Vector2(-2, 16)
+
+[node name="Door2" type="StaticBody2D" parent="LevelManager/Level" node_paths=PackedStringArray("linked_point")]
+y_sort_enabled = true
+position = Vector2(-96, -388)
+collision_layer = 5
+script = ExtResource("9_mcdlw")
+linked_point = NodePath("../Door/SpawnPoint")
+animated = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelManager/Level/Door2"]
+position = Vector2(-2, 0)
+shape = SubResource("RectangleShape2D_34vai")
+
+[node name="Sprite2D" type="Sprite2D" parent="LevelManager/Level/Door2"]
+position = Vector2(-2, 0)
+texture = ExtResource("10_v1r54")
+vframes = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="LevelManager/Level/Door2"]
+libraries = {
+"": SubResource("AnimationLibrary_ovcyg")
+}
+
+[node name="SpawnPoint" type="Node2D" parent="LevelManager/Level/Door2"]
+position = Vector2(-2, 16)
+
+[node name="Sigmund" type="AnimatableBody2D" parent="LevelManager/Level"]
+position = Vector2(-56, -64)
+scale = Vector2(0.5, 0.5)
+collision_layer = 5
+script = ExtResource("3_ohj4y")
+animated = true
+
+[node name="Sprite2D" type="Sprite2D" parent="LevelManager/Level/Sigmund"]
+texture = ExtResource("4_3kwbg")
+hframes = 13
+vframes = 21
+frame = 130
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelManager/Level/Sigmund"]
+position = Vector2(0, 19)
+shape = SubResource("RectangleShape2D_o05bp")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="LevelManager/Level/Sigmund"]
+libraries = {
+"": SubResource("AnimationLibrary_nyfnu")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="LevelManager/Level/Sigmund"]
+tree_root = SubResource("AnimationNodeStateMachine_h8ck5")
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/playback = SubResource("AnimationNodeStateMachinePlayback_q0k0y")
+parameters/Idle/blend_position = Vector2(0, 0)
+parameters/Move/blend_position = Vector2(-1, 0)
+
+[node name="DialogueTree" type="Node" parent="LevelManager/Level/Sigmund"]
+script = ExtResource("5_owufg")
+
+[node name="Wake up" type="Node" parent="LevelManager/Level/Sigmund/DialogueTree"]
+script = ExtResource("6_xs7cf")
+dialogue_text = Array[String](["Hey bro", "Literally me fr fr ong"])
+dialogue_image = Array[SpriteFrames]([SubResource("SpriteFrames_6xt1x")])
+dialogue_name = Array[String](["Aydin"])
+
+[node name="Node" type="Node" parent="LevelManager/Level/Sigmund/DialogueTree/Wake up"]
+script = ExtResource("8_21ppy")
+option_text = Array[String](["Yea", "Nah cap"])
+
+[node name="Node" type="Node" parent="LevelManager/Level/Sigmund/DialogueTree/Wake up/Node"]
+script = ExtResource("6_xs7cf")
+dialogue_text = Array[String](["Good"])
+dialogue_image = Array[SpriteFrames]([SubResource("SpriteFrames_6xt1x")])
+dialogue_name = Array[String](["Aydin"])
+
+[node name="Node2" type="Node" parent="LevelManager/Level/Sigmund/DialogueTree/Wake up/Node"]
+script = ExtResource("6_xs7cf")
+dialogue_text = Array[String](["Oof"])
+dialogue_image = Array[SpriteFrames]([SubResource("SpriteFrames_6xt1x")])
+dialogue_name = Array[String](["Aydin"])
+
+[node name="Come bro" type="Node" parent="LevelManager/Level/Sigmund/DialogueTree"]
+script = ExtResource("6_xs7cf")
+dialogue_text = Array[String](["Bruh", "Come and have dinner"])
+dialogue_image = Array[SpriteFrames]([SubResource("SpriteFrames_6xt1x")])
+dialogue_name = Array[String](["Aydin"])
+
+[node name="Sequences" type="Node" parent="LevelManager/Level"]
+
+[node name="Animations" type="AnimationPlayer" parent="LevelManager/Level/Sequences"]
+root_node = NodePath("../../../..")
+libraries = {
+"": SubResource("AnimationLibrary_0evd4")
+}
+
+[node name="IntroTree" type="AnimationTree" parent="LevelManager/Level/Sequences"]
+tree_root = SubResource("AnimationNodeStateMachine_pe6en")
+anim_player = NodePath("../Animations")
+active = true
+parameters/playback = SubResource("AnimationNodeStateMachinePlayback_l30wg")
+script = ExtResource("11_qagl1")
+on_finish = Array[String](["cycle1", "cycle2"])
+
+[node name="Player" type="CharacterBody2D" parent="LevelManager"]
+y_sort_enabled = true
+position = Vector2(-40, -64)
+scale = Vector2(0.5, 0.5)
+collision_layer = 2
+script = ExtResource("11_8dq8c")
+speed = 50
+active = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelManager/Player"]
+position = Vector2(0, 17.6875)
+shape = SubResource("RectangleShape2D_fwhgl")
+
+[node name="Detector" type="Area2D" parent="LevelManager/Player"]
+collision_mask = 4
+
+[node name="DetectorShape" type="CollisionShape2D" parent="LevelManager/Player/Detector"]
+shape = SubResource("CircleShape2D_bhhme")
+
+[node name="Sprite2D" type="Sprite2D" parent="LevelManager/Player"]
+texture = ExtResource("12_w3p7s")
+hframes = 13
+vframes = 21
+frame = 130
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="LevelManager/Player"]
+libraries = {
+"": SubResource("AnimationLibrary_nyfnu")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="LevelManager/Player"]
+tree_root = SubResource("AnimationNodeStateMachine_h8ck5")
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/playback = SubResource("AnimationNodeStateMachinePlayback_xs78p")
+parameters/Idle/blend_position = Vector2(0, 0)
+parameters/Move/blend_position = Vector2(0, 0)
+
+[node name="Camera2D" type="Camera2D" parent="LevelManager/Player"]
+zoom = Vector2(4, 4)
+
+[node name="Background" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="Panel" type="Panel" parent="Background"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_t45rf")
+
+[node name="Effects" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="Panel" parent="Effects"]
+modulate = Color(0, 0, 0, 1)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_dmlth")
+
+[node name="EffectPlayer" type="AnimationPlayer" parent="Effects"]
+libraries = {
+"": SubResource("AnimationLibrary_dshb3")
+}
+
+[node name="Textbox" type="CanvasLayer" parent="."]
+script = ExtResource("3_mkgh6")
+
+[node name="TextboxContainer" type="MarginContainer" parent="Textbox"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -456.5
+offset_top = -208.0
+offset_right = 456.5
+offset_bottom = -42.9998
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Panel" type="Panel" parent="Textbox/TextboxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7bebr")
+
+[node name="Text" type="MarginContainer" parent="Textbox/TextboxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 155
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 83
+theme_override_constants/margin_bottom = 23
+
+[node name="TextLabel" type="Label" parent="Textbox/TextboxContainer/Text"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("4_77ac3")
+theme_override_font_sizes/font_size = 28
+text = "I needa  big mac with fries and extra dfip. "
+autowrap_mode = 3
+clip_text = true
+
+[node name="NextArrow" type="Control" parent="Textbox/TextboxContainer"]
+layout_mode = 2
+
+[node name="Next" type="Label" parent="Textbox/TextboxContainer/NextArrow"]
+layout_mode = 2
+offset_left = 867.0
+offset_top = 117.0
+offset_right = 897.0
+offset_bottom = 156.0
+size_flags_horizontal = 10
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 24
+text = ">>"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PortraitBox" type="MarginContainer" parent="Textbox/TextboxContainer"]
+layout_mode = 2
+theme_override_constants/margin_right = 776
+
+[node name="Panel" type="Panel" parent="Textbox/TextboxContainer/PortraitBox"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7bebr")
+
+[node name="ImageLabel" type="Control" parent="Textbox/TextboxContainer/PortraitBox"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="Textbox/TextboxContainer/PortraitBox/ImageLabel"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 9.0
+offset_right = 130.0
+offset_bottom = 38.0
+theme_override_fonts/font = ExtResource("5_18yfw")
+theme_override_font_sizes/font_size = 24
+text = "???"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Image" type="AnimatedSprite2D" parent="Textbox/TextboxContainer/PortraitBox/ImageLabel"]
+position = Vector2(68.5, 97)
+sprite_frames = ExtResource("6_f78pm")
+
+[node name="OptionsContainer" type="MarginContainer" parent="Textbox"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -400.0
+offset_top = -308.0
+offset_right = 400.0
+offset_bottom = -228.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Panel" type="Panel" parent="Textbox/OptionsContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_okey6")
+
+[node name="Options" type="MarginContainer" parent="Textbox/OptionsContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Textbox/OptionsContainer/Options"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="OptionContainer" parent="Textbox/OptionsContainer/Options/HBoxContainer" instance=ExtResource("8_u5nrw")]
+layout_mode = 2
+
+[connection signal="text_finished" from="Textbox" to="LevelManager/Level/Sequences/IntroTree" method="_on_textbox_text_finished"]
