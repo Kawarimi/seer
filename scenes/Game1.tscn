@@ -1,82 +1,133 @@
-[gd_scene load_steps=75 format=3 uid="uid://ddkg1wg31hr7p"]
+[gd_scene load_steps=84 format=3 uid="uid://nw8qgs6rkle"]
 
 [ext_resource type="Script" path="res://game/LevelManager.gd" id="1_4d807"]
 [ext_resource type="TileSet" uid="uid://7j8scg7ptix6" path="res://art/world/interior.tres" id="2_i3osn"]
+[ext_resource type="Script" path="res://game/SequenceManager.gd" id="2_t3sgo"]
 [ext_resource type="Script" path="res://ui/Textbox.gd" id="3_mkgh6"]
-[ext_resource type="Script" path="res://game/NPC.gd" id="3_ohj4y"]
-[ext_resource type="Texture2D" uid="uid://cbbw78q0tmr71" path="res://art/characters/sigmund.png" id="4_3kwbg"]
 [ext_resource type="FontFile" uid="uid://fq2pv7o6q6kd" path="res://ui/TimesNewPixel.ttf" id="4_77ac3"]
+[ext_resource type="Texture2D" uid="uid://ddi75t5m3whkg" path="res://art/world/housedoor.png" id="4_ocd82"]
 [ext_resource type="FontFile" uid="uid://cjjk7gwqjreyh" path="res://ui/HelvetiPixel.ttf" id="5_18yfw"]
 [ext_resource type="Script" path="res://ui/DialogueTree.gd" id="5_owufg"]
 [ext_resource type="SpriteFrames" uid="uid://3b7od2atskhd" path="res://art/dialogue/seer1.tres" id="6_f78pm"]
 [ext_resource type="Script" path="res://ui/Dialogue.gd" id="6_xs7cf"]
-[ext_resource type="Texture2D" uid="uid://hiyjedbctrk" path="res://art/dialogue/intro/generic.png" id="7_36uj4"]
-[ext_resource type="Script" path="res://ui/OptionSet.gd" id="8_21ppy"]
 [ext_resource type="PackedScene" uid="uid://cxd0qectcpfqa" path="res://ui/option_container.tscn" id="8_u5nrw"]
 [ext_resource type="Script" path="res://game/Door.gd" id="9_mcdlw"]
-[ext_resource type="Texture2D" uid="uid://c2djxxduij6kj" path="res://art/world/door2.png" id="10_v1r54"]
 [ext_resource type="Script" path="res://game/Player.gd" id="11_8dq8c"]
 [ext_resource type="Script" path="res://game/Sequence.gd" id="11_qagl1"]
 [ext_resource type="Texture2D" uid="uid://cntnh17pgysok" path="res://art/characters/universal-lpc-sprite_male_01_full.png" id="12_w3p7s"]
+[ext_resource type="Script" path="res://ui/SaveDiary.gd" id="13_70y77"]
+[ext_resource type="AudioStream" uid="uid://bl2ka4p5kjfdi" path="res://art/sfx/switch_on.mp3" id="14_bd5nh"]
+[ext_resource type="AudioStream" uid="uid://d0lxtvcaafjta" path="res://art/sfx/switch_off.mp3" id="14_kma36"]
+[ext_resource type="Texture2D" uid="uid://ddr6qqd552k2b" path="res://art/world/diary.png" id="14_qcwlv"]
+[ext_resource type="Texture2D" uid="uid://bjy3v2t3h2lvi" path="res://art/world/switch.png" id="15_cgycj"]
+[ext_resource type="Script" path="res://game/Switch.gd" id="15_k1gek"]
+[ext_resource type="Script" path="res://ui/Effects.gd" id="18_udtf8"]
+[ext_resource type="Script" path="res://ui/SaveMenu.gd" id="19_h4x73"]
+[ext_resource type="PackedScene" uid="uid://dsnssrjlmmxgk" path="res://ui/save_slot.tscn" id="23_qtj46"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_sgvwu"]
-size = Vector2(16, 18)
-
-[sub_resource type="Animation" id="Animation_iahto"]
+[sub_resource type="Animation" id="Animation_qmrx0"]
 length = 0.001
 
-[sub_resource type="Animation" id="Animation_clvtx"]
-resource_name = "door_open"
-length = 0.5
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_u4162"]
-_data = {
-"RESET": SubResource("Animation_iahto"),
-"door_open": SubResource("Animation_clvtx")
-}
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_34vai"]
-size = Vector2(16, 18)
-
-[sub_resource type="Animation" id="Animation_ceqj8"]
-length = 0.001
-tracks/0/type = "value"
+[sub_resource type="Animation" id="Animation_fcgaq"]
+resource_name = "dialogue1"
+tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/path = NodePath("LevelManager/apartment/Sequences/IntroSequence/Dialogue")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
+"values": [{
+"args": [],
+"method": &"play"
+}]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Effects")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"black"
+}]
 }
 
-[sub_resource type="Animation" id="Animation_o3hxp"]
-resource_name = "door_open"
-length = 0.5
-tracks/0/type = "value"
+[sub_resource type="Animation" id="Animation_mv6d3"]
+resource_name = "fade"
+tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/path = NodePath("Effects")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3]
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"fade_out"
+}]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LevelManager/apartment/Sequences/IntroSequence")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [false],
+"method": &"activate"
+}]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_ovcyg"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0evd4"]
 _data = {
-"RESET": SubResource("Animation_ceqj8"),
-"door_open": SubResource("Animation_o3hxp")
+"RESET": SubResource("Animation_qmrx0"),
+"dialogue1": SubResource("Animation_fcgaq"),
+"fade": SubResource("Animation_mv6d3")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_o05bp"]
-size = Vector2(26, 22)
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6e1hi"]
+animation = &"dialogue1"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qjl5i"]
+animation = &"fade"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8uwbf"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_lg27n"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_aphig"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_pe6en"]
+states/End/position = Vector2(798, 99.9123)
+states/Start/position = Vector2(159, 99.9123)
+states/dialogue1/node = SubResource("AnimationNodeAnimation_6e1hi")
+states/dialogue1/position = Vector2(316, 99.9123)
+states/fade/node = SubResource("AnimationNodeAnimation_qjl5i")
+states/fade/position = Vector2(481, 99.9123)
+transitions = ["dialogue1", "fade", SubResource("AnimationNodeStateMachineTransition_8uwbf"), "fade", "End", SubResource("AnimationNodeStateMachineTransition_lg27n"), "Start", "dialogue1", SubResource("AnimationNodeStateMachineTransition_aphig")]
+graph_offset = Vector2(-154, -3.9123)
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_l30wg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fwhgl"]
+size = Vector2(24.5, 23.375)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bhhme"]
+radius = 16.0
 
 [sub_resource type="Animation" id="Animation_1otpk"]
 length = 0.001
@@ -234,49 +285,49 @@ _data = {
 "walk_up": SubResource("Animation_vo5gt")
 }
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_drjhp"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3f6bv"]
 animation = &"idle_down"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5meom"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8iqxm"]
 animation = &"idle_left"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_p7mpx"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_yf5c8"]
 animation = &"idle_right"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vv7jm"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_kacrj"]
 animation = &"idle_up"
 
 [sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_qjjqu"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_drjhp")
+blend_point_0/node = SubResource("AnimationNodeAnimation_3f6bv")
 blend_point_0/pos = Vector2(0, 1)
-blend_point_1/node = SubResource("AnimationNodeAnimation_5meom")
+blend_point_1/node = SubResource("AnimationNodeAnimation_8iqxm")
 blend_point_1/pos = Vector2(-1, 0)
-blend_point_2/node = SubResource("AnimationNodeAnimation_p7mpx")
+blend_point_2/node = SubResource("AnimationNodeAnimation_yf5c8")
 blend_point_2/pos = Vector2(1, 0)
-blend_point_3/node = SubResource("AnimationNodeAnimation_vv7jm")
+blend_point_3/node = SubResource("AnimationNodeAnimation_kacrj")
 blend_point_3/pos = Vector2(0, -1)
 blend_mode = 1
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_t0pky"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2ra1g"]
 animation = &"walk_down"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_cmxpm"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0dbkr"]
 animation = &"walk_up"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ubwbu"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_n4mgs"]
 animation = &"walk_right"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_oywwr"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_004oi"]
 animation = &"walk_left"
 
 [sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_4yy8b"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_t0pky")
+blend_point_0/node = SubResource("AnimationNodeAnimation_2ra1g")
 blend_point_0/pos = Vector2(0, 1)
-blend_point_1/node = SubResource("AnimationNodeAnimation_cmxpm")
+blend_point_1/node = SubResource("AnimationNodeAnimation_0dbkr")
 blend_point_1/pos = Vector2(0, -1)
-blend_point_2/node = SubResource("AnimationNodeAnimation_ubwbu")
+blend_point_2/node = SubResource("AnimationNodeAnimation_n4mgs")
 blend_point_2/pos = Vector2(1, 0)
-blend_point_3/node = SubResource("AnimationNodeAnimation_oywwr")
+blend_point_3/node = SubResource("AnimationNodeAnimation_004oi")
 blend_point_3/pos = Vector2(-1, 0)
 blend_mode = 1
 
@@ -288,294 +339,223 @@ states/Move/node = SubResource("AnimationNodeBlendSpace2D_4yy8b")
 states/Move/position = Vector2(511, 208)
 graph_offset = Vector2(-136.08, 29.6309)
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_q0k0y"]
+[sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_xs78p"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_6xt1x"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("7_36uj4")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sgvwu"]
+size = Vector2(10, 16)
 
-[sub_resource type="Animation" id="Animation_qmrx0"]
+[sub_resource type="Animation" id="Animation_iahto"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("LevelManager/Level/Sigmund:position")
+tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-56, -64)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("LevelManager/Level/Sigmund:animated")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("LevelManager/Level/Sigmund:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("LevelManager/Player:active")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("LevelManager/Level/Sigmund/AnimationTree:parameters/Idle/blend_position")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("LevelManager/Level/Sequences/IntroTree:active")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"values": [0]
 }
 
-[sub_resource type="Animation" id="Animation_ci7y6"]
-resource_name = "cycle1"
-length = 2.3
-tracks/0/type = "animation"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Effects/EffectPlayer")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"clips": PackedStringArray("fade_out"),
-"times": PackedFloat32Array(0)
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("LevelManager/Level/Sigmund:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(1, 1.7),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(-56, -64), Vector2(-72, -64)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("LevelManager/Level/Sigmund/AnimationTree:parameters/Idle/blend_position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.8, 0.9, 1.7, 2),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(1, 0), Vector2(1, 0), Vector2(-1, 0), Vector2(-1, 0), Vector2(1, 0)]
-}
-tracks/3/type = "method"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("LevelManager/Level/Sigmund/DialogueTree")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(2.3),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"play"
-}]
-}
-
-[sub_resource type="Animation" id="Animation_7g3ed"]
-resource_name = "cycle2"
-length = 2.1
+[sub_resource type="Animation" id="Animation_clvtx"]
+resource_name = "door_open"
+length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("LevelManager/Level/Sigmund:position")
+tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5, 1, 1.5, 1.8),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_u4162"]
+_data = {
+"RESET": SubResource("Animation_iahto"),
+"door_open": SubResource("Animation_clvtx")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ayhet"]
+size = Vector2(11, 6)
+
+[sub_resource type="Animation" id="Animation_r8les"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_bwt2s"]
+resource_name = "diary_open"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nox0s"]
+_data = {
+"RESET": SubResource("Animation_r8les"),
+"diary_open": SubResource("Animation_bwt2s")
+}
+
+[sub_resource type="Animation" id="Animation_32b0k"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../DirectionalLight2D:energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-72, -64), Vector2(-88, -64), Vector2(-88, -80), Vector2(-88, -80), Vector2(-88, -92)]
+"values": [0.7]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("LevelManager/Level/Sigmund:visible")
+tracks/1/path = NodePath("AudioStreamPlayer2D:stream")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 1.7),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true, false]
+"values": [null]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("LevelManager/Level/Door/Sprite2D:frame")
+tracks/2/path = NodePath("AudioStreamPlayer2D:playing")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(1, 1.1, 1.2, 1.3, 1.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 3]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("LevelManager/Player:active")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(2),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("LevelManager/Level/Sigmund:animated")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
 "times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = false
-tracks/5/path = NodePath("LevelManager/Level/Sequences/IntroTree:active")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(2),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
 }
 
-[sub_resource type="Animation" id="Animation_fcgaq"]
-resource_name = "dialogue1"
-tracks/0/type = "method"
+[sub_resource type="Animation" id="Animation_utify"]
+resource_name = "off"
+length = 0.001
+tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("LevelManager/Level/Sigmund/DialogueTree")
-tracks/0/interp = 1
+tracks/0/path = NodePath("../DirectionalLight2D:energy")
+tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"play"
-}]
+"update": 0,
+"values": [0.7]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer2D:stream")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("14_kma36")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AudioStreamPlayer2D:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_0evd4"]
+[sub_resource type="Animation" id="Animation_opoim"]
+resource_name = "on"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../DirectionalLight2D:energy")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer2D:stream")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("14_bd5nh")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AudioStreamPlayer2D:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_k5r48"]
 _data = {
-"RESET": SubResource("Animation_qmrx0"),
-"cycle1": SubResource("Animation_ci7y6"),
-"cycle2": SubResource("Animation_7g3ed"),
-"dialogue1": SubResource("Animation_fcgaq")
+"RESET": SubResource("Animation_32b0k"),
+"off": SubResource("Animation_utify"),
+"on": SubResource("Animation_opoim")
 }
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2fb2v"]
-animation = &"cycle1"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_woxx4"]
-animation = &"cycle2"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6e1hi"]
-animation = &"dialogue1"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wbugh"]
-switch_mode = 2
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_s025p"]
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_v12ab"]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4c3ym"]
-
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_pe6en"]
-states/End/position = Vector2(798, 99.9123)
-states/Start/position = Vector2(159, 99.9123)
-states/cycle1/node = SubResource("AnimationNodeAnimation_2fb2v")
-states/cycle1/position = Vector2(466, 99.9123)
-states/cycle2/node = SubResource("AnimationNodeAnimation_woxx4")
-states/cycle2/position = Vector2(618, 99.9123)
-states/dialogue1/node = SubResource("AnimationNodeAnimation_6e1hi")
-states/dialogue1/position = Vector2(316, 99.9123)
-transitions = ["cycle2", "End", SubResource("AnimationNodeStateMachineTransition_wbugh"), "Start", "dialogue1", SubResource("AnimationNodeStateMachineTransition_s025p"), "dialogue1", "cycle1", SubResource("AnimationNodeStateMachineTransition_v12ab"), "cycle1", "cycle2", SubResource("AnimationNodeStateMachineTransition_4c3ym")]
-graph_offset = Vector2(-43, 43.0877)
-
-[sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_l30wg"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_fwhgl"]
-size = Vector2(24.5, 23.375)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_bhhme"]
-radius = 15.0
-
-[sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_xs78p"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3fgsi"]
+size = Vector2(16, 12)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t45rf"]
 bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dmlth"]
 bg_color = Color(0, 0, 0, 1)
+border_color = Color(1, 1, 1, 1)
 
 [sub_resource type="Animation" id="Animation_tki2i"]
 length = 0.001
@@ -589,7 +569,38 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_pwmh4"]
+resource_name = "black"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
 "values": [Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_tx0tv"]
+resource_name = "fade_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_7c51y"]
@@ -610,8 +621,29 @@ tracks/0/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dshb3"]
 _data = {
 "RESET": SubResource("Animation_tki2i"),
+"black": SubResource("Animation_pwmh4"),
+"fade_in": SubResource("Animation_tx0tv"),
 "fade_out": SubResource("Animation_7c51y")
 }
+
+[sub_resource type="GDScript" id="GDScript_5ixi2"]
+script/source = "extends Node
+
+
+
+func _ready():
+	pass # Replace with function body.
+
+
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pjmst"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 1, 1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7bebr"]
 bg_color = Color(0, 0, 0, 1)
@@ -636,225 +668,105 @@ offset_bottom = 40.0
 [node name="LevelManager" type="Node" parent="."]
 script = ExtResource("1_4d807")
 
-[node name="Level" type="Node2D" parent="LevelManager"]
+[node name="apartment" type="Node2D" parent="LevelManager"]
 
-[node name="Bedroom" type="TileMap" parent="LevelManager/Level"]
+[node name="Sequences" type="Node" parent="LevelManager/apartment" node_paths=PackedStringArray("current_sequence")]
+script = ExtResource("2_t3sgo")
+current_sequence = NodePath("IntroSequence")
+
+[node name="IntroSequence" type="Node" parent="LevelManager/apartment/Sequences" groups=["Persist"]]
+script = ExtResource("11_qagl1")
+on_finish = Array[String](["fade"])
+active = true
+current_node = "dialogue1"
+
+[node name="Animation" type="AnimationPlayer" parent="LevelManager/apartment/Sequences/IntroSequence"]
+root_node = NodePath("../../../../..")
+libraries = {
+"": SubResource("AnimationLibrary_0evd4")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="LevelManager/apartment/Sequences/IntroSequence"]
+tree_root = SubResource("AnimationNodeStateMachine_pe6en")
+anim_player = NodePath("../Animation")
+active = true
+parameters/playback = SubResource("AnimationNodeStateMachinePlayback_l30wg")
+
+[node name="Dialogue" type="Node" parent="LevelManager/apartment/Sequences/IntroSequence"]
+script = ExtResource("5_owufg")
+
+[node name="seer" type="Node" parent="LevelManager/apartment/Sequences/IntroSequence/Dialogue"]
+script = ExtResource("6_xs7cf")
+text = Array[String](["Something's missing.", "Wake up..."])
+image = Array[SpriteFrames]([ExtResource("6_f78pm")])
+names = Array[String](["???"])
+
+[node name="TileMap" type="TileMap" parent="LevelManager/apartment"]
 y_sort_enabled = true
 tile_set = ExtResource("2_i3osn")
 format = 2
 layer_0/name = "Ground"
 layer_0/z_index = -1
-layer_0/tile_data = PackedInt32Array(-131077, 262148, 0, -393216, 393220, 0, -327681, 393220, 0, -327682, 393220, 0, -327683, 393220, 0, -327684, 393220, 0, -327685, 393220, 0, -327686, 393220, 0, -327687, 393220, 0, -327688, 393220, 0, -262148, 393220, 0, -262147, 393220, 0, -262146, 393220, 0, -262145, 393220, 0, -327680, 393220, 0, -262149, 393220, 0, -262150, 393220, 0, -262151, 393220, 0, -262152, 393220, 0, -196616, 393220, 0, -131080, 393220, 0, -131079, 393220, 0, -196614, 393220, 0, -196613, 393220, 0, -196612, 393220, 0, -196611, 393220, 0, -196610, 393220, 0, -196609, 393220, 0, -262144, 393220, 0, -196615, 393220, 0, -131078, 196612, 0, -65542, 196612, 1, -65543, 393220, 0, -8, 393220, 0, -65544, 393220, 0, 65528, 393220, 0, 131065, 393220, 0, 131066, 393220, 0, 65530, 393220, 0, -6, 393220, 0, -7, 393220, 0, 65529, 393220, 0, 131064, 393220, 0, -5, 393220, 0, -65541, 262148, 1, -65540, 327684, 1, -131076, 327684, 0, 65531, 393220, 0, 131067, 393220, 0, 131068, 393220, 0, 65532, 393220, 0, -4, 393220, 0, -65539, 393220, 0, -3, 393220, 0, 65533, 393220, 0, 131069, 393220, 0, 131070, 393220, 0, 65534, 393220, 0, -2, 393220, 0, -65538, 393220, 0, -131075, 393220, 0, 131071, 393220, 0, 65535, 393220, 0, -1, 393220, 0, -65537, 393220, 0, -131073, 393220, 0, -131074, 393220, 0, -131072, 393220, 0, -196608, 393220, 0, -65536, 393220, 0, 0, 393220, 0, 65536, 393220, 0)
-layer_1/name = "Walls"
-layer_1/enabled = true
-layer_1/modulate = Color(1, 1, 1, 1)
-layer_1/y_sort_enabled = true
-layer_1/y_sort_origin = 0
-layer_1/z_index = 0
-layer_1/tile_data = PackedInt32Array(-327688, 4, 4, -327687, 65540, 4, -327686, 65540, 4, -327685, 65540, 4, -327684, 65540, 4, -327683, 65540, 4, -327682, 65540, 4, -327681, 65540, 4, -393216, 131076, 4, -327680, 131076, 5, -262144, 131076, 5, -196608, 131076, 5, -131072, 131076, 5, -65536, 131076, 5, 0, 131076, 5, 65536, 131076, 6, 131071, 65540, 6, 131070, 65540, 6, 131069, 65540, 6, 131068, 65540, 6, 131067, 65540, 6, 131066, 65540, 6, 131065, 65540, 6, 65528, 4, 5, -8, 4, 5, -65544, 4, 5, -131080, 4, 5, -196616, 4, 5, -262152, 4, 5, 131064, 4, 6)
-layer_2/name = "Items"
-layer_2/enabled = true
-layer_2/modulate = Color(1, 1, 1, 1)
-layer_2/y_sort_enabled = true
-layer_2/y_sort_origin = 0
-layer_2/z_index = 0
-layer_2/tile_data = PackedInt32Array(-2, 327684, 7, -1, 393220, 7, 65535, 393220, 8, 65534, 327684, 8, 65533, 196612, 3, -8, 393220, 4, -3, 196612, 2, -196610, 262148, 5, -327680, 262148, 7, -262145, 196612, 7, -262146, 262148, 4, -262147, 393221, 0, -262148, 196612, 5, -327681, 196612, 6, -393216, 262148, 6, -327684, 196612, 4)
-
-[node name="LivingRoom" type="TileMap" parent="LevelManager/Level"]
-y_sort_enabled = true
-position = Vector2(0, -300)
-tile_set = ExtResource("2_i3osn")
-format = 2
-layer_0/name = "Ground"
-layer_0/z_index = -1
-layer_0/tile_data = PackedInt32Array(-393216, 393220, 0, -327681, 393220, 0, -327682, 393220, 0, -327683, 393220, 0, -327684, 393220, 0, -327685, 393220, 0, -327686, 393220, 0, -327687, 393220, 0, -327688, 393220, 0, -262148, 393220, 0, -262147, 393220, 0, -262146, 393220, 0, -262145, 393220, 0, -327680, 393220, 0, -262151, 393220, 0, -262152, 393220, 0, -196616, 393220, 0, -131080, 393220, 0, -131079, 393220, 0, -196614, 393220, 0, -196613, 393220, 0, -196611, 393220, 0, -196610, 393220, 0, -196609, 393220, 0, -262144, 393220, 0, -196615, 393220, 0, -65543, 393220, 0, -8, 393220, 0, -65544, 393220, 0, 65528, 393220, 0, 131065, 393220, 0, 131066, 393220, 0, 65530, 393220, 0, -6, 393220, 0, -7, 393220, 0, 65529, 393220, 0, 131064, 393220, 0, -5, 393220, 0, 65531, 393220, 0, 131067, 393220, 0, 131068, 393220, 0, 65532, 393220, 0, -4, 393220, 0, -65539, 393220, 0, -3, 393220, 0, 65533, 393220, 0, 131069, 393220, 0, 131070, 393220, 0, 65534, 393220, 0, -2, 393220, 0, -65538, 393220, 0, -131075, 393220, 0, 131071, 393220, 0, 65535, 393220, 0, -1, 393220, 0, -65537, 393220, 0, -131073, 393220, 0, -131074, 393220, 0, -131072, 393220, 0, -196608, 393220, 0, -65536, 393220, 0, 0, 393220, 0, 65536, 393220, 0, -131078, 393220, 0, -65542, 393220, 0, -65541, 393220, 0, -131077, 393220, 0, -65540, 393220, 0, -262150, 393220, 0, -262149, 393220, 0, -196612, 393220, 0, -131076, 393220, 0, -327679, 393220, 0, -327678, 393220, 0, -262143, 393220, 0, -65534, 393220, 0, 2, 393220, 0, 65538, 393220, 0, 65537, 393220, 0, 1, 393220, 0, -65535, 393220, 0, 3, 393220, 0, 65539, 393220, 0, -65533, 393220, 0, -262141, 393220, 0, -262140, 393220, 0, -327677, 393220, 0, -327676, 393220, 0, -196604, 393220, 0, -131068, 393220, 0, -65532, 393220, 0, 4, 393220, 0, 65540, 393220, 0, -327675, 393220, 0, -262139, 393220, 0, -196603, 393220, 0, -131067, 393220, 0, -65531, 393220, 0, 5, 393220, 0, 65541, 393220, 0, 65542, 393220, 0, 6, 393220, 0, -65530, 393220, 0, -131066, 393220, 0, -196602, 393220, 0, -262138, 393220, 0, -327674, 393220, 0, -327689, 393220, 0, -262153, 393220, 0, -196617, 393220, 0, -131081, 393220, 0, -65545, 393220, 0, -9, 393220, 0, 65527, 393220, 0, 131063, 393220, 0, 196599, 393220, 0, 196600, 393220, 0, 196601, 393220, 0, 196602, 393220, 0, 196603, 393220, 0, 196604, 393220, 0, 196605, 393220, 0, 196606, 393220, 0, 196607, 393220, 0, 131072, 393220, 0, 131073, 393220, 0, 131074, 393220, 0, 131075, 393220, 0, 131076, 393220, 0, 131077, 393220, 0, 131078, 393220, 0, 196614, 393220, 0, 196613, 393220, 0, 196612, 393220, 0, 196611, 393220, 0, 196610, 393220, 0, 196609, 393220, 0, 196608, 393220, 0, 262143, 393220, 0, 262142, 393220, 0, 262141, 393220, 0, 262140, 393220, 0, 262139, 393220, 0, 262138, 393220, 0, 262137, 393220, 0, 262136, 393220, 0, 262135, 393220, 0, 262150, 393220, 0, 262149, 393220, 0, 262148, 393220, 0, 262147, 393220, 0, 262146, 393220, 0, 262145, 393220, 0, 262144, 393220, 0, 327679, 393220, 0, 327678, 393220, 0, 327677, 393220, 0, 327676, 393220, 0, 327675, 393220, 0, 327674, 393220, 0, 327673, 393220, 0, 327672, 393220, 0, 327671, 393220, 0, -196607, 393220, 0, -131069, 393220, 0, -131071, 393220, 0, -196605, 393220, 0, -262142, 393220, 0, -196606, 393220, 0, -131070, 393220, 0)
+layer_0/tile_data = PackedInt32Array(-262148, 720897, 0, -262147, 720897, 0, -262146, 720897, 0, -65538, 720897, 0, -2, 720897, 0, -3, 720897, 0, -4, 720897, 0, -196612, 720897, 0, -196611, 720897, 0, -131075, 720897, 0, -65539, 720897, 0, -65540, 720897, 0, -131076, 720897, 0, -262145, 720897, 0, -196609, 720897, 0, -131073, 720897, 0, -65537, 720897, 0, -1, 720897, 0, 65532, 720897, 0, 65533, 720897, 0, 65534, 720897, 0, 65535, 720897, 0, -327680, 720897, 0, -327679, 720897, 0, -327678, 720897, 0, -262142, 720897, 0, -262143, 720897, 0, -262144, 720897, 0, -196608, 720897, 0, -131072, 720897, 0, -131071, 720897, 0, -196607, 720897, 0, -196606, 720897, 0, -131070, 720897, 0, -65534, 720897, 0, -65535, 720897, 0, 1, 720897, 0, 0, 720897, 0, -65536, 720897, 0, 2, 720897, 0, -196610, 720897, 0, -131074, 720897, 0, -262149, 720897, 0, -196613, 720897, 0, -131077, 720897, 0, -65541, 720897, 0, -5, 720897, 0, 65531, 720897, 0)
 layer_1/name = "GroundItems"
 layer_1/enabled = true
 layer_1/modulate = Color(1, 1, 1, 1)
 layer_1/y_sort_enabled = false
 layer_1/y_sort_origin = 0
 layer_1/z_index = -1
-layer_1/tile_data = PackedInt32Array(-196611, 4, 0, -131075, 4, 1, -196610, 65540, 0, -131074, 65540, 1, -196609, 131076, 0, -131073, 131076, 1, -262142, 196612, 0, -196606, 196612, 1, -262141, 262148, 0, -196605, 262148, 1, -262140, 327684, 0, -196604, 327684, 1, -327677, 4, 7)
+layer_1/tile_data = PackedInt32Array()
 layer_2/name = "Walls"
 layer_2/enabled = true
 layer_2/modulate = Color(1, 1, 1, 1)
 layer_2/y_sort_enabled = true
 layer_2/y_sort_origin = 0
 layer_2/z_index = 0
-layer_2/tile_data = PackedInt32Array(-327687, 65540, 4, -327686, 65540, 4, -327685, 65540, 4, -327684, 65540, 4, -327683, 65540, 4, -327682, 65540, 4, -327681, 65540, 4, -327689, 4, 4, -327688, 65540, 4, -262153, 4, 5, -196617, 4, 5, -131081, 4, 5, -65545, 4, 5, -9, 4, 5, 65527, 4, 5, 131063, 4, 5, 196599, 4, 5, 262135, 4, 5, 327671, 4, 6, 327672, 65540, 6, 327673, 65540, 6, 327674, 65540, 6, 327675, 65540, 6, 327676, 65540, 6, 327677, 65540, 6, 327678, 65540, 6, 327679, 65540, 6, 262144, 65540, 6, 262145, 65540, 6, 262146, 65540, 6, 262147, 65540, 6, 262148, 65540, 6, 262149, 65540, 6, 262150, 131076, 6, 196614, 131076, 5, 131078, 131076, 5, 65542, 131076, 5, 6, 131076, 5, -65530, 131076, 5, -131066, 131076, 5, -196602, 131076, 5, -262138, 131076, 5, -327674, 131076, 5, -393210, 131076, 4, -393211, 65540, 4, -393212, 65540, 4, -393213, 65540, 4, -393214, 65540, 4, -393215, 65540, 4, -393216, 65540, 4)
+layer_2/tile_data = PackedInt32Array(-327684, 65537, 0, -327683, 65537, 0, -327682, 65537, 0, -327681, 65537, 0, -393216, 65537, 0, -393215, 65537, 0, -393214, 131073, 0, 131068, 65537, 2, 131069, 65537, 2, 131070, 65537, 2, 131071, 65537, 2, 65536, 65537, 2, 65537, 65537, 2, 65538, 65537, 2, 2, 131073, 1, -65534, 131073, 1, -131070, 131073, 1, -196606, 131073, 1, -262142, 131073, 1, -327678, 131073, 1, -262149, 1, 1, -196613, 1, 1, -131077, 1, 1, -65541, 1, 1, -5, 1, 1, 65531, 1, 1, 131067, 1, 2, -327685, 1, 0)
 layer_3/name = "Items"
 layer_3/enabled = true
 layer_3/modulate = Color(1, 1, 1, 1)
 layer_3/y_sort_enabled = true
 layer_3/y_sort_origin = 0
 layer_3/z_index = 0
-layer_3/tile_data = PackedInt32Array(-196608, 65540, 2, -131072, 65540, 3, -65535, 4, 2, 1, 4, 3, -65537, 196612, 2, -1, 196612, 3, -131070, 131076, 2, -65534, 131076, 3, -65536, 4, 2, 0, 4, 3, -196607, 65540, 2, -131071, 65540, 3, 65542, 393220, 2, -393213, 393220, 5, -196617, 393220, 4, 131063, 393220, 4, -327682, 393220, 5)
+layer_3/tile_data = PackedInt32Array(-65537, 65537, 3, -1, 65537, 4, -327682, 196609, 0, -262146, 196609, 1, -327681, 262145, 0, -262145, 262145, 1, -327679, 655361, 0, -262143, 655361, 1, -327680, 524289, 1, -393216, 524289, 0)
 layer_4/name = "Items2"
 layer_4/enabled = true
 layer_4/modulate = Color(1, 1, 1, 1)
 layer_4/y_sort_enabled = true
 layer_4/y_sort_origin = 0
 layer_4/z_index = 0
-layer_4/tile_data = PackedInt32Array(-262138, 393220, 1, -131072, 262148, 2, -65536, 262148, 3, -131071, 327684, 2, -65535, 327684, 3, -393212, 196612, 6, -327676, 196612, 7, -393211, 262148, 6, -327675, 262148, 7, -393215, 196612, 6, -327679, 196612, 7, -393214, 262148, 6, -327678, 262148, 7, -327681, 196612, 6, -262145, 196612, 7, -393216, 262148, 6, -327680, 262148, 7)
+layer_4/tile_data = PackedInt32Array(-1, 327681, 0, 65535, 327681, 1, -65536, 393217, 0, 0, 393217, 1)
 
-[node name="Door" type="StaticBody2D" parent="LevelManager/Level" node_paths=PackedStringArray("linked_point")]
+[node name="Player" type="CharacterBody2D" parent="LevelManager/apartment/TileMap" groups=["Persist"]]
 y_sort_enabled = true
-position = Vector2(-88, -88)
-collision_layer = 5
-script = ExtResource("9_mcdlw")
-linked_point = NodePath("../Door2/SpawnPoint")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelManager/Level/Door"]
-position = Vector2(-2, 0)
-shape = SubResource("RectangleShape2D_sgvwu")
-
-[node name="Sprite2D" type="Sprite2D" parent="LevelManager/Level/Door"]
-position = Vector2(-2, 0)
-texture = ExtResource("10_v1r54")
-vframes = 4
-frame = 3
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="LevelManager/Level/Door"]
-libraries = {
-"": SubResource("AnimationLibrary_u4162")
-}
-
-[node name="SpawnPoint" type="Node2D" parent="LevelManager/Level/Door"]
-position = Vector2(-2, 16)
-
-[node name="Door2" type="StaticBody2D" parent="LevelManager/Level" node_paths=PackedStringArray("linked_point")]
-y_sort_enabled = true
-position = Vector2(-96, -388)
-collision_layer = 5
-script = ExtResource("9_mcdlw")
-linked_point = NodePath("../Door/SpawnPoint")
-animated = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelManager/Level/Door2"]
-position = Vector2(-2, 0)
-shape = SubResource("RectangleShape2D_34vai")
-
-[node name="Sprite2D" type="Sprite2D" parent="LevelManager/Level/Door2"]
-position = Vector2(-2, 0)
-texture = ExtResource("10_v1r54")
-vframes = 4
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="LevelManager/Level/Door2"]
-libraries = {
-"": SubResource("AnimationLibrary_ovcyg")
-}
-
-[node name="SpawnPoint" type="Node2D" parent="LevelManager/Level/Door2"]
-position = Vector2(-2, 16)
-
-[node name="Sigmund" type="AnimatableBody2D" parent="LevelManager/Level"]
-position = Vector2(-56, -64)
-scale = Vector2(0.5, 0.5)
-collision_layer = 5
-script = ExtResource("3_ohj4y")
-animated = true
-
-[node name="Sprite2D" type="Sprite2D" parent="LevelManager/Level/Sigmund"]
-texture = ExtResource("4_3kwbg")
-hframes = 13
-vframes = 21
-frame = 130
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelManager/Level/Sigmund"]
-position = Vector2(0, 19)
-shape = SubResource("RectangleShape2D_o05bp")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="LevelManager/Level/Sigmund"]
-libraries = {
-"": SubResource("AnimationLibrary_nyfnu")
-}
-
-[node name="AnimationTree" type="AnimationTree" parent="LevelManager/Level/Sigmund"]
-tree_root = SubResource("AnimationNodeStateMachine_h8ck5")
-anim_player = NodePath("../AnimationPlayer")
-active = true
-parameters/playback = SubResource("AnimationNodeStateMachinePlayback_q0k0y")
-parameters/Idle/blend_position = Vector2(0, 0)
-parameters/Move/blend_position = Vector2(-1, 0)
-
-[node name="DialogueTree" type="Node" parent="LevelManager/Level/Sigmund"]
-script = ExtResource("5_owufg")
-
-[node name="Wake up" type="Node" parent="LevelManager/Level/Sigmund/DialogueTree"]
-script = ExtResource("6_xs7cf")
-dialogue_text = Array[String](["Hey bro", "Literally me fr fr ong"])
-dialogue_image = Array[SpriteFrames]([SubResource("SpriteFrames_6xt1x")])
-dialogue_name = Array[String](["Aydin"])
-
-[node name="Node" type="Node" parent="LevelManager/Level/Sigmund/DialogueTree/Wake up"]
-script = ExtResource("8_21ppy")
-option_text = Array[String](["Yea", "Nah cap"])
-
-[node name="Node" type="Node" parent="LevelManager/Level/Sigmund/DialogueTree/Wake up/Node"]
-script = ExtResource("6_xs7cf")
-dialogue_text = Array[String](["Good"])
-dialogue_image = Array[SpriteFrames]([SubResource("SpriteFrames_6xt1x")])
-dialogue_name = Array[String](["Aydin"])
-
-[node name="Node2" type="Node" parent="LevelManager/Level/Sigmund/DialogueTree/Wake up/Node"]
-script = ExtResource("6_xs7cf")
-dialogue_text = Array[String](["Oof"])
-dialogue_image = Array[SpriteFrames]([SubResource("SpriteFrames_6xt1x")])
-dialogue_name = Array[String](["Aydin"])
-
-[node name="Come bro" type="Node" parent="LevelManager/Level/Sigmund/DialogueTree"]
-script = ExtResource("6_xs7cf")
-dialogue_text = Array[String](["Bruh", "Come and have dinner"])
-dialogue_image = Array[SpriteFrames]([SubResource("SpriteFrames_6xt1x")])
-dialogue_name = Array[String](["Aydin"])
-
-[node name="Sequences" type="Node" parent="LevelManager/Level"]
-
-[node name="Animations" type="AnimationPlayer" parent="LevelManager/Level/Sequences"]
-root_node = NodePath("../../../..")
-libraries = {
-"": SubResource("AnimationLibrary_0evd4")
-}
-
-[node name="IntroTree" type="AnimationTree" parent="LevelManager/Level/Sequences"]
-tree_root = SubResource("AnimationNodeStateMachine_pe6en")
-anim_player = NodePath("../Animations")
-active = true
-parameters/playback = SubResource("AnimationNodeStateMachinePlayback_l30wg")
-script = ExtResource("11_qagl1")
-on_finish = Array[String](["cycle1", "cycle2"])
-
-[node name="Player" type="CharacterBody2D" parent="LevelManager"]
-y_sort_enabled = true
-position = Vector2(-40, -64)
+position = Vector2(8, -65)
 scale = Vector2(0.5, 0.5)
 collision_layer = 2
 script = ExtResource("11_8dq8c")
 speed = 50
-active = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelManager/Player"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelManager/apartment/TileMap/Player"]
 position = Vector2(0, 17.6875)
 shape = SubResource("RectangleShape2D_fwhgl")
 
-[node name="Detector" type="Area2D" parent="LevelManager/Player"]
+[node name="Detector" type="Area2D" parent="LevelManager/apartment/TileMap/Player"]
 collision_mask = 4
 
-[node name="DetectorShape" type="CollisionShape2D" parent="LevelManager/Player/Detector"]
+[node name="DetectorShape" type="CollisionShape2D" parent="LevelManager/apartment/TileMap/Player/Detector"]
 shape = SubResource("CircleShape2D_bhhme")
 
-[node name="Sprite2D" type="Sprite2D" parent="LevelManager/Player"]
+[node name="Sprite2D" type="Sprite2D" parent="LevelManager/apartment/TileMap/Player"]
 texture = ExtResource("12_w3p7s")
 hframes = 13
 vframes = 21
 frame = 130
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="LevelManager/Player"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="LevelManager/apartment/TileMap/Player"]
 libraries = {
 "": SubResource("AnimationLibrary_nyfnu")
 }
 
-[node name="AnimationTree" type="AnimationTree" parent="LevelManager/Player"]
+[node name="AnimationTree" type="AnimationTree" parent="LevelManager/apartment/TileMap/Player"]
 tree_root = SubResource("AnimationNodeStateMachine_h8ck5")
 anim_player = NodePath("../AnimationPlayer")
 active = true
@@ -862,8 +774,84 @@ parameters/playback = SubResource("AnimationNodeStateMachinePlayback_xs78p")
 parameters/Idle/blend_position = Vector2(0, 0)
 parameters/Move/blend_position = Vector2(0, 0)
 
-[node name="Camera2D" type="Camera2D" parent="LevelManager/Player"]
+[node name="Camera2D" type="Camera2D" parent="LevelManager/apartment/TileMap/Player"]
 zoom = Vector2(4, 4)
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="LevelManager/apartment/TileMap"]
+energy = 0.7
+blend_mode = 1
+
+[node name="Bedroom-LivingRoom" type="StaticBody2D" parent="LevelManager/apartment/TileMap"]
+y_sort_enabled = true
+position = Vector2(-56, -88)
+collision_layer = 5
+script = ExtResource("9_mcdlw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelManager/apartment/TileMap/Bedroom-LivingRoom"]
+shape = SubResource("RectangleShape2D_sgvwu")
+
+[node name="Sprite2D" type="Sprite2D" parent="LevelManager/apartment/TileMap/Bedroom-LivingRoom"]
+texture = ExtResource("4_ocd82")
+hframes = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="LevelManager/apartment/TileMap/Bedroom-LivingRoom"]
+libraries = {
+"": SubResource("AnimationLibrary_u4162")
+}
+
+[node name="SpawnPoint" type="Node2D" parent="LevelManager/apartment/TileMap/Bedroom-LivingRoom"]
+position = Vector2(-2, 16)
+
+[node name="DiaryChair" type="StaticBody2D" parent="LevelManager/apartment/TileMap"]
+y_sort_enabled = true
+position = Vector2(-9, -12)
+collision_layer = 5
+script = ExtResource("13_70y77")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelManager/apartment/TileMap/DiaryChair"]
+position = Vector2(0.5, 3)
+shape = SubResource("RectangleShape2D_ayhet")
+
+[node name="Sprite2D" type="Sprite2D" parent="LevelManager/apartment/TileMap/DiaryChair"]
+z_index = 1
+position = Vector2(6, 17)
+rotation = 3.14159
+texture = ExtResource("14_qcwlv")
+vframes = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="LevelManager/apartment/TileMap/DiaryChair"]
+libraries = {
+"": SubResource("AnimationLibrary_nox0s")
+}
+
+[node name="Tree" type="Node" parent="LevelManager/apartment/TileMap/DiaryChair"]
+script = ExtResource("5_owufg")
+
+[node name="Prompt" type="Node" parent="LevelManager/apartment/TileMap/DiaryChair/Tree"]
+script = ExtResource("6_xs7cf")
+looping = true
+text = Array[String](["Save progress?"])
+options_text = Array[String](["Yes", "No"])
+
+[node name="LightSwitch" type="StaticBody2D" parent="LevelManager/apartment/TileMap" groups=["Persist"]]
+y_sort_enabled = true
+position = Vector2(-40, -88)
+collision_layer = 5
+script = ExtResource("15_k1gek")
+mode = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="LevelManager/apartment/TileMap/LightSwitch"]
+libraries = {
+"": SubResource("AnimationLibrary_k5r48")
+}
+
+[node name="Sprite2D" type="Sprite2D" parent="LevelManager/apartment/TileMap/LightSwitch"]
+texture = ExtResource("15_cgycj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelManager/apartment/TileMap/LightSwitch"]
+shape = SubResource("RectangleShape2D_3fgsi")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="LevelManager/apartment/TileMap/LightSwitch"]
 
 [node name="Background" type="CanvasLayer" parent="."]
 layer = -1
@@ -877,9 +865,10 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_t45rf")
 
 [node name="Effects" type="CanvasLayer" parent="."]
+script = ExtResource("18_udtf8")
 
 [node name="Panel" type="Panel" parent="Effects"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0, 0, 0, 0)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -892,8 +881,80 @@ libraries = {
 "": SubResource("AnimationLibrary_dshb3")
 }
 
+[node name="SaveMenu" type="CanvasLayer" parent="."]
+script = ExtResource("19_h4x73")
+
+[node name="Overwrite" type="Node" parent="SaveMenu"]
+script = ExtResource("5_owufg")
+
+[node name="question" type="Node" parent="SaveMenu/Overwrite"]
+script = ExtResource("6_xs7cf")
+
+[node name="prompt" type="Node" parent="SaveMenu/Overwrite/question"]
+script = SubResource("GDScript_5ixi2")
+
+[node name="MenuPanel" type="Panel" parent="SaveMenu"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -148.0
+offset_top = -294.0
+offset_right = 148.0
+offset_bottom = 294.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_pjmst")
+
+[node name="MenuPanel2" type="Panel" parent="SaveMenu/MenuPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -148.0
+offset_top = -294.0
+offset_right = 148.0
+offset_bottom = -222.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_pjmst")
+
+[node name="Title" type="Label" parent="SaveMenu/MenuPanel/MenuPanel2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -148.0
+offset_top = -39.0
+offset_right = 148.0
+offset_bottom = 39.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("5_18yfw")
+theme_override_font_sizes/font_size = 70
+text = "SAVES"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SaveMenu/MenuPanel"]
+layout_mode = 0
+offset_left = 53.0
+offset_top = 141.0
+offset_right = 290.0
+offset_bottom = 596.0
+theme_override_constants/separation = 65
+
+[node name="SaveSlot" parent="SaveMenu/MenuPanel/VBoxContainer" instance=ExtResource("23_qtj46")]
+layout_mode = 2
+
 [node name="Textbox" type="CanvasLayer" parent="."]
 script = ExtResource("3_mkgh6")
+tween_speed = 0.065
 
 [node name="TextboxContainer" type="MarginContainer" parent="Textbox"]
 anchors_preset = 7
@@ -924,7 +985,7 @@ layout_mode = 2
 size_flags_vertical = 1
 theme_override_fonts/font = ExtResource("4_77ac3")
 theme_override_font_sizes/font_size = 28
-text = "I needa  big mac with fries and extra dfip. "
+text = "I needa  big mac with fries and extra dip."
 autowrap_mode = 3
 clip_text = true
 
@@ -998,4 +1059,7 @@ size_flags_horizontal = 4
 [node name="OptionContainer" parent="Textbox/OptionsContainer/Options/HBoxContainer" instance=ExtResource("8_u5nrw")]
 layout_mode = 2
 
-[connection signal="text_finished" from="Textbox" to="LevelManager/Level/Sequences/IntroTree" method="_on_textbox_text_finished"]
+[connection signal="save_game" from="SaveMenu" to="LevelManager" method="_on_save_menu_save_game"]
+[connection signal="save_game" from="SaveMenu" to="LevelManager/apartment/TileMap/DiaryChair" method="_on_save_menu_save_game"]
+[connection signal="player_activated" from="Textbox" to="LevelManager" method="_on_textbox_player_activated"]
+[connection signal="text_finished" from="Textbox" to="LevelManager" method="_on_textbox_text_finished"]

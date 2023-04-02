@@ -11,18 +11,19 @@ config_version=5
 [application]
 
 config/name="Seer"
-run/main_scene="res://scenes/Game1.tscn"
+run/main_scene="res://scenes/MainMenu.tscn"
 config/features=PackedStringArray("4.0", "Forward Plus")
+run/max_fps=60
+boot_splash/image="res://ui/splash.png"
 config/icon="res://icon.svg"
+
+[autoload]
+
+SaveFile="*res://game/SaveFile.gd"
 
 [display]
 
 window/stretch/mode="viewport"
-
-[editor]
-
-version_control/plugin_name="GitPlugin"
-version_control/autoload_on_startup=true
 
 [input]
 

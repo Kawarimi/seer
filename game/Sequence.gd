@@ -1,12 +1,33 @@
-extends AnimationTree
+extends Node
 
 @export var on_finish : Array[String]
+@onready var anim_tree = $AnimationTree
+@onready var playback =  anim_tree.get("parameters/playback")
+@export var active = false
+@export var current_node : String
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	pass
+	
+func set_tree(node):
+	current_node = node
+	playback.start(node)
+	
+func on_save():
+	print(current_node)
+	return [active, current_node]
+	
+func on_load(data):
+	activate(data[0])
+	set_tree(data[1])
 
-func _on_textbox_text_finished():
-	var playback = get("parameters/playback")
-	playback.travel(on_finish.pop_front())
-	print(playback.get_current_node())
+func advance_seq(params = []): #implement params into animationtree !!!
+	active = anim_tree.get("active")
+	if(active):
+		if(params.has("text_finished")):
+			playback.travel(on_finish.pop_front())
+			print(playback.get_current_node())
+
+func activate(state):
+	active = state
+	anim_tree.active = state

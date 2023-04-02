@@ -3,9 +3,6 @@ extends Node
 @onready var text = $Text
 @onready var arrow = $Arrow
 @onready var timer = $Timer
-
-func _ready():
-	pass
 	
 func set_text(_text):
 	text.text = _text

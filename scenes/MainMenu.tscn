@@ -1,18 +1,54 @@
-[gd_scene load_steps=8 format=3]
+[gd_scene load_steps=14 format=3 uid="uid://bp5s0mmi48d1n"]
 
 [ext_resource type="Script" path="res://ui/Main_Menu.gd" id="1_hk83e"]
 [ext_resource type="FontFile" uid="uid://cjjk7gwqjreyh" path="res://ui/HelvetiPixel.ttf" id="2_fn4sb"]
 [ext_resource type="FontFile" uid="uid://fq2pv7o6q6kd" path="res://ui/TimesNewPixel.ttf" id="3_vv7cn"]
 [ext_resource type="Texture2D" uid="uid://oucc065t5b2a" path="res://ui/gear.png" id="4_65qxo"]
+[ext_resource type="PackedScene" uid="uid://dsnssrjlmmxgk" path="res://ui/save_slot.tscn" id="7_cfagt"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_natgq"]
 bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vln7m"]
-bg_color = Color(0.611765, 0, 0.45098, 1)
+bg_color = Color(0.717647, 0.0431373, 0.027451, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jrrea"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0, 0, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kwmx1"]
 texture = ExtResource("4_65qxo")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1sxrh"]
+texture = ExtResource("4_65qxo")
+modulate_color = Color(1, 1, 1, 0.564706)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1gaw5"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_niuqx"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kwld0"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 1, 1, 1)
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -46,7 +82,7 @@ theme_override_fonts/font = ExtResource("2_fn4sb")
 theme_override_font_sizes/font_size = 80
 text = "SEER"
 
-[node name="Play" type="Button" parent="."]
+[node name="New Game" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -63,7 +99,64 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_vv7cn")
 theme_override_font_sizes/font_size = 34
 theme_override_styles/normal = SubResource("StyleBoxFlat_vln7m")
-text = "Play"
+text = "New Game"
+
+[node name="Continue" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = 60.0
+offset_right = 100.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_vv7cn")
+theme_override_font_sizes/font_size = 34
+theme_override_styles/normal = SubResource("StyleBoxFlat_vln7m")
+text = "Continue"
+
+[node name="Load" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = 135.0
+offset_right = 100.0
+offset_bottom = 175.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_vv7cn")
+theme_override_font_sizes/font_size = 34
+theme_override_styles/normal = SubResource("StyleBoxFlat_vln7m")
+text = "Load"
+
+[node name="Quit" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -512.0
+offset_top = 204.0
+offset_right = -448.0
+offset_bottom = 244.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_vv7cn")
+theme_override_font_sizes/font_size = 34
+theme_override_styles/normal = SubResource("StyleBoxFlat_jrrea")
+text = "Exit"
 
 [node name="Settings" type="Button" parent="."]
 layout_mode = 1
@@ -73,11 +166,365 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -125.0
-offset_top = -125.0
+offset_top = -144.0
 offset_right = -57.0
-offset_bottom = -57.0
+offset_bottom = -76.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_styles/normal = SubResource("StyleBoxTexture_kwmx1")
+theme_override_styles/hover = SubResource("StyleBoxTexture_1sxrh")
 
-[connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
+[node name="Instructions" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1gaw5")
+
+[node name="Label" type="Label" parent="Instructions"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -148.5
+offset_top = 60.0
+offset_right = 148.5
+offset_bottom = 115.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_fn4sb")
+theme_override_font_sizes/font_size = 60
+text = "INSTRUCTIONS"
+
+[node name="Label2" type="Label" parent="Instructions"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -336.0
+offset_top = 184.0
+offset_right = -188.0
+offset_bottom = 222.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_fn4sb")
+theme_override_font_sizes/font_size = 40
+text = "Movement"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="Instructions"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -74.0
+offset_top = 184.0
+offset_right = 78.0
+offset_bottom = 222.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_fn4sb")
+theme_override_font_sizes/font_size = 40
+text = "Open diary"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label4" type="Label" parent="Instructions"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -74.0
+offset_top = 312.0
+offset_right = 78.0
+offset_bottom = 350.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_fn4sb")
+theme_override_font_sizes/font_size = 40
+text = "Interact"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label5" type="Label" parent="Instructions"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 120.0
+offset_top = 184.0
+offset_right = 272.0
+offset_bottom = 222.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_fn4sb")
+theme_override_font_sizes/font_size = 40
+text = "Inventory"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label6" type="Label" parent="Instructions"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -160.0
+offset_top = 544.0
+offset_right = 184.0
+offset_bottom = 582.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_fn4sb")
+theme_override_font_sizes/font_size = 40
+text = "Press ENTER to continue"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Box" type="Panel" parent="Instructions"]
+layout_mode = 0
+offset_left = 286.0
+offset_top = 251.0
+offset_right = 335.0
+offset_bottom = 297.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_niuqx")
+
+[node name="W" type="Label" parent="Instructions/Box"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -17.5
+offset_top = -24.0
+offset_right = 20.5
+offset_bottom = 31.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_fn4sb")
+theme_override_font_sizes/font_size = 60
+text = "W"
+
+[node name="Box2" type="Panel" parent="Instructions"]
+layout_mode = 0
+offset_left = 286.0
+offset_top = 330.0
+offset_right = 335.0
+offset_bottom = 376.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_niuqx")
+
+[node name="W" type="Label" parent="Instructions/Box2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -15.5
+offset_top = -25.0
+offset_right = 22.5
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_fn4sb")
+theme_override_font_sizes/font_size = 60
+text = "S"
+
+[node name="Box3" type="Panel" parent="Instructions"]
+layout_mode = 0
+offset_left = 363.0
+offset_top = 330.0
+offset_right = 412.0
+offset_bottom = 376.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_niuqx")
+
+[node name="W" type="Label" parent="Instructions/Box3"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -15.5
+offset_top = -24.0
+offset_right = 22.5
+offset_bottom = 31.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_fn4sb")
+theme_override_font_sizes/font_size = 60
+text = "D"
+
+[node name="Box4" type="Panel" parent="Instructions"]
+layout_mode = 0
+offset_left = 210.0
+offset_top = 330.0
+offset_right = 259.0
+offset_bottom = 376.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_niuqx")
+
+[node name="W" type="Label" parent="Instructions/Box4"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -15.5
+offset_top = -25.0
+offset_right = 22.5
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_fn4sb")
+theme_override_font_sizes/font_size = 60
+text = "A"
+
+[node name="Box5" type="Panel" parent="Instructions"]
+layout_mode = 0
+offset_left = 552.0
+offset_top = 234.0
+offset_right = 601.0
+offset_bottom = 280.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_niuqx")
+
+[node name="W" type="Label" parent="Instructions/Box5"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -15.5
+offset_top = -25.0
+offset_right = 22.5
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_fn4sb")
+theme_override_font_sizes/font_size = 60
+text = "Q"
+
+[node name="Box6" type="Panel" parent="Instructions"]
+layout_mode = 0
+offset_left = 552.0
+offset_top = 368.0
+offset_right = 601.0
+offset_bottom = 414.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_niuqx")
+
+[node name="W" type="Label" parent="Instructions/Box6"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -15.5
+offset_top = -25.0
+offset_right = 22.5
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_fn4sb")
+theme_override_font_sizes/font_size = 60
+text = "E"
+
+[node name="Box7" type="Panel" parent="Instructions"]
+layout_mode = 0
+offset_left = 744.0
+offset_top = 232.0
+offset_right = 793.0
+offset_bottom = 278.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_niuqx")
+
+[node name="W" type="Label" parent="Instructions/Box7"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -15.5
+offset_top = -25.0
+offset_right = 22.5
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_fn4sb")
+theme_override_font_sizes/font_size = 60
+text = "R"
+
+[node name="SettingsPanel" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_natgq")
+
+[node name="MenuPanel" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -148.0
+offset_top = -294.0
+offset_right = 148.0
+offset_bottom = 294.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_kwld0")
+
+[node name="MenuPanel2" type="Panel" parent="MenuPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -148.0
+offset_top = -294.0
+offset_right = 148.0
+offset_bottom = -222.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_kwld0")
+
+[node name="Title" type="Label" parent="MenuPanel/MenuPanel2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -148.0
+offset_top = -39.0
+offset_right = 148.0
+offset_bottom = 39.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_fn4sb")
+theme_override_font_sizes/font_size = 70
+text = "SAVES"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuPanel"]
+layout_mode = 0
+offset_left = 53.0
+offset_top = 141.0
+offset_right = 290.0
+offset_bottom = 596.0
+theme_override_constants/separation = 65
+
+[node name="SaveSlot" parent="MenuPanel/VBoxContainer" instance=ExtResource("7_cfagt")]
+layout_mode = 2
+
+[connection signal="pressed" from="New Game" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Settings" to="." method="_on_settings_pressed"]

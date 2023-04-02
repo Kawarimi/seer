@@ -23,4 +23,4 @@ func transition(_name):
 	if(linked_scene_path != ""):
 		$/root/Control/LevelManager.load_level(load(linked_scene_path))
 	if(linked_point != null):
-		$/root/Control/LevelManager.player_to_point(linked_point.position)
+		$/root/Control/LevelManager.player_to_point(linked_point.global_position)

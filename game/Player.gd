@@ -30,8 +30,9 @@ func _physics_process(_delta):
 			anim.set("parameters/Move/blend_position", input_dir)
 			anim.get("parameters/playback").travel("Move")
 		
+		move_detector()
+		
 		if(Input.is_action_just_pressed("interact")): #Raycasting
-			move_detector()
 			if target_node is AnimatableBody2D: #for NPC
 				print("Interacting NPC")
 				target_node.on_interact()
@@ -61,5 +62,8 @@ func detect(entered_node):
 func left(_node):
 	target_node = null
 
-func player_activated(state):
-	active = state
+func on_save():
+	return global_position
+
+func on_load(data):
+	global_position = data

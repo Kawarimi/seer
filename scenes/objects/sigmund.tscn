@@ -1,0 +1,302 @@
+[gd_scene load_steps=31 format=3 uid="uid://ggj12ir3tipd"]
+
+[ext_resource type="Script" path="res://game/NPC.gd" id="1_jblow"]
+[ext_resource type="Texture2D" uid="uid://cbbw78q0tmr71" path="res://art/characters/sigmund.png" id="2_25gl2"]
+[ext_resource type="Script" path="res://ui/DialogueTree.gd" id="3_8n2xj"]
+[ext_resource type="Script" path="res://ui/Dialogue.gd" id="4_5mn7m"]
+[ext_resource type="Texture2D" uid="uid://hiyjedbctrk" path="res://art/dialogue/intro/generic.png" id="5_5shbf"]
+[ext_resource type="Script" path="res://ui/OptionSet.gd" id="6_5b7be"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o05bp"]
+size = Vector2(26, 22)
+
+[sub_resource type="Animation" id="Animation_1otpk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [130]
+}
+
+[sub_resource type="Animation" id="Animation_cyjf4"]
+resource_name = "idle_down"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [130]
+}
+
+[sub_resource type="Animation" id="Animation_bfh5q"]
+resource_name = "idle_left"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [117]
+}
+
+[sub_resource type="Animation" id="Animation_2nvb3"]
+resource_name = "idle_right"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [143]
+}
+
+[sub_resource type="Animation" id="Animation_g4yj6"]
+resource_name = "idle_up"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [104]
+}
+
+[sub_resource type="Animation" id="Animation_lgff3"]
+resource_name = "walk_down"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [131, 132, 133, 134, 135, 136, 137, 138]
+}
+
+[sub_resource type="Animation" id="Animation_l1iqe"]
+resource_name = "walk_left"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [118, 119, 120, 121, 122, 123, 124, 125]
+}
+
+[sub_resource type="Animation" id="Animation_fl2o0"]
+resource_name = "walk_right"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [144, 145, 146, 147, 148, 149, 150, 151]
+}
+
+[sub_resource type="Animation" id="Animation_vo5gt"]
+resource_name = "walk_up"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [105, 106, 107, 108, 109, 110, 111, 112]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nyfnu"]
+_data = {
+"RESET": SubResource("Animation_1otpk"),
+"idle_down": SubResource("Animation_cyjf4"),
+"idle_left": SubResource("Animation_bfh5q"),
+"idle_right": SubResource("Animation_2nvb3"),
+"idle_up": SubResource("Animation_g4yj6"),
+"walk_down": SubResource("Animation_lgff3"),
+"walk_left": SubResource("Animation_l1iqe"),
+"walk_right": SubResource("Animation_fl2o0"),
+"walk_up": SubResource("Animation_vo5gt")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_drjhp"]
+animation = &"idle_down"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5meom"]
+animation = &"idle_left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_p7mpx"]
+animation = &"idle_right"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vv7jm"]
+animation = &"idle_up"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_qjjqu"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_drjhp")
+blend_point_0/pos = Vector2(0, 1)
+blend_point_1/node = SubResource("AnimationNodeAnimation_5meom")
+blend_point_1/pos = Vector2(-1, 0)
+blend_point_2/node = SubResource("AnimationNodeAnimation_p7mpx")
+blend_point_2/pos = Vector2(1, 0)
+blend_point_3/node = SubResource("AnimationNodeAnimation_vv7jm")
+blend_point_3/pos = Vector2(0, -1)
+blend_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_t0pky"]
+animation = &"walk_down"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_cmxpm"]
+animation = &"walk_up"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ubwbu"]
+animation = &"walk_right"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_oywwr"]
+animation = &"walk_left"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_4yy8b"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_t0pky")
+blend_point_0/pos = Vector2(0, 1)
+blend_point_1/node = SubResource("AnimationNodeAnimation_cmxpm")
+blend_point_1/pos = Vector2(0, -1)
+blend_point_2/node = SubResource("AnimationNodeAnimation_ubwbu")
+blend_point_2/pos = Vector2(1, 0)
+blend_point_3/node = SubResource("AnimationNodeAnimation_oywwr")
+blend_point_3/pos = Vector2(-1, 0)
+blend_mode = 1
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_h8ck5"]
+states/End/position = Vector2(200, 208)
+states/Idle/node = SubResource("AnimationNodeBlendSpace2D_qjjqu")
+states/Idle/position = Vector2(511, 100)
+states/Move/node = SubResource("AnimationNodeBlendSpace2D_4yy8b")
+states/Move/position = Vector2(511, 208)
+graph_offset = Vector2(-136.08, 29.6309)
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_x8r1i"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6xt1x"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_5shbf")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Sigmund" type="AnimatableBody2D"]
+y_sort_enabled = true
+position = Vector2(-56, -64)
+scale = Vector2(0.5, 0.5)
+collision_layer = 5
+script = ExtResource("1_jblow")
+animated = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_25gl2")
+hframes = 13
+vframes = 21
+frame = 130
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 19)
+shape = SubResource("RectangleShape2D_o05bp")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_nyfnu")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_h8ck5")
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/playback = SubResource("AnimationNodeStateMachinePlayback_x8r1i")
+parameters/Idle/blend_position = Vector2(0, 0)
+parameters/Move/blend_position = Vector2(-1, 0)
+
+[node name="DialogueTree" type="Node" parent="."]
+script = ExtResource("3_8n2xj")
+
+[node name="Wake up" type="Node" parent="DialogueTree"]
+script = ExtResource("4_5mn7m")
+dialogue_text = Array[String](["I was sleeping peacefully.", "My dream was quite an interesting one.", "I was just getting to the good part, when..."])
+
+[node name="DialogueSet" type="Node" parent="DialogueTree/Wake up"]
+script = ExtResource("4_5mn7m")
+dialogue_text = Array[String](["Wakey wakey, brother!"])
+dialogue_image = Array[SpriteFrames]([SubResource("SpriteFrames_6xt1x")])
+dialogue_name = Array[String](["Sigmund"])
+
+[node name="DialogueSet" type="Node" parent="DialogueTree/Wake up/DialogueSet"]
+script = ExtResource("4_5mn7m")
+dialogue_text = Array[String](["I felt a shock of cold run through me."])
+
+[node name="Come bro" type="Node" parent="DialogueTree"]
+script = ExtResource("4_5mn7m")
+dialogue_text = Array[String](["Damn you, Sig!", "Ugh...", "Haha, what's wrong, brother?", "Woke you up, didn't I?", "I didn't need to be woken up.", "Mum told me to.", "With a glass of water?", "Well, I did some improvising.", "Damn your improvising.", "I'll get you for this.", "Sure, sure.", "Anyways, aren't you excited, brother?"])
+dialogue_image = Array[SpriteFrames]([SubResource("SpriteFrames_6xt1x")])
+dialogue_name = Array[String](["Vivian", "", "Sigmund", "", "Vivian", "Sigmund", "Vivian", "Sigmund", "Vivian", "", "Sigmund"])
+
+[node name="OptionSet" type="Node" parent="DialogueTree/Come bro"]
+script = ExtResource("6_5b7be")
+option_text = Array[String](["About what?", "Not really."])
+
+[node name="DialogueSet" type="Node" parent="DialogueTree/Come bro/OptionSet"]
+script = ExtResource("4_5mn7m")
+dialogue_text = Array[String](["You know. Going back to the academy!", "Learning magic and stuff. Hey, why don't you show me some magic?", "#write more later", "", "", ""])
+dialogue_name = Array[String](["Sigmund", "", ""])
+
+[node name="DialogueSet2" type="Node" parent="DialogueTree/Come bro/OptionSet"]
+script = ExtResource("4_5mn7m")
+dialogue_text = Array[String](["Not particularly, no.", "Anyways, my hair's all wet.", "Get out of here. I gotta go to the bathroom.", "The bathroom, you say?", "Wait...", "No!"])
+dialogue_name = Array[String](["Vivan", "", "", "Sigmund", "Vivian"])
