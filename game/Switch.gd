@@ -1,27 +1,43 @@
+@tool
 extends Node
 
-@onready var anim = $AnimationPlayer
 @onready var audio = $AudioStreamPlayer2D
-@export var mode = false
+@onready var point_light = $PointLight2D
+@export var active = false:
+	set(new):
+		active = new
+		mode = !new
+		if Engine.is_editor_hint():
+			if(active):
+				point_light.energy = brightness
+			else:
+				point_light.energy = 0
 
-func on_interact():
-	audio.volume_db = 0
-	if mode:
-		anim.play("on")
+@export var brightness : float
+
+@export_category("SFX")
+@export var on_sfx : AudioStreamMP3
+@export var off_sfx : AudioStreamMP3
+
+var mode = !active
+
+func light():
+	if(mode):
+		audio.stream = on_sfx
+		point_light.energy = brightness
 		mode = false
 	else:
-		anim.play("off")
+		audio.stream = off_sfx
+		point_light.energy = 0
 		mode = true
+
+func on_interact():
+	light()
+	audio.play()
 
 func on_save():
 	return mode
 	
 func on_load(data):
 	mode = !data
-	audio.volume_db = -100
-	if mode:
-		anim.play("on")
-		mode = false
-	else:
-		anim.play("off")
-		mode = true
+	light()

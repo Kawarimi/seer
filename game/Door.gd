@@ -1,26 +1,26 @@
 extends StaticBody2D
 
-@export var linked_point : Node2D
-@export var linked_scene_path = ""
+@export var linked_door = ""
+@export var linked_scene = ""
 @export var animated = false
 @export var enabled = true
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass
-
+@onready var anim = $AnimationPlayer
+@onready var spawn = $SpawnPoint
 
 func on_interact():
 	if enabled:
 		if animated:
-			var anim = $AnimationPlayer
 			anim.play("door_open")
-			anim.connect("animation_finished", transition)
 		else:
-			transition("")
+			transition()
 
-func transition(_name):
-	if(linked_scene_path != ""):
-		$/root/Control/LevelManager.load_level(load(linked_scene_path))
-	if(linked_point != null):
-		$/root/Control/LevelManager.player_to_point(linked_point.global_position)
+func transition():
+		var level = $/root/Control/LevelManager
+		if(linked_scene != ""):
+			level = level.load_level(linked_scene)
+		level.find_child(linked_door).spawn_player()
+		if animated:
+			anim.play("RESET")
+
+func spawn_player():
+	$/root/Control/LevelManager.player_to_point(spawn.global_position)

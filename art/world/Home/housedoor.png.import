@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bpnniju73yccj"
-path="res://.godot/imported/basictiles_2.png-5b29c1071f1274375edda6c5f533e1ed.ctex"
+uid="uid://ddi75t5m3whkg"
+path="res://.godot/imported/housedoor.png-577afde7569f0ba7eda5f4f6a5235b21.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/world/basictiles_2.png"
-dest_files=["res://.godot/imported/basictiles_2.png-5b29c1071f1274375edda6c5f533e1ed.ctex"]
+source_file="res://art/world/Home/housedoor.png"
+dest_files=["res://.godot/imported/housedoor.png-577afde7569f0ba7eda5f4f6a5235b21.ctex"]
 
 [params]
 

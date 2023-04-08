@@ -1,10 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://bp5s0mmi48d1n"]
+[gd_scene load_steps=15 format=3 uid="uid://bp5s0mmi48d1n"]
 
 [ext_resource type="Script" path="res://ui/Main_Menu.gd" id="1_hk83e"]
 [ext_resource type="FontFile" uid="uid://cjjk7gwqjreyh" path="res://ui/HelvetiPixel.ttf" id="2_fn4sb"]
 [ext_resource type="FontFile" uid="uid://fq2pv7o6q6kd" path="res://ui/TimesNewPixel.ttf" id="3_vv7cn"]
 [ext_resource type="Texture2D" uid="uid://oucc065t5b2a" path="res://ui/gear.png" id="4_65qxo"]
-[ext_resource type="PackedScene" uid="uid://dsnssrjlmmxgk" path="res://ui/save_slot.tscn" id="7_cfagt"]
+[ext_resource type="Texture2D" uid="uid://ddr6qqd552k2b" path="res://art/world/Home/diary.png" id="5_i7ui6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_natgq"]
 bg_color = Color(0, 0, 0, 1)
@@ -41,6 +41,9 @@ border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
 border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0bmj7"]
+bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kwld0"]
 bg_color = Color(0, 0, 0, 1)
@@ -175,7 +178,6 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_kwmx1")
 theme_override_styles/hover = SubResource("StyleBoxTexture_1sxrh")
 
 [node name="Instructions" type="Panel" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -253,12 +255,12 @@ anchor_left = 0.5
 anchor_right = 0.5
 offset_left = 120.0
 offset_top = 184.0
-offset_right = 272.0
+offset_right = 278.0
 offset_bottom = 222.0
 grow_horizontal = 2
 theme_override_fonts/font = ExtResource("2_fn4sb")
 theme_override_font_sizes/font_size = 40
-text = "Inventory"
+text = "Open menu"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -277,6 +279,28 @@ theme_override_font_sizes/font_size = 40
 text = "Press ENTER to continue"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Label7" type="Label" parent="Instructions"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 120.0
+offset_top = 312.0
+offset_right = 499.0
+offset_bottom = 350.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_fn4sb")
+theme_override_font_sizes/font_size = 40
+text = "Use     to save"
+vertical_alignment = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="Instructions/Label7"]
+z_index = 1
+position = Vector2(45.0001, 8.00003)
+scale = Vector2(7, 8.893)
+texture = ExtResource("5_i7ui6")
+vframes = 5
 
 [node name="Box" type="Panel" parent="Instructions"]
 layout_mode = 0
@@ -381,9 +405,9 @@ text = "A"
 [node name="Box5" type="Panel" parent="Instructions"]
 layout_mode = 0
 offset_left = 552.0
-offset_top = 234.0
+offset_top = 232.0
 offset_right = 601.0
-offset_bottom = 280.0
+offset_bottom = 278.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_niuqx")
 
 [node name="W" type="Label" parent="Instructions/Box5"]
@@ -393,22 +417,23 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -15.5
+offset_left = -17.5
 offset_top = -25.0
-offset_right = 22.5
+offset_right = 20.5
 offset_bottom = 30.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("2_fn4sb")
 theme_override_font_sizes/font_size = 60
-text = "Q"
+text = "Y"
+horizontal_alignment = 1
 
 [node name="Box6" type="Panel" parent="Instructions"]
 layout_mode = 0
 offset_left = 552.0
-offset_top = 368.0
+offset_top = 366.0
 offset_right = 601.0
-offset_bottom = 414.0
+offset_bottom = 412.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_niuqx")
 
 [node name="W" type="Label" parent="Instructions/Box6"]
@@ -430,9 +455,9 @@ text = "E"
 
 [node name="Box7" type="Panel" parent="Instructions"]
 layout_mode = 0
-offset_left = 744.0
+offset_left = 753.0
 offset_top = 232.0
-offset_right = 793.0
+offset_right = 802.0
 offset_bottom = 278.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_niuqx")
 
@@ -452,6 +477,32 @@ grow_vertical = 2
 theme_override_fonts/font = ExtResource("2_fn4sb")
 theme_override_font_sizes/font_size = 60
 text = "R"
+
+[node name="AskName" type="Panel" parent="Instructions"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0bmj7")
+
+[node name="LineEdit" type="LineEdit" parent="Instructions/AskName"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -130.5
+offset_top = -35.5
+offset_right = 130.5
+offset_bottom = 35.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Evo"
+placeholder_text = "Your Name"
 
 [node name="SettingsPanel" type="Panel" parent="."]
 visible = false
@@ -509,7 +560,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("2_fn4sb")
 theme_override_font_sizes/font_size = 70
-text = "SAVES"
+text = "LOAD"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -521,10 +572,8 @@ offset_right = 290.0
 offset_bottom = 596.0
 theme_override_constants/separation = 65
 
-[node name="SaveSlot" parent="MenuPanel/VBoxContainer" instance=ExtResource("7_cfagt")]
-layout_mode = 2
-
 [connection signal="pressed" from="New Game" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="Continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="Load" to="." method="_on_load_pressed"]
 [connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="Settings" to="." method="_on_settings_pressed"]

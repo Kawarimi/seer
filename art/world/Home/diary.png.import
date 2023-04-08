@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bjy3v2t3h2lvi"
-path="res://.godot/imported/switch.png-104b04872c52f3625e9f78f1e587de87.ctex"
+uid="uid://ddr6qqd552k2b"
+path="res://.godot/imported/diary.png-22abf69b19c74c0b80c3d78c032ba413.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/world/switch.png"
-dest_files=["res://.godot/imported/switch.png-104b04872c52f3625e9f78f1e587de87.ctex"]
+source_file="res://art/world/Home/diary.png"
+dest_files=["res://.godot/imported/diary.png-22abf69b19c74c0b80c3d78c032ba413.ctex"]
 
 [params]
 

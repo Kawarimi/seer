@@ -14,7 +14,7 @@ func _ready():
 
 func _physics_process(_delta):
 	if(active):
-		var input_dir = Input.get_vector("left", "right", "up", "down")
+		var input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 		velocity = input_dir * speed
 		
 		move_and_slide()

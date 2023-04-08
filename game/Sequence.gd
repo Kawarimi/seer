@@ -1,33 +1,46 @@
+@tool
 extends Node
+class_name Sequence
 
-@export var on_finish : Array[String]
-@onready var anim_tree = $AnimationTree
-@onready var playback =  anim_tree.get("parameters/playback")
+const sequence_flags = ["text_finished"]
+
+@onready var anim = $AnimationPlayer
+@export var on_advance : Dictionary
 @export var active = false
-@export var current_node : String
+@export var on_new = ""
 
 func _ready():
-	pass
-	
-func set_tree(node):
-	current_node = node
-	playback.start(node)
+	if not Engine.is_editor_hint() and on_new != "":
+		on_init()
+
+func _process(_delta):
+	if Engine.is_editor_hint():
+		if on_advance.size() == 0:
+			print("Setting sequence dict")
+			for f in sequence_flags:
+				on_advance[f] = PackedStringArray()
 	
 func on_save():
-	print(current_node)
-	return [active, current_node]
+	return [active, on_advance, on_new]
 	
 func on_load(data):
 	activate(data[0])
-	set_tree(data[1])
+	on_advance = data[1]
+	on_new = data[2]
 
-func advance_seq(params = []): #implement params into animationtree !!!
-	active = anim_tree.get("active")
-	if(active):
-		if(params.has("text_finished")):
-			playback.travel(on_finish.pop_front())
-			print(playback.get_current_node())
+func on_init():
+	anim.play(on_new)
+	on_new = ""
+
+func advance_seq(key : String):
+	if active and len(on_advance[key]) > 0:
+		anim.play(on_advance[key][0])
+		on_advance[key].remove_at(0)
 
 func activate(state):
 	active = state
-	anim_tree.active = state
+	
+func skip(key : String):
+	anim.seek(anim.get_current_animation_length())
+	if(key):
+		advance_seq(key)

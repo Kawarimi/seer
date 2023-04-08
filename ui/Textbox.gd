@@ -21,9 +21,9 @@ var current_state = State.READY
 var tree_finished = false
 var active_tree = null
 
-var text_queue
-var name_queue
-var img_queue
+var text_queue = []
+var name_queue = []
+var img_queue = []
 
 signal player_activated
 signal text_finished
@@ -32,18 +32,7 @@ const option_template = preload("res://ui/option_container.tscn")
 @onready var container = $OptionsContainer/Options/HBoxContainer
 
 var selected_index = 0
-var options_queue = []
-
-func _ready():
-	hide_textbox()
-	hide_options()
-
-func _queue_reset():
-	text_queue = []
-	name_queue = []
-	img_queue = []
-	options_queue = []
-	selected_index = 0
+var options = []
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(_delta):
@@ -65,9 +54,9 @@ func _physics_process(_delta):
 						next_symbol.hide()
 			State.OPTIONS:
 				if(Input.is_action_just_pressed("ui_left")):
-					select_option(normalize_range(selected_index-1,len(options_queue)))
+					select_option(normalize_range(selected_index-1,len(options)))
 				if(Input.is_action_just_pressed("ui_right")):
-					select_option(normalize_range(selected_index+1,len(options_queue)))
+					select_option(normalize_range(selected_index+1,len(options)))
 				if(Input.is_action_just_pressed("ui_accept")): #add more
 					print("picked option")
 					active_tree.set_option_index(selected_index)
@@ -90,7 +79,6 @@ func show_textbox():
 
 func hide_textbox():
 	$TextboxContainer.hide()
-	_queue_reset()
 	current_state = State.READY
 	player_activated.emit(true)
 	
@@ -99,7 +87,7 @@ func hide_image():
 	$TextboxContainer/Text.set("theme_override_constants/margin_left", 25)
 
 func text_reading_finished():
-	if(len(options_queue) > 0):
+	if(len(options) > 0):
 		show_options()
 	else:
 		next_symbol.show()
@@ -127,12 +115,12 @@ func next_text():
 	
 	current_state = State.READING
 
-func load_dialogue(text, names, img, options, tree):
+func load_dialogue(_text, _name, _img, _options, tree):
 	print("Loading dialogue onto textbox")
-	text_queue += text
-	name_queue += names
-	img_queue += img
-	options_queue += options
+	text_queue.assign(_text)
+	name_queue.assign(_name)
+	img_queue.assign(_img)
+	options.assign(_options)
 	active_tree = tree
 	
 	show_textbox()
@@ -143,7 +131,7 @@ func load_dialogue(text, names, img, options, tree):
 
 func show_options():
 	$OptionsContainer.show()
-	for option in options_queue:
+	for option in options:
 		var new_option = option_template.instantiate()
 		container.add_child(new_option)
 		new_option.set_text(option)
@@ -163,7 +151,7 @@ func hide_options():
 	$OptionsContainer.hide()
 	player_activated.emit(true)
 	current_state = State.READY
-	_queue_reset()
+	selected_index = 0
 
 func normalize_range(val, mod):
 	var remainder = val % mod

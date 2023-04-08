@@ -1,4 +1,5 @@
 extends Node
+class_name DialogueTree
 
 @onready var textbox = $/root/Control/Textbox
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ddn4iu5q7qygy"
-path="res://.godot/imported/bedroom.png-0af749652c487c317b4fe02672e9e7e3.ctex"
+uid="uid://bjy3v2t3h2lvi"
+path="res://.godot/imported/switch.png-138c427d1b203b0a39a3a3f29e9f0e94.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/world/bedroom.png"
-dest_files=["res://.godot/imported/bedroom.png-0af749652c487c317b4fe02672e9e7e3.ctex"]
+source_file="res://art/world/Home/switch.png"
+dest_files=["res://.godot/imported/switch.png-138c427d1b203b0a39a3a3f29e9f0e94.ctex"]
 
 [params]
 

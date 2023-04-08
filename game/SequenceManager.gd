@@ -1,10 +1,7 @@
 extends Node
 
-@export var current_sequence : Node
+@onready var seqs = get_children()
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-func text_finished():
-	current_sequence.advance_seq(["text_finished"])
+func _on_textbox_text_finished():
+	for seq in seqs:
+		seq.advance_seq("text_finished")

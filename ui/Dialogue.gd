@@ -1,4 +1,5 @@
 extends Node
+class_name DialogueSet
 
 @export var condition_flags : Array[String]
 @export var looping = false

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ddr6qqd552k2b"
-path="res://.godot/imported/diary.png-de0826ee17d454ab7aad932d241bd280.ctex"
+uid="uid://bs503ugx73l07"
+path="res://.godot/imported/counter.png-a7b617aba8f499438a43a5f5c8111b11.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/world/diary.png"
-dest_files=["res://.godot/imported/diary.png-de0826ee17d454ab7aad932d241bd280.ctex"]
+source_file="res://art/world/Home/counter.png"
+dest_files=["res://.godot/imported/counter.png-a7b617aba8f499438a43a5f5c8111b11.ctex"]
 
 [params]
 

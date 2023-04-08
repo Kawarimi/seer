@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dpeipkhnmqmyg"
-path="res://.godot/imported/stairup.png-ceaa949e3f065d35df63a2f9f2737438.ctex"
+uid="uid://btkcjnhnlynak"
+path="res://.godot/imported/carpet.png-f5ed4d64b8393363f77bc8f76bbe60d8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/world/stairup.png"
-dest_files=["res://.godot/imported/stairup.png-ceaa949e3f065d35df63a2f9f2737438.ctex"]
+source_file="res://art/world/Home/carpet.png"
+dest_files=["res://.godot/imported/carpet.png-f5ed4d64b8393363f77bc8f76bbe60d8.ctex"]
 
 [params]
 

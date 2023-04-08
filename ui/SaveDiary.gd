@@ -15,8 +15,8 @@ func on_interact():
 	if(option[1] == 0):
 		save_menu.show_menu()
 	else:
-		_on_save_menu_save_game(0)
+		close_diary()
 
 
-func _on_save_menu_save_game(_a):
+func close_diary():
 	anim.play_backwards("diary_open")
