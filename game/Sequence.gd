@@ -6,11 +6,11 @@ const sequence_flags = ["text_finished"]
 
 @onready var anim = $AnimationPlayer
 @export var on_advance : Dictionary
-@export var active = false
+@export var active = true
 @export var on_new = ""
 
 func _ready():
-	if not Engine.is_editor_hint() and on_new != "":
+	if not Engine.is_editor_hint():
 		on_init()
 
 func _process(_delta):
@@ -27,13 +27,16 @@ func on_load(data):
 	activate(data[0])
 	on_advance = data[1]
 	on_new = data[2]
+	on_init()
 
 func on_init():
-	anim.play(on_new)
-	on_new = ""
+	if(on_new != ""):
+		anim.play(on_new)
+		on_new = ""
 
 func advance_seq(key : String):
 	if active and len(on_advance[key]) > 0:
+		print("Advancing sequence")
 		anim.play(on_advance[key][0])
 		on_advance[key].remove_at(0)
 

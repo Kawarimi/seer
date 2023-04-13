@@ -1,10 +1,17 @@
 extends AnimatableBody2D
 
-@onready var dialogue_tree = $DialogueTree
-@onready var anim = $AnimationTree
+@onready var dialogue = get_node_or_null("DialogueTree")
+@onready var anim_tree = get_node_or_null("AnimationTree")
 @export var animated = false
+@export var on_interact_anim = ""
 
-var pos
+var status = NPCState.Normal
+var pos : Vector2
+
+enum NPCState {
+	Normal,
+	Destroyed
+}
 
 func _ready():
 	pos = self.position
@@ -16,13 +23,29 @@ func _process(_delta):
 		pos = self.position
 		
 		if(velocity == Vector2.ZERO): #Animation setting
-			anim.get("parameters/playback").travel("Idle")
+			anim_tree.get("parameters/playback").travel("Idle")
 		else:
-			anim.set("parameters/Idle/blend_position", velocity)
-			anim.set("parameters/Move/blend_position", velocity)
-			anim.get("parameters/playback").travel("Move")
+			anim_tree.set("parameters/Idle/blend_position", velocity)
+			anim_tree.set("parameters/Move/blend_position", velocity)
+			anim_tree.get("parameters/playback").travel("Move")
 
 func on_interact():
-	if not dialogue_tree == null:
-		dialogue_tree.play()
+	if(dialogue):
+		dialogue.play()
+	if(anim_tree and on_interact_anim != ""):
+		anim_tree.play(on_interact_anim)
+
+func on_save():
+	return [status, pos]
 	
+func on_load(data : Array):
+	status = data[0]
+	position = data[1]
+	if(status == NPCState.Destroyed):
+		destroy()
+
+func destroy():
+	visible = false
+	if(status == NPCState.Destroyed):
+		queue_free()
+	status = NPCState.Destroyed

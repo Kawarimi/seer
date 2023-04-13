@@ -18,19 +18,11 @@ func _process(_delta):
 		if Input.is_action_just_pressed("ui_accept"):
 			get_tree().change_scene_to_file("res://scenes/Game1.tscn")
 	if active:
-		if(Input.is_action_just_pressed("ui_up")):
-			var idx = selected_index-1
-			if 0 <= idx:
-				selected_index = idx
-		if(Input.is_action_just_pressed("ui_down")):
-			var idx = selected_index+1
-			if idx < max_saves:
-				selected_index = idx
 		if Input.is_action_just_pressed("ui_cancel"):
 			hide_menu()
 
-func on_save_accept():
-	load_game(selected_index)
+func on_save_accept(idx):
+	load_game(idx)
 
 func _on_play_pressed():
 	$Instructions.show()

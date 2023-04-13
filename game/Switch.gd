@@ -7,7 +7,7 @@ extends Node
 	set(new):
 		active = new
 		mode = !new
-		if Engine.is_editor_hint():
+		if Engine.is_editor_hint() and point_light:
 			if(active):
 				point_light.energy = brightness
 			else:
@@ -39,5 +39,6 @@ func on_save():
 	return mode
 	
 func on_load(data):
+	print("LIGHT IS:",data)
 	mode = !data
 	light()

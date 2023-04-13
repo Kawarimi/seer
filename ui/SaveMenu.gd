@@ -7,25 +7,18 @@ const max_saves = 7
 signal save_game
 signal player_activated
 
-var selected_index = 0
 var active = false
 
 func _process(_delta):
 	if active:
-		if(Input.is_action_just_pressed("ui_up")):
-			var idx = selected_index-1
-			if 0 <= idx:
-				selected_index = idx
-		if(Input.is_action_just_pressed("ui_down")):
-			var idx = selected_index+1
-			if idx < max_saves:
-				selected_index = idx
 		if Input.is_action_just_pressed("ui_cancel"):
 			hide_menu()
 			
-func on_save_accept():
-	save_game.emit(selected_index)
-	container.get_child(selected_index).set_text("SAVED")
+func on_save_accept(idx : int):
+	save_game.emit(idx)
+	for slot in container.get_children():
+		slot.disable()
+	container.get_child(idx).set_text("SAVED")
 	await get_tree().create_timer(0.5).timeout
 	hide_menu()
 
@@ -41,11 +34,9 @@ func show_menu():
 		if saves and saves.has(i):
 			var meta = saves[i]
 			slot.set_meta_labels(meta["date"], ("at %s" % meta["onload"]))
-		slot.set_text("SAVE %s" % (i+1))
-		slot.set_menu(self)
-		slot.set_focus_mode(2)
+		slot.set_slot(i)
 
-	container.get_child(0).grab_focus()
+	container.get_child(0).get_node("Button").grab_focus()
 	
 	await get_tree().process_frame
 	player_activated.emit(false)

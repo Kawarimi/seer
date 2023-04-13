@@ -7,13 +7,14 @@ extends CharacterBody2D
 @export var active = true
 var facing_dir = Vector2(0,1)
 var target_node
+var locked = false
 
 func _ready():
 	detector.body_entered.connect(detect)
 	detector.body_exited.connect(left)
 
 func _physics_process(_delta):
-	if(active):
+	if active and not locked:
 		var input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 		velocity = input_dir * speed
 		
@@ -67,3 +68,11 @@ func on_save():
 
 func on_load(data):
 	global_position = data
+	
+func lock():
+	locked = !locked
+	print("SET LOCK TO:",locked)
+		
+func face_to(dir : Vector2):
+	anim.set("parameters/Idle/blend_position", dir)
+	anim.get("parameters/playback").travel("Idle")

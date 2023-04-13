@@ -1,61 +1,14 @@
-[gd_scene load_steps=26 format=3 uid="uid://nw8qgs6rkle"]
+[gd_scene load_steps=14 format=3 uid="uid://nw8qgs6rkle"]
 
 [ext_resource type="Script" path="res://game/LevelManager.gd" id="1_4d807"]
 [ext_resource type="PackedScene" uid="uid://0jktuolqn3qn" path="res://scenes/home.tscn" id="2_wpagl"]
-[ext_resource type="Script" path="res://game/SequenceManager.gd" id="3_htvxt"]
 [ext_resource type="Script" path="res://ui/Textbox.gd" id="3_mkgh6"]
 [ext_resource type="FontFile" uid="uid://fq2pv7o6q6kd" path="res://ui/TimesNewPixel.ttf" id="4_77ac3"]
-[ext_resource type="Script" path="res://game/Sequence.gd" id="4_ffsn1"]
 [ext_resource type="FontFile" uid="uid://cjjk7gwqjreyh" path="res://ui/HelvetiPixel.ttf" id="5_18yfw"]
 [ext_resource type="Script" path="res://ui/DialogueTree.gd" id="5_owufg"]
 [ext_resource type="SpriteFrames" uid="uid://3b7od2atskhd" path="res://art/dialogue/seer1.tres" id="6_f78pm"]
 [ext_resource type="Script" path="res://ui/Dialogue.gd" id="6_xs7cf"]
-[ext_resource type="Script" path="res://ui/Effects.gd" id="18_udtf8"]
 [ext_resource type="Script" path="res://ui/SaveMenu.gd" id="19_h4x73"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dmlth"]
-bg_color = Color(0, 0, 0, 1)
-border_color = Color(1, 1, 1, 1)
-
-[sub_resource type="Animation" id="Animation_tki2i"]
-length = 0.001
-
-[sub_resource type="Animation" id="Animation_tx0tv"]
-resource_name = "fade_in"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Panel:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_7c51y"]
-resource_name = "fade_out"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Panel:modulate")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_dshb3"]
-_data = {
-"RESET": SubResource("Animation_tki2i"),
-"fade_in": SubResource("Animation_tx0tv"),
-"fade_out": SubResource("Animation_7c51y")
-}
 
 [sub_resource type="GDScript" id="GDScript_5ixi2"]
 script/source = "extends Node
@@ -90,89 +43,11 @@ border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
 
-[sub_resource type="Animation" id="Animation_3rxpj"]
-length = 0.001
-
-[sub_resource type="Animation" id="Animation_b1kn1"]
-resource_name = "dialogue1"
-tracks/0/type = "method"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Dialogue")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"play"
-}]
-}
-tracks/1/type = "animation"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../../Effects/EffectPlayer")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"clips": PackedStringArray("black"),
-"times": PackedFloat32Array(0)
-}
-
-[sub_resource type="Animation" id="Animation_mwh8v"]
-resource_name = "fade"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:active")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/1/type = "animation"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../../Effects/EffectPlayer")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"clips": PackedStringArray("fade_out"),
-"times": PackedFloat32Array(0)
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_p453c"]
-_data = {
-"RESET": SubResource("Animation_3rxpj"),
-"dialogue1": SubResource("Animation_b1kn1"),
-"fade": SubResource("Animation_mwh8v")
-}
-
 [node name="Control" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-
-[node name="Effects" type="CanvasLayer" parent="."]
-script = ExtResource("18_udtf8")
-
-[node name="Panel" type="Panel" parent="Effects"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_dmlth")
-
-[node name="EffectPlayer" type="AnimationPlayer" parent="Effects"]
-libraries = {
-"": SubResource("AnimationLibrary_dshb3")
-}
 
 [node name="SaveMenu" type="CanvasLayer" parent="."]
 script = ExtResource("19_h4x73")
@@ -349,31 +224,6 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="Sequences" type="Node" parent="."]
-script = ExtResource("3_htvxt")
-
-[node name="IntroSequence" type="Node" parent="Sequences" groups=["Persist"]]
-script = ExtResource("4_ffsn1")
-on_advance = {
-"text_finished": PackedStringArray("fade")
-}
-active = true
-on_new = "dialogue1"
-
-[node name="Dialogue" type="Node" parent="Sequences/IntroSequence"]
-script = ExtResource("5_owufg")
-
-[node name="seer" type="Node" parent="Sequences/IntroSequence/Dialogue"]
-script = ExtResource("6_xs7cf")
-text = Array[String](["Something's missing.", "Wake up..."])
-image = Array[SpriteFrames]([ExtResource("6_f78pm")])
-names = Array[String](["???"])
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Sequences/IntroSequence"]
-libraries = {
-"": SubResource("AnimationLibrary_p453c")
-}
-
 [node name="LevelManager" type="Node" parent="."]
 script = ExtResource("1_4d807")
 
@@ -382,4 +232,4 @@ script = ExtResource("1_4d807")
 [connection signal="player_activated" from="SaveMenu" to="LevelManager" method="player_activated"]
 [connection signal="save_game" from="SaveMenu" to="LevelManager" method="_on_save_menu_save_game"]
 [connection signal="player_activated" from="Textbox" to="LevelManager" method="player_activated"]
-[connection signal="text_finished" from="Textbox" to="Sequences" method="_on_textbox_text_finished"]
+[connection signal="text_finished" from="Textbox" to="LevelManager" method="_on_textbox_text_finished"]

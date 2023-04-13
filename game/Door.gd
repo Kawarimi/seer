@@ -11,6 +11,8 @@ func on_interact():
 	if enabled:
 		if animated:
 			anim.play("door_open")
+			await anim.animation_finished
+			transition()
 		else:
 			transition()
 
@@ -20,7 +22,7 @@ func transition():
 			level = level.load_level(linked_scene)
 		level.find_child(linked_door).spawn_player()
 		if animated:
-			anim.play("RESET")
+			anim.play("door_close")
 
 func spawn_player():
 	$/root/Control/LevelManager.player_to_point(spawn.global_position)
