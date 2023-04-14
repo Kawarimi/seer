@@ -35,11 +35,11 @@ func _physics_process(_delta):
 		
 		if(Input.is_action_just_pressed("interact")): #Raycasting
 			if target_node is AnimatableBody2D: #for NPC
-				print("Interacting NPC")
+				print("Interacting NPC: ",target_node)
 				target_node.on_interact()
 				anim.get("parameters/playback").travel("Idle")
 			if target_node is StaticBody2D: #for environment
-				print("Interacting object")
+				print("Interacting object: ",target_node)
 				target_node.on_interact()
 				anim.get("parameters/playback").travel("Idle")
 

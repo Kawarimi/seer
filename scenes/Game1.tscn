@@ -146,14 +146,12 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 83
 theme_override_constants/margin_bottom = 23
 
-[node name="TextLabel" type="Label" parent="Textbox/TextboxContainer/Text"]
+[node name="TextLabel" type="RichTextLabel" parent="Textbox/TextboxContainer/Text"]
 layout_mode = 2
-size_flags_vertical = 1
-theme_override_fonts/font = ExtResource("4_77ac3")
-theme_override_font_sizes/font_size = 28
+theme_override_fonts/normal_font = ExtResource("4_77ac3")
+theme_override_font_sizes/normal_font_size = 26
+bbcode_enabled = true
 text = "I needa  big mac with fries and extra dip."
-autowrap_mode = 3
-clip_text = true
 
 [node name="NextArrow" type="Control" parent="Textbox/TextboxContainer"]
 layout_mode = 2

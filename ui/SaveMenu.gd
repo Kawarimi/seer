@@ -21,6 +21,8 @@ func on_save_accept(idx : int):
 	container.get_child(idx).set_text("SAVED")
 	await get_tree().create_timer(0.5).timeout
 	hide_menu()
+	if get_node_or_null("/root/Control/LevelManager/home/TileMap/Diary"):
+		$/root/Control/LevelManager/home/Sequences/IntroSequence.add_trigger("diary_saved_door_unlock")
 
 func show_menu():
 	$MenuPanel.show()

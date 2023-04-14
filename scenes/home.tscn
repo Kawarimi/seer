@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=3 uid="uid://0jktuolqn3qn"]
+[gd_scene load_steps=67 format=3 uid="uid://0jktuolqn3qn"]
 
 [ext_resource type="Script" path="res://game/Sequence.gd" id="2_mwcwe"]
 [ext_resource type="Script" path="res://ui/DialogueTree.gd" id="3_q0eu1"]
@@ -56,15 +56,29 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector2(-48, -656)]
 }
-tracks/2/type = "animation"
+tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../../TileMap/Home-Apt/AnimationPlayer")
+tracks/2/path = NodePath("../../TileMap/AptDoor:collision_layer")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"clips": PackedStringArray("RESET"),
-"times": PackedFloat32Array(0)
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../../TileMap/Home-Apt:collision_layer")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
 }
 
 [sub_resource type="Animation" id="Animation_b1kn1"]
@@ -153,23 +167,13 @@ tracks/2/keys = {
 "update": 0,
 "values": [Vector2(-48, -656), Vector2(-112, -656), Vector2(-112, -708), Vector2(-112, -708), Vector2(-112, -753)]
 }
-tracks/3/type = "animation"
+tracks/3/type = "method"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("../../TileMap/Home-Apt/AnimationPlayer")
+tracks/3/path = NodePath("../../TileMap/Player")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"clips": PackedStringArray("door_open", "door_close"),
-"times": PackedFloat32Array(1.6, 2.5)
-}
-tracks/4/type = "method"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("../../TileMap/Player")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
 "times": PackedFloat32Array(2.8),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -177,11 +181,50 @@ tracks/4/keys = {
 "method": &"lock"
 }]
 }
+tracks/4/type = "animation"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../../TileMap/Home-Apt/AnimationPlayer")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"clips": PackedStringArray("door_open", "door_close"),
+"times": PackedFloat32Array(1.6, 2.5)
+}
+
+[sub_resource type="Animation" id="Animation_esx1s"]
+resource_name = "diary_saved_door_unlock"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../TileMap/AptDoor:collision_layer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../../TileMap/Home-Apt:collision_layer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_p453c"]
 _data = {
 "RESET": SubResource("Animation_3rxpj"),
 "dialogue1": SubResource("Animation_b1kn1"),
+"diary_saved_door_unlock": SubResource("Animation_esx1s"),
 "fade": SubResource("Animation_mwh8v")
 }
 
@@ -250,7 +293,7 @@ graph_offset = Vector2(-136.08, 29.6309)
 [sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_uvyvc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pwfmn"]
-size = Vector2(14, 5)
+size = Vector2(10, 14)
 
 [sub_resource type="Animation" id="Animation_iahto"]
 length = 0.001
@@ -285,7 +328,7 @@ tracks/0/keys = {
 tracks/1/type = "audio"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../../SFX")
+tracks/1/path = NodePath("AudioStreamPlayer2D")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -316,7 +359,7 @@ tracks/0/keys = {
 tracks/1/type = "audio"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../../SFX")
+tracks/1/path = NodePath("AudioStreamPlayer2D")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -335,6 +378,9 @@ _data = {
 "door_close": SubResource("Animation_jwlw3"),
 "door_open": SubResource("Animation_clvtx")
 }
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ituba"]
+size = Vector2(32, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dscia"]
 size = Vector2(29, 32)
@@ -372,7 +418,7 @@ tracks/0/keys = {
 tracks/1/type = "audio"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../../SFX")
+tracks/1/path = NodePath("AudioStreamPlayer2D")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -393,9 +439,6 @@ _data = {
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_askmq"]
 size = Vector2(16, 12)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ituba"]
-size = Vector2(32, 20)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kp6ml"]
 bg_color = Color(0, 0, 0, 1)
@@ -452,7 +495,8 @@ _data = {
 [node name="IntroSequence" type="Node" parent="Sequences" groups=["Persist"]]
 script = ExtResource("2_mwcwe")
 on_advance = {
-"text_finished": PackedStringArray("fade")
+"text_finished": PackedStringArray("fade"),
+"trigger": PackedStringArray()
 }
 on_new = "dialogue1"
 
@@ -499,7 +543,7 @@ layer_3/modulate = Color(1, 1, 1, 1)
 layer_3/y_sort_enabled = true
 layer_3/y_sort_origin = 0
 layer_3/z_index = 0
-layer_3/tile_data = PackedInt32Array(-458752, 786438, 0, -393216, 786438, 1, -327680, 786438, 2, -458751, 851974, 0, -393215, 851974, 1, -327679, 851974, 2, -458750, 917510, 0, -393214, 917510, 1, -327678, 917510, 2, -458749, 983046, 0, -393213, 983046, 1, -327677, 983046, 2, -262143, 393222, 39, -196607, 393222, 40, -262142, 458758, 39, -262141, 524294, 39, -196605, 524294, 40, -3, 327685, 11, 65533, 327685, 12, -4, 262149, 8, 65532, 262149, 9, -196606, 458758, 40, -1769471, 655365, 64, -1703935, 655365, 65, -1769470, 720901, 64, -1703934, 720901, 65, -1769469, 786437, 64, -1703933, 786437, 65, -1572865, 589827, 25, -1638401, 589827, 24, -1703937, 589827, 23, -1572861, 458755, 5, -1507325, 458755, 6, -1441789, 458755, 7, -1638397, 458755, 5, -1310720, 262147, 11, -1245184, 262147, 12, -1310718, 458755, 13, -1245182, 458755, 14, -1376281, 655364, 0, -1310745, 655364, 1, -1245209, 655364, 2, -1376280, 786436, 0, -1310744, 786436, 1, -1245208, 786436, 2, -1376279, 851972, 0, -1310743, 851972, 1, -1245207, 851972, 2, -1310742, 524292, 15, -1245206, 524292, 16, -1179670, 524292, 17, -1310741, 589828, 15, -1245205, 589828, 16, -1179669, 589828, 17, -1376278, 524292, 14, -1376277, 589828, 14, -1114137, 458756, 49, -1048601, 458756, 50, -983065, 458756, 51, -1114136, 524292, 49, -1048600, 524292, 50, -983064, 524292, 51)
+layer_3/tile_data = PackedInt32Array(-458751, 851974, 0, -393215, 851974, 1, -327679, 851974, 2, -458750, 917510, 0, -393214, 917510, 1, -327678, 917510, 2, -458749, 983046, 0, -393213, 983046, 1, -327677, 983046, 2, -262143, 393222, 39, -196607, 393222, 40, -262142, 458758, 39, -262141, 524294, 39, -196605, 524294, 40, -3, 327685, 11, 65533, 327685, 12, -4, 262149, 8, 65532, 262149, 9, -196606, 458758, 40, -1769471, 655365, 64, -1703935, 655365, 65, -1769470, 720901, 64, -1703934, 720901, 65, -1769469, 786437, 64, -1703933, 786437, 65, -1572865, 589827, 25, -1638401, 589827, 24, -1703937, 589827, 23, -1572861, 458755, 5, -1507325, 458755, 6, -1441789, 458755, 7, -1638397, 458755, 5, -1310720, 262147, 11, -1245184, 262147, 12, -1310718, 458755, 13, -1245182, 458755, 14, -1376281, 655364, 0, -1310745, 655364, 1, -1245209, 655364, 2, -1376280, 786436, 0, -1310744, 786436, 1, -1245208, 786436, 2, -1376279, 851972, 0, -1310743, 851972, 1, -1245207, 851972, 2, -1310742, 524292, 15, -1245206, 524292, 16, -1179670, 524292, 17, -1310741, 589828, 15, -1245205, 589828, 16, -1179669, 589828, 17, -1376278, 524292, 14, -1376277, 589828, 14, -1114137, 458756, 49, -1048601, 458756, 50, -983065, 458756, 51, -1114136, 524292, 49, -1048600, 524292, 50, -983064, 524292, 51, -393217, 786434, 27, -327681, 786434, 28, -262145, 786434, 29, -458752, 851970, 27, -393216, 851970, 28, -327680, 851970, 29, -196612, 589826, 36, -131076, 589826, 37, -65540, 589826, 38, -196611, 655362, 36, -131075, 655362, 37, -65539, 655362, 38, -65533, 65538, 22, 3, 65538, 23)
 layer_4/name = "Items2"
 layer_4/enabled = true
 layer_4/modulate = Color(1, 1, 1, 1)
@@ -608,6 +652,8 @@ libraries = {
 [node name="SpawnPoint" type="Node2D" parent="TileMap/Bedroom-LivingRoom"]
 position = Vector2(0, 14)
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="TileMap/Bedroom-LivingRoom"]
+
 [node name="LivingRoom-Bedroom" type="StaticBody2D" parent="TileMap"]
 y_sort_enabled = true
 position = Vector2(-80, -464)
@@ -633,6 +679,8 @@ libraries = {
 
 [node name="SpawnPoint" type="Node2D" parent="TileMap/LivingRoom-Bedroom"]
 position = Vector2(0, -16)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="TileMap/LivingRoom-Bedroom"]
 
 [node name="MomRoom" type="StaticBody2D" parent="TileMap"]
 y_sort_enabled = true
@@ -662,7 +710,6 @@ text = Array[String](["Mom's room. It's locked."])
 y_sort_enabled = true
 position = Vector2(-112, -720)
 scale = Vector2(2, 2)
-collision_layer = 5
 script = ExtResource("9_rpkrh")
 linked_door = "Apt-Home"
 linked_scene = "apartment"
@@ -682,6 +729,27 @@ libraries = {
 
 [node name="SpawnPoint" type="Node2D" parent="TileMap/Home-Apt"]
 position = Vector2(0, 17)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="TileMap/Home-Apt"]
+
+[node name="AptDoor" type="StaticBody2D" parent="TileMap"]
+y_sort_enabled = true
+position = Vector2(-112, -720)
+scale = Vector2(2, 2)
+collision_layer = 5
+script = ExtResource("12_5v4fv")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="TileMap/AptDoor"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_pwfmn")
+
+[node name="DialogueTree" type="Node" parent="TileMap/AptDoor"]
+script = ExtResource("3_q0eu1")
+
+[node name="DialogueSet" type="Node" parent="TileMap/AptDoor/DialogueTree"]
+script = ExtResource("4_3qmkm")
+looping = true
+text = Array[String](["You should write in your [color=yellow]diary[/color] before you leave."])
 
 [node name="LRoom-Bathroom" type="StaticBody2D" parent="TileMap"]
 y_sort_enabled = true
@@ -705,6 +773,32 @@ libraries = {
 
 [node name="SpawnPoint" type="Node2D" parent="TileMap/LRoom-Bathroom"]
 position = Vector2(32, 0)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="TileMap/LRoom-Bathroom"]
+
+[node name="Bathroom-LRoom" type="StaticBody2D" parent="TileMap"]
+position = Vector2(-624, -560)
+collision_layer = 5
+script = ExtResource("9_rpkrh")
+linked_door = "LRoom-Bathroom"
+animated = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/Bathroom-LRoom"]
+shape = SubResource("RectangleShape2D_ituba")
+
+[node name="Sprite2D" type="Sprite2D" parent="TileMap/Bathroom-LRoom"]
+texture = ExtResource("27_3ofs2")
+hframes = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TileMap/Bathroom-LRoom"]
+libraries = {
+"": SubResource("AnimationLibrary_u4162")
+}
+
+[node name="SpawnPoint" type="Node2D" parent="TileMap/Bathroom-LRoom"]
+position = Vector2(-32, 0)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="TileMap/Bathroom-LRoom"]
 
 [node name="Diary" type="StaticBody2D" parent="TileMap"]
 y_sort_enabled = true
@@ -737,6 +831,8 @@ script = ExtResource("4_3qmkm")
 looping = true
 text = Array[String](["Save progress?"])
 options_text = Array[String](["Yes", "No"])
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="TileMap/Diary"]
 
 [node name="LightSwitch" type="StaticBody2D" parent="TileMap" groups=["Persist"]]
 y_sort_enabled = true
@@ -818,28 +914,6 @@ scale = Vector2(1.30859, 1.58203)
 energy = 0.7
 texture = ExtResource("18_rng1b")
 
-[node name="Bathroom-LRoom" type="StaticBody2D" parent="TileMap"]
-position = Vector2(-624, -560)
-collision_layer = 5
-script = ExtResource("9_rpkrh")
-linked_door = "LRoom-Bathroom"
-animated = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/Bathroom-LRoom"]
-shape = SubResource("RectangleShape2D_ituba")
-
-[node name="Sprite2D" type="Sprite2D" parent="TileMap/Bathroom-LRoom"]
-texture = ExtResource("27_3ofs2")
-hframes = 5
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="TileMap/Bathroom-LRoom"]
-libraries = {
-"": SubResource("AnimationLibrary_u4162")
-}
-
-[node name="SpawnPoint" type="Node2D" parent="TileMap/Bathroom-LRoom"]
-position = Vector2(-32, 0)
-
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
 energy = 0.75
 blend_mode = 1
@@ -863,10 +937,10 @@ script = ExtResource("20_2pl4c")
 volume_db = -20.0
 
 [node name="Effects" type="CanvasLayer" parent="."]
+visible = false
 script = ExtResource("25_umur4")
 
 [node name="Panel" type="Panel" parent="Effects"]
-modulate = Color(1, 1, 1, 0)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

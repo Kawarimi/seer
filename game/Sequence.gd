@@ -2,7 +2,7 @@
 extends Node
 class_name Sequence
 
-const sequence_flags = ["text_finished"]
+const sequence_flags = ["text_finished", "trigger"]
 
 @onready var anim = $AnimationPlayer
 @export var on_advance : Dictionary
@@ -29,12 +29,17 @@ func on_init():
 	if(on_new != ""):
 		anim.play(on_new)
 		on_new = ""
+	play_triggers()
 
 func advance_seq(key : String):
 	if active and len(on_advance[key]) > 0:
-		print("Advancing sequence")
-		anim.play(on_advance[key][0])
-		on_advance[key].remove_at(0)
+		match key:
+			"trigger":
+				play_triggers()
+			_:
+				print("Advancing sequence")
+				anim.play(on_advance[key][0])
+				on_advance[key].remove_at(0)
 
 func activate(state):
 	active = state
@@ -43,3 +48,13 @@ func skip(key : String):
 	anim.seek(anim.get_current_animation_length())
 	if(key):
 		advance_seq(key)
+		
+func add_trigger(key : String):
+	if not on_advance["trigger"].has(key):
+		on_advance["trigger"].append(key)
+		anim.play(key)
+
+func play_triggers():
+	print("Playing triggers")
+	for i in len(on_advance["trigger"]):
+		anim.play(on_advance["trigger"][i])
