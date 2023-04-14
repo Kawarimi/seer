@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dm1xjkwcrf7ly"
-path="res://.godot/imported/stairdown.png-3ee34703c25dd07aabac636462e71a67.ctex"
+uid="uid://dm32kke6dc6du"
+path="res://.godot/imported/stairdown.png-85e268d09910ccfdeea54eaff7862aa6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/world/Home/stairdown.png"
-dest_files=["res://.godot/imported/stairdown.png-3ee34703c25dd07aabac636462e71a67.ctex"]
+source_file="res://art/world/Apartment/stairdown.png"
+dest_files=["res://.godot/imported/stairdown.png-85e268d09910ccfdeea54eaff7862aa6.ctex"]
 
 [params]
 

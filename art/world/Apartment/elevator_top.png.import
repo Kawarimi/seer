@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dpeipkhnmqmyg"
-path="res://.godot/imported/stairup.png-f48422c6149044ca8292fe97c4f132c7.ctex"
+uid="uid://6v75ucvv0pam"
+path="res://.godot/imported/elevator_top.png-8448135e080158015c5a8aae5717cbb2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/world/Home/stairup.png"
-dest_files=["res://.godot/imported/stairup.png-f48422c6149044ca8292fe97c4f132c7.ctex"]
+source_file="res://art/world/Apartment/elevator_top.png"
+dest_files=["res://.godot/imported/elevator_top.png-8448135e080158015c5a8aae5717cbb2.ctex"]
 
 [params]
 

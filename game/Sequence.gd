@@ -9,10 +9,6 @@ const sequence_flags = ["text_finished"]
 @export var active = true
 @export var on_new = ""
 
-func _ready():
-	if not Engine.is_editor_hint():
-		on_init()
-
 func _process(_delta):
 	if Engine.is_editor_hint():
 		if on_advance.size() == 0:

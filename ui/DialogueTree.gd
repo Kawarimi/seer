@@ -18,7 +18,7 @@ func play(): #returns false on tree end, and index
 	
 	var adv = advance()
 	
-	textbox.load_dialogue(selected.get("text"),selected.get("names"),selected.get("image"),selected.get("options_text"), self)
+	textbox.load_dialogue(selected.get("text"),selected.get("names"),selected.get("image"),selected.get("options_text"),selected.get("sfx"), self)
 	if selected.get_options_length() > 0:
 		await option_chosen
 

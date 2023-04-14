@@ -120,7 +120,6 @@ theme_override_constants/separation = 65
 
 [node name="Textbox" type="CanvasLayer" parent="."]
 script = ExtResource("3_mkgh6")
-tween_speed = 0.065
 
 [node name="TextboxContainer" type="MarginContainer" parent="Textbox"]
 visible = false
@@ -223,6 +222,9 @@ layout_mode = 2
 [node name="HBoxContainer" type="HBoxContainer" parent="Textbox/OptionsContainer/Options"]
 layout_mode = 2
 size_flags_horizontal = 4
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Textbox"]
+volume_db = -20.0
 
 [node name="LevelManager" type="Node" parent="."]
 script = ExtResource("1_4d807")

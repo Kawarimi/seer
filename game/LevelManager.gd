@@ -4,6 +4,8 @@ extends Node
 @onready var sequences = get_node(current_level.name+"/Sequences").get_children()
 const level_path = "res://scenes/%s.tscn"
 
+signal level_loaded
+
 var save : Dictionary
 
 var player
@@ -15,6 +17,8 @@ func _ready():
 	if SaveFile.save_idx != null:
 		print("Loading game from save ", SaveFile.save_idx)
 		load_game(SaveFile.save_idx)
+		await level_loaded
+	seq_init_all()
 
 func find_new(on_scene):
 	player = on_scene.find_child("Player")
@@ -23,7 +27,7 @@ func find_new(on_scene):
 func load_level(level : String):
 	if current_level.name != level:
 		save[current_level.name] = save_nodes()
-	current_level.free()
+	current_level.queue_free()
 	
 	var scene = load(level_path % level)
 	var new_level = scene.instantiate()
@@ -36,6 +40,7 @@ func load_level(level : String):
 			get_node(node).on_load(save[level][node])
 
 	current_level = new_level
+	level_loaded.emit()
 	return new_level
 
 func player_to_point(point: Vector2):
@@ -77,5 +82,12 @@ func _on_save_menu_save_game(save_idx : int):
 
 func _on_textbox_text_finished():
 	print("Text finished")
+	seq_adv_all("text_finished")
+
+func seq_adv_all(key : String):
 	for seq in sequences:
-		seq.advance_seq("text_finished")
+		seq.advance_seq(key)
+		
+func seq_init_all():
+	for seq in sequences:
+		seq.on_init()

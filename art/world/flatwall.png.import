@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bs503ugx73l07"
-path="res://.godot/imported/counter.png-a7b617aba8f499438a43a5f5c8111b11.ctex"
+uid="uid://bn5xg7pd8mvnm"
+path="res://.godot/imported/flatwall.png-19771c16c2290ed2f85adaa5dc7399a7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/world/Home/counter.png"
-dest_files=["res://.godot/imported/counter.png-a7b617aba8f499438a43a5f5c8111b11.ctex"]
+source_file="res://art/world/flatwall.png"
+dest_files=["res://.godot/imported/flatwall.png-19771c16c2290ed2f85adaa5dc7399a7.ctex"]
 
 [params]
 

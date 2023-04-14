@@ -1,11 +1,12 @@
 extends CanvasLayer
 
-@export var tween_speed = 0.075
+const tween_speed = 0.075
 
 @onready var next_symbol = $TextboxContainer/NextArrow/Next
 @onready var text_label = $TextboxContainer/Text/TextLabel
 @onready var name_label = $TextboxContainer/PortraitBox/ImageLabel/Name
 @onready var img_display = $TextboxContainer/PortraitBox/ImageLabel/Image
+@onready var text_audio = $AudioStreamPlayer
 
 var text_tween
 
@@ -24,6 +25,7 @@ var active_tree = null
 var text_queue = []
 var name_queue = []
 var img_queue = []
+var aud_queue = []
 
 signal player_activated
 signal text_finished
@@ -79,6 +81,7 @@ func show_textbox():
 
 func hide_textbox():
 	$TextboxContainer.hide()
+	text_audio.stream = null
 	current_state = State.READY
 	player_activated.emit(true)
 	
@@ -92,6 +95,7 @@ func text_reading_finished():
 	else:
 		next_symbol.show()
 		current_state = State.FINISHED
+	text_audio.stop()
 
 func next_text():
 	var read_time = len(text_queue[0]) * tween_speed
@@ -111,16 +115,22 @@ func next_text():
 		var img = img_queue.pop_front()
 		if not img == null:
 			img_display.sprite_frames =  img
+	if not aud_queue == []:
+		var audio = aud_queue.pop_front()
+		if not audio == null:
+			text_audio.stream = audio
 	img_display.play()
+	text_audio.play()
 	
 	current_state = State.READING
 
-func load_dialogue(_text, _name, _img, _options, tree):
+func load_dialogue(_text, _name, _img, _options, _audio, tree):
 	print("Loading dialogue onto textbox")
 	text_queue.assign(_text)
 	name_queue.assign(_name)
 	img_queue.assign(_img)
 	options.assign(_options)
+	aud_queue.assign(_audio)
 	active_tree = tree
 	
 	show_textbox()

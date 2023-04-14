@@ -8,6 +8,7 @@ class_name DialogueSet
 @export var text: Array[String]
 @export var image : Array[SpriteFrames]
 @export var names : Array[String]
+@export var sfx : Array[AudioStreamOggVorbis]
 
 @export_group("Option Set")
 @export var options_text : Array[String]

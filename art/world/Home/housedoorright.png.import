@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://btkcjnhnlynak"
-path="res://.godot/imported/carpet.png-f5ed4d64b8393363f77bc8f76bbe60d8.ctex"
+uid="uid://b5qs0j4j041ex"
+path="res://.godot/imported/housedoorright.png-967aa3fc6f349a81e59f50d050b4d138.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/world/Home/carpet.png"
-dest_files=["res://.godot/imported/carpet.png-f5ed4d64b8393363f77bc8f76bbe60d8.ctex"]
+source_file="res://art/world/Home/housedoorright.png"
+dest_files=["res://.godot/imported/housedoorright.png-967aa3fc6f349a81e59f50d050b4d138.ctex"]
 
 [params]
 
