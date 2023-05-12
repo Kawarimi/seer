@@ -27,7 +27,7 @@ var name_queue = []
 var img_queue = []
 var aud_queue = []
 
-signal player_activated
+signal opened
 signal text_finished
 
 const option_template = preload("res://ui/option_container.tscn")
@@ -75,7 +75,7 @@ func play_tree():
 func show_textbox():
 	$TextboxContainer.show()
 	next_symbol.hide()
-	player_activated.emit(false)
+	opened.emit(true)
 	$TextboxContainer/PortraitBox.show()
 	$TextboxContainer/Text.set("theme_override_constants/margin_left", 155)
 
@@ -83,7 +83,7 @@ func hide_textbox():
 	$TextboxContainer.hide()
 	text_audio.stream = null
 	current_state = State.READY
-	player_activated.emit(true)
+	opened.emit(false)
 	
 func hide_image():
 	$TextboxContainer/PortraitBox.hide()
@@ -146,7 +146,7 @@ func show_options():
 		container.add_child(new_option)
 		new_option.set_text(option)
 	container.get_child(0).selected()
-	player_activated.emit(false)
+	opened.emit(true)
 	current_state = State.OPTIONS
 	
 func select_option(target_index):
@@ -159,7 +159,7 @@ func hide_options():
 	for n in container.get_child_count():
 		container.get_child(n).queue_free()
 	$OptionsContainer.hide()
-	player_activated.emit(true)
+	opened.emit(false)
 	current_state = State.READY
 	selected_index = 0
 

@@ -6,23 +6,25 @@ extends StaticBody2D
 @export var enabled = true
 @onready var anim = $AnimationPlayer
 @onready var spawn = $SpawnPoint
+@onready var level = $/root/Control/LevelManager
+@onready var fx = $/root/Control/Effects
 
 func on_interact():
 	if enabled:
 		if animated:
 			anim.play("door_open")
-			await anim.animation_finished
+			if(linked_scene != ""):		
+				await fx.fade_out()
+			else:
+				await anim.animation_finished
 			transition()
 		else:
 			transition()
 
 func transition():
-		var level = $/root/Control/LevelManager
 		if(linked_scene != ""):
-			level = level.load_level(linked_scene)
-		level.find_child(linked_door).spawn_player()
-		if animated:
-			anim.play("door_close")
-
-func spawn_player():
-	$/root/Control/LevelManager.player_to_point(spawn.global_position)
+			level.call_deferred("load_level", linked_scene, linked_door)
+		else:
+			level.player_to_door(linked_door)
+			if animated:
+				anim.play("door_close")

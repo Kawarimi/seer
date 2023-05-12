@@ -1,12 +1,13 @@
 extends CharacterBody2D
 
 @export var speed : int
+@export var run_speed : int
 @onready var anim = $AnimationTree
 @onready var detector = $Detector
 
-@export var active = true
 var facing_dir = Vector2(0,1)
 var target_node
+var ui_locked = false
 var locked = false
 
 func _ready():
@@ -14,11 +15,9 @@ func _ready():
 	detector.body_exited.connect(left)
 
 func _physics_process(_delta):
-	if active and not locked:
+	if not locked and not ui_locked:
 		var input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 		velocity = input_dir * speed
-		
-		move_and_slide()
 		
 		if(velocity == Vector2.ZERO): #Animation setting
 			if(input_dir != Vector2.ZERO):
@@ -27,11 +26,18 @@ func _physics_process(_delta):
 			anim.get("parameters/playback").travel("Idle")
 		else:
 			facing_dir = input_dir
+			if Input.is_action_pressed("run"):
+				velocity = input_dir * run_speed
+				anim.set("parameters/Run/blend_position", input_dir)
+				anim.get("parameters/playback").travel("Run")
+			else:
+				anim.set("parameters/Move/blend_position", input_dir)
+				anim.get("parameters/playback").travel("Move")
+			
 			anim.set("parameters/Idle/blend_position", input_dir)
-			anim.set("parameters/Move/blend_position", input_dir)
-			anim.get("parameters/playback").travel("Move")
 		
 		move_detector()
+		move_and_slide()
 		
 		if(Input.is_action_just_pressed("interact")): #Raycasting
 			if target_node is AnimatableBody2D: #for NPC
@@ -71,7 +77,7 @@ func on_load(data):
 	
 func lock():
 	locked = !locked
-	print("SET LOCK TO:",locked)
+	print("Lock set to:",locked)
 		
 func face_to(dir : Vector2):
 	anim.set("parameters/Idle/blend_position", dir)

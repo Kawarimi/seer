@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://cj0kt7mdnvubw"]
+
+[ext_resource type="Script" path="res://game/Item.gd" id="1_8enh2"]
+[ext_resource type="Texture2D" uid="uid://djsormn6d3isc" path="res://art/items/knife.png" id="1_yljnq"]
+
+[resource]
+script = ExtResource("1_8enh2")
+name = "Knife"
+desc = "A kitchen knife."
+price = 0
+img = ExtResource("1_yljnq")

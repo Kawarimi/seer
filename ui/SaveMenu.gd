@@ -5,7 +5,7 @@ const max_saves = 7
 @onready var container = $MenuPanel/VBoxContainer
 
 signal save_game
-signal player_activated
+signal opened
 
 var active = false
 
@@ -41,7 +41,7 @@ func show_menu():
 	container.get_child(0).get_node("Button").grab_focus()
 	
 	await get_tree().process_frame
-	player_activated.emit(false)
+	opened.emit(true)
 	active = true
 
 func hide_menu():
@@ -49,6 +49,6 @@ func hide_menu():
 		container.get_child(n).queue_free()
 	$MenuPanel.hide()
 	active = false
-	player_activated.emit(true)
+	opened.emit(false)
 	if get_node_or_null("/root/Control/LevelManager/home/TileMap/Diary"):
 		$/root/Control/LevelManager/home/TileMap/Diary.close_diary()

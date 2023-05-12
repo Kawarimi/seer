@@ -1,12 +1,13 @@
-[gd_scene load_steps=15 format=3 uid="uid://bp5s0mmi48d1n"]
+[gd_scene load_steps=16 format=3 uid="uid://bp5s0mmi48d1n"]
 
 [ext_resource type="Script" path="res://ui/Main_Menu.gd" id="1_hk83e"]
 [ext_resource type="FontFile" uid="uid://cjjk7gwqjreyh" path="res://ui/HelvetiPixel.ttf" id="2_fn4sb"]
 [ext_resource type="FontFile" uid="uid://fq2pv7o6q6kd" path="res://ui/TimesNewPixel.ttf" id="3_vv7cn"]
 [ext_resource type="Texture2D" uid="uid://oucc065t5b2a" path="res://ui/gear.png" id="4_65qxo"]
 [ext_resource type="Texture2D" uid="uid://ddr6qqd552k2b" path="res://art/world/Home/diary.png" id="5_i7ui6"]
+[ext_resource type="AudioStream" uid="uid://b45cu40bxvjbo" path="res://art/music/the_seer.wav" id="6_2q5ul"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_natgq"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cjjd7"]
 bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vln7m"]
@@ -42,7 +43,7 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(1, 1, 1, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0bmj7"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_natgq"]
 bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kwld0"]
@@ -69,7 +70,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_natgq")
+theme_override_styles/panel = SubResource("StyleBoxFlat_cjjd7")
 
 [node name="Title" type="Label" parent="."]
 layout_mode = 1
@@ -178,6 +179,7 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_kwmx1")
 theme_override_styles/hover = SubResource("StyleBoxTexture_1sxrh")
 
 [node name="Instructions" type="Panel" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -205,9 +207,9 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -336.0
+offset_left = -338.0
 offset_top = 184.0
-offset_right = -188.0
+offset_right = -190.0
 offset_bottom = 222.0
 grow_horizontal = 2
 theme_override_fonts/font = ExtResource("2_fn4sb")
@@ -228,7 +230,7 @@ offset_bottom = 222.0
 grow_horizontal = 2
 theme_override_fonts/font = ExtResource("2_fn4sb")
 theme_override_font_sizes/font_size = 40
-text = "Open diary"
+text = "Show items"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -260,7 +262,7 @@ offset_bottom = 222.0
 grow_horizontal = 2
 theme_override_fonts/font = ExtResource("2_fn4sb")
 theme_override_font_sizes/font_size = 40
-text = "Open menu"
+text = "Show notes"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -425,7 +427,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("2_fn4sb")
 theme_override_font_sizes/font_size = 60
-text = "Y"
+text = "Q"
 horizontal_alignment = 1
 
 [node name="Box6" type="Panel" parent="Instructions"]
@@ -468,41 +470,17 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -15.5
+offset_left = -24.5
 offset_top = -25.0
-offset_right = 22.5
+offset_right = 24.5
 offset_bottom = 30.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("2_fn4sb")
 theme_override_font_sizes/font_size = 60
-text = "R"
-
-[node name="AskName" type="Panel" parent="Instructions"]
-z_index = 1
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_0bmj7")
-
-[node name="LineEdit" type="LineEdit" parent="Instructions/AskName"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -130.5
-offset_top = -35.5
-offset_right = 130.5
-offset_bottom = 35.5
-grow_horizontal = 2
-grow_vertical = 2
-text = "Evo"
-placeholder_text = "Your Name"
+text = "T"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="SettingsPanel" type="Panel" parent="."]
 visible = false
@@ -571,6 +549,11 @@ offset_top = 141.0
 offset_right = 290.0
 offset_bottom = 596.0
 theme_override_constants/separation = 65
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_2q5ul")
+volume_db = -11.345
+autoplay = true
 
 [connection signal="pressed" from="New Game" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="Continue" to="." method="_on_continue_pressed"]

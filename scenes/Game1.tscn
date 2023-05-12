@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://nw8qgs6rkle"]
+[gd_scene load_steps=29 format=3 uid="uid://nw8qgs6rkle"]
 
 [ext_resource type="Script" path="res://game/LevelManager.gd" id="1_4d807"]
 [ext_resource type="PackedScene" uid="uid://0jktuolqn3qn" path="res://scenes/home.tscn" id="2_wpagl"]
@@ -8,6 +8,12 @@
 [ext_resource type="Script" path="res://ui/DialogueTree.gd" id="5_owufg"]
 [ext_resource type="SpriteFrames" uid="uid://3b7od2atskhd" path="res://art/dialogue/seer1.tres" id="6_f78pm"]
 [ext_resource type="Script" path="res://ui/Dialogue.gd" id="6_xs7cf"]
+[ext_resource type="Script" path="res://ui/GameMenu.gd" id="8_36mal"]
+[ext_resource type="Script" path="res://ui/HoverButton.gd" id="9_30xae"]
+[ext_resource type="Script" path="res://ui/Effects.gd" id="10_dbfyb"]
+[ext_resource type="Script" path="res://ui/ItemDisplay.gd" id="10_hr5ac"]
+[ext_resource type="Shader" path="res://art/shaders/transition.gdshader" id="11_fk6pa"]
+[ext_resource type="Texture2D" uid="uid://cw0q7nmem52op" path="res://art/shaders/blackscreen.png" id="12_dc5wa"]
 [ext_resource type="Script" path="res://ui/SaveMenu.gd" id="19_h4x73"]
 
 [sub_resource type="GDScript" id="GDScript_5ixi2"]
@@ -42,6 +48,99 @@ border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qid7u"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q8tuy"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bq620"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jhe7e"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f7cbb"]
+shader = ExtResource("11_fk6pa")
+shader_parameter/time = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sxqba"]
+shader = ExtResource("11_fk6pa")
+shader_parameter/time = 0.0
+
+[sub_resource type="Animation" id="Animation_rtfqa"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel/AnimatedSprite2D:material:shader_parameter/time")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Panel:material:shader_parameter/time")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_vek4s"]
+resource_name = "fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel/AnimatedSprite2D:material:shader_parameter/time")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.9, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.57]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Panel:material:shader_parameter/time")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.57]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bwusr"]
+_data = {
+"RESET": SubResource("Animation_rtfqa"),
+"fade_out": SubResource("Animation_vek4s")
+}
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -224,12 +323,310 @@ size_flags_horizontal = 4
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Textbox"]
 volume_db = -20.0
 
+[node name="Menu" type="CanvasLayer" parent="." groups=["Persist"]]
+script = ExtResource("8_36mal")
+
+[node name="TopPanel" type="Panel" parent="Menu"]
+visible = false
+offset_right = 1152.0
+offset_bottom = 129.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_qid7u")
+
+[node name="ItemsButton" type="Button" parent="Menu/TopPanel"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 40.0
+offset_top = -32.5
+offset_right = 392.0
+offset_bottom = 32.5
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("5_18yfw")
+theme_override_font_sizes/font_size = 46
+theme_override_styles/normal = SubResource("StyleBoxFlat_q8tuy")
+text = "ITEMS"
+script = ExtResource("9_30xae")
+
+[node name="NotesButton" type="Button" parent="Menu/TopPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -176.0
+offset_top = -32.5
+offset_right = 176.0
+offset_bottom = 32.5
+grow_horizontal = 2
+grow_vertical = 2
+focus_neighbor_bottom = NodePath("../../NotesPanel")
+theme_override_fonts/font = ExtResource("5_18yfw")
+theme_override_font_sizes/font_size = 46
+theme_override_styles/normal = SubResource("StyleBoxFlat_q8tuy")
+text = "NOTES"
+script = ExtResource("9_30xae")
+
+[node name="GameButton" type="Button" parent="Menu/TopPanel"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -392.0
+offset_top = -32.5
+offset_right = -40.0
+offset_bottom = 32.5
+grow_horizontal = 0
+grow_vertical = 2
+focus_neighbor_bottom = NodePath("../../GamePanel/Button")
+theme_override_fonts/font = ExtResource("5_18yfw")
+theme_override_font_sizes/font_size = 46
+theme_override_styles/normal = SubResource("StyleBoxFlat_q8tuy")
+text = "GAME"
+script = ExtResource("9_30xae")
+
+[node name="GamePanel" type="Panel" parent="Menu"]
+visible = false
+offset_left = 825.0
+offset_top = 125.0
+offset_right = 1052.0
+offset_bottom = 570.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_qid7u")
+
+[node name="Button" type="Button" parent="Menu/GamePanel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -95.0
+offset_top = 56.0
+offset_right = 95.0
+offset_bottom = 106.0
+grow_horizontal = 2
+focus_neighbor_top = NodePath("../../TopPanel/GameButton")
+theme_override_fonts/font = ExtResource("5_18yfw")
+theme_override_font_sizes/font_size = 44
+text = "SETTINGS"
+
+[node name="Button2" type="Button" parent="Menu/GamePanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -95.0
+offset_top = -25.0
+offset_right = 95.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("5_18yfw")
+theme_override_font_sizes/font_size = 44
+text = "LOAD"
+
+[node name="Button3" type="Button" parent="Menu/GamePanel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -95.0
+offset_top = -101.0
+offset_right = 95.0
+offset_bottom = -51.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("5_18yfw")
+theme_override_font_sizes/font_size = 44
+text = "QUIT"
+
+[node name="NotesPanel" type="Panel" parent="Menu"]
+visible = false
+offset_left = 40.0
+offset_top = 125.0
+offset_right = 1112.0
+offset_bottom = 618.0
+focus_neighbor_top = NodePath("../TopPanel/NotesButton")
+focus_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qid7u")
+
+[node name="DateLabel" type="Label" parent="Menu/NotesPanel"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 13.0
+offset_right = 536.0
+offset_bottom = 106.0
+theme_override_fonts/font = ExtResource("5_18yfw")
+theme_override_font_sizes/font_size = 32
+text = "03/04/20**
+---------------"
+
+[node name="PageLabel" type="Label" parent="Menu/NotesPanel"]
+layout_mode = 0
+offset_left = 536.0
+offset_top = 13.0
+offset_right = 1012.0
+offset_bottom = 56.0
+theme_override_fonts/font = ExtResource("5_18yfw")
+theme_override_font_sizes/font_size = 32
+text = "Page 1"
+horizontal_alignment = 2
+
+[node name="Arrow" type="Label" parent="Menu/NotesPanel"]
+layout_mode = 0
+offset_left = 536.0
+offset_top = 46.0
+offset_right = 1012.0
+offset_bottom = 106.0
+theme_override_fonts/font = ExtResource("5_18yfw")
+theme_override_font_sizes/font_size = 32
+text = "->"
+horizontal_alignment = 2
+
+[node name="Text" type="RichTextLabel" parent="Menu/NotesPanel"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 106.0
+offset_right = 1031.0
+offset_bottom = 457.0
+theme_override_fonts/normal_font = ExtResource("4_77ac3")
+theme_override_font_sizes/normal_font_size = 32
+text = "I set off from home this morning."
+
+[node name="ItemsPanel" type="Panel" parent="Menu"]
+visible = false
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 40.0
+offset_top = -199.0
+offset_right = 244.0
+offset_bottom = 294.0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qid7u")
+
+[node name="ItemDisplay" type="Panel" parent="Menu/ItemsPanel"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 200.0
+offset_top = -246.5
+offset_right = 678.0
+offset_bottom = -112.5
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qid7u")
+script = ExtResource("10_hr5ac")
+
+[node name="ItemImage" type="TextureRect" parent="Menu/ItemsPanel/ItemDisplay"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 3.0
+offset_right = 132.0
+offset_bottom = 131.0
+
+[node name="Value" type="Label" parent="Menu/ItemsPanel/ItemDisplay"]
+layout_mode = 0
+offset_left = 408.0
+offset_top = 13.0
+offset_right = 488.0
+offset_bottom = 46.0
+theme_override_fonts/font = ExtResource("5_18yfw")
+theme_override_font_sizes/font_size = 34
+text = "0$"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ItemText" type="RichTextLabel" parent="Menu/ItemsPanel/ItemDisplay"]
+layout_mode = 0
+offset_left = 166.0
+offset_top = 19.0
+offset_right = 427.0
+offset_bottom = 114.0
+theme_override_fonts/normal_font = ExtResource("4_77ac3")
+theme_override_font_sizes/normal_font_size = 22
+
+[node name="UseButton" type="Button" parent="Menu/ItemsPanel/ItemDisplay"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 23.0
+offset_top = 81.0
+offset_right = 233.0
+offset_bottom = 123.0
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("5_18yfw")
+theme_override_font_sizes/font_size = 38
+theme_override_styles/normal = SubResource("StyleBoxFlat_bq620")
+text = "USE"
+
+[node name="DiscardButton" type="Button" parent="Menu/ItemsPanel/ItemDisplay"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 270.0
+offset_top = 81.0
+offset_right = 465.0
+offset_bottom = 123.0
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("5_18yfw")
+theme_override_font_sizes/font_size = 38
+theme_override_styles/normal = SubResource("StyleBoxFlat_jhe7e")
+text = "DISCARD"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Menu/ItemsPanel"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 13.0
+offset_right = 180.0
+offset_bottom = 480.0
+horizontal_scroll_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/ItemsPanel/ScrollContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Effects" type="CanvasLayer" parent="."]
+script = ExtResource("10_dbfyb")
+
+[node name="Panel" type="Sprite2D" parent="Effects"]
+material = SubResource("ShaderMaterial_f7cbb")
+position = Vector2(576, 323)
+texture = ExtResource("12_dc5wa")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Effects/Panel"]
+material = SubResource("ShaderMaterial_sxqba")
+position = Vector2(441, 262)
+sprite_frames = ExtResource("6_f78pm")
+
+[node name="EffectPlayer" type="AnimationPlayer" parent="Effects"]
+libraries = {
+"": SubResource("AnimationLibrary_bwusr")
+}
+
 [node name="LevelManager" type="Node" parent="."]
 script = ExtResource("1_4d807")
 
 [node name="home" parent="LevelManager" instance=ExtResource("2_wpagl")]
 
-[connection signal="player_activated" from="SaveMenu" to="LevelManager" method="player_activated"]
+[connection signal="opened" from="SaveMenu" to="Menu" method="_on_save_menu_opened"]
+[connection signal="opened" from="SaveMenu" to="LevelManager" method="_on_menu_opened"]
 [connection signal="save_game" from="SaveMenu" to="LevelManager" method="_on_save_menu_save_game"]
-[connection signal="player_activated" from="Textbox" to="LevelManager" method="player_activated"]
+[connection signal="opened" from="Textbox" to="LevelManager" method="_on_textbox_opened"]
 [connection signal="text_finished" from="Textbox" to="LevelManager" method="_on_textbox_text_finished"]
+[connection signal="opened" from="Menu" to="LevelManager" method="_on_menu_opened"]
+[connection signal="focus_entered" from="Menu/TopPanel/ItemsButton" to="Menu" method="_on_items_button_focus_entered"]
+[connection signal="mouse_entered" from="Menu/TopPanel/ItemsButton" to="Menu/TopPanel/ItemsButton" method="_on_mouse_entered"]
+[connection signal="focus_entered" from="Menu/TopPanel/NotesButton" to="Menu" method="_on_notes_button_focus_entered"]
+[connection signal="mouse_entered" from="Menu/TopPanel/NotesButton" to="Menu/TopPanel/NotesButton" method="_on_mouse_entered"]
+[connection signal="focus_entered" from="Menu/TopPanel/GameButton" to="Menu" method="_on_game_button_focus_entered"]
+[connection signal="mouse_entered" from="Menu/TopPanel/GameButton" to="Menu/TopPanel/GameButton" method="_on_mouse_entered"]
+[connection signal="pressed" from="Menu/ItemsPanel/ItemDisplay/UseButton" to="Menu" method="_on_use_button_pressed"]
+[connection signal="pressed" from="Menu/ItemsPanel/ItemDisplay/DiscardButton" to="Menu" method="_on_discard_button_pressed"]

@@ -1,0 +1,106 @@
+[gd_scene load_steps=18 format=3 uid="uid://cdv78m5m13ovb"]
+
+[ext_resource type="Script" path="res://game/Player.gd" id="1_f4c61"]
+[ext_resource type="Texture2D" uid="uid://ch8qpervmvoaf" path="res://art/characters/MC.png" id="2_ab88b"]
+[ext_resource type="AnimationLibrary" uid="uid://clwtv2pq0yhac" path="res://art/characters/Character.res" id="3_kx438"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pvn8g"]
+size = Vector2(24, 24)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qwum7"]
+radius = 12.0
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ya5mb"]
+animation = &"idle_down"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4auh7"]
+animation = &"idle_left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_i8xtn"]
+animation = &"idle_right"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_oo2bo"]
+animation = &"idle_up"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_qjjqu"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_ya5mb")
+blend_point_0/pos = Vector2(0, 1)
+blend_point_1/node = SubResource("AnimationNodeAnimation_4auh7")
+blend_point_1/pos = Vector2(-1, 0)
+blend_point_2/node = SubResource("AnimationNodeAnimation_i8xtn")
+blend_point_2/pos = Vector2(1, 0)
+blend_point_3/node = SubResource("AnimationNodeAnimation_oo2bo")
+blend_point_3/pos = Vector2(0, -1)
+blend_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_j6gsx"]
+animation = &"walk_down"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jlich"]
+animation = &"walk_up"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_njnku"]
+animation = &"walk_right"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1to21"]
+animation = &"walk_left"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_4yy8b"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_j6gsx")
+blend_point_0/pos = Vector2(0, 1)
+blend_point_1/node = SubResource("AnimationNodeAnimation_jlich")
+blend_point_1/pos = Vector2(0, -1)
+blend_point_2/node = SubResource("AnimationNodeAnimation_njnku")
+blend_point_2/pos = Vector2(1, 0)
+blend_point_3/node = SubResource("AnimationNodeAnimation_1to21")
+blend_point_3/pos = Vector2(-1, 0)
+blend_mode = 1
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_2feuv"]
+states/End/position = Vector2(200, 208)
+states/Idle/node = SubResource("AnimationNodeBlendSpace2D_qjjqu")
+states/Idle/position = Vector2(511, 100)
+states/Move/node = SubResource("AnimationNodeBlendSpace2D_4yy8b")
+states/Move/position = Vector2(511, 208)
+graph_offset = Vector2(-136.08, 29.6309)
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_1ij3b"]
+
+[node name="Player" type="CharacterBody2D" groups=["Persist"]]
+y_sort_enabled = true
+position = Vector2(-48, -624)
+collision_layer = 2
+script = ExtResource("1_f4c61")
+speed = 150
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 18)
+shape = SubResource("RectangleShape2D_pvn8g")
+
+[node name="Detector" type="Area2D" parent="."]
+collision_mask = 4
+
+[node name="DetectorShape" type="CollisionShape2D" parent="Detector"]
+shape = SubResource("CircleShape2D_qwum7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_ab88b")
+hframes = 56
+vframes = 20
+frame = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": ExtResource("3_kx438")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_2feuv")
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/playback = SubResource("AnimationNodeStateMachinePlayback_1ij3b")
+parameters/Idle/blend_position = Vector2(0, -1)
+parameters/Move/blend_position = Vector2(-0.00399679, 1)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(1.75, 1.75)

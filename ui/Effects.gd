@@ -1,7 +1,14 @@
 extends Node
 @onready var fxanim = $EffectPlayer
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	if(SaveFile.save_idx == null):
-		$Panel.modulate = Color(Color.BLACK, 1)
+func fade_out():
+	fxanim.play("fade_out")
+	$Panel/AnimatedSprite2D.play("default")
+	await fxanim.animation_finished
+	return
+	
+func fade_in():
+	fxanim.play_backwards("fade_out")
+	$Panel/AnimatedSprite2D.stop()
+	await fxanim.animation_finished
+	return

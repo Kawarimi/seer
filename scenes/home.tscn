@@ -1,13 +1,11 @@
-[gd_scene load_steps=67 format=3 uid="uid://0jktuolqn3qn"]
+[gd_scene load_steps=57 format=3 uid="uid://0jktuolqn3qn"]
 
 [ext_resource type="Script" path="res://game/Sequence.gd" id="2_mwcwe"]
 [ext_resource type="Script" path="res://ui/DialogueTree.gd" id="3_q0eu1"]
 [ext_resource type="Script" path="res://ui/Dialogue.gd" id="4_3qmkm"]
 [ext_resource type="SpriteFrames" uid="uid://diai4rq1kyrt2" path="res://art/dialogue/intro/mom.tres" id="5_mn3dc"]
-[ext_resource type="AudioStream" uid="uid://bbmye6nr34bls" path="res://art/dialogue/speak.ogg" id="5_wlynh"]
+[ext_resource type="PackedScene" uid="uid://cdv78m5m13ovb" path="res://game/player.tscn" id="6_1d2ru"]
 [ext_resource type="TileSet" uid="uid://6gy6nlqqr6ns" path="res://art/world/interior.tres" id="6_7vfif"]
-[ext_resource type="Script" path="res://game/Player.gd" id="7_rhnc0"]
-[ext_resource type="Texture2D" uid="uid://ch8qpervmvoaf" path="res://art/characters/MC.png" id="8_u1gko"]
 [ext_resource type="Script" path="res://game/NPC.gd" id="9_fno1b"]
 [ext_resource type="AnimationLibrary" uid="uid://clwtv2pq0yhac" path="res://art/characters/Character.res" id="9_re25r"]
 [ext_resource type="Script" path="res://game/Door.gd" id="9_rpkrh"]
@@ -26,7 +24,6 @@
 [ext_resource type="Texture2D" uid="uid://ddoh8diyotn3c" path="res://art/shaders/cube.png" id="18_rng1b"]
 [ext_resource type="AudioStream" uid="uid://civncfptfn31k" path="res://art/sfx/book_open.wav" id="19_vi4kr"]
 [ext_resource type="Script" path="res://scenes/BGM.gd" id="20_2pl4c"]
-[ext_resource type="Script" path="res://ui/Effects.gd" id="25_umur4"]
 [ext_resource type="Texture2D" uid="uid://j2olg6vnnddj" path="res://art/world/Home/housedoorleft.png" id="26_7n552"]
 [ext_resource type="Texture2D" uid="uid://b5qs0j4j041ex" path="res://art/world/Home/housedoorright.png" id="27_3ofs2"]
 
@@ -98,23 +95,13 @@ tracks/0/keys = {
 "method": &"play"
 }]
 }
-tracks/1/type = "animation"
+tracks/1/type = "method"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../../Effects/EffectPlayer")
+tracks/1/path = NodePath("../../TileMap/Player")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"clips": PackedStringArray("fade_out"),
-"times": PackedFloat32Array(0)
-}
-tracks/2/type = "method"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../../TileMap/Player")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "values": [{
@@ -124,6 +111,34 @@ tracks/2/keys = {
 "args": [Vector2(0, -1)],
 "method": &"face_to"
 }]
+}
+
+[sub_resource type="Animation" id="Animation_esx1s"]
+resource_name = "diary_saved_door_unlock"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../TileMap/AptDoor:collision_layer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../../TileMap/Home-Apt:collision_layer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
 }
 
 [sub_resource type="Animation" id="Animation_mwh8v"]
@@ -192,34 +207,6 @@ tracks/4/keys = {
 "times": PackedFloat32Array(1.6, 2.5)
 }
 
-[sub_resource type="Animation" id="Animation_esx1s"]
-resource_name = "diary_saved_door_unlock"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../../TileMap/AptDoor:collision_layer")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../../TileMap/Home-Apt:collision_layer")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [5]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_p453c"]
 _data = {
 "RESET": SubResource("Animation_3rxpj"),
@@ -230,9 +217,6 @@ _data = {
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pvn8g"]
 size = Vector2(24, 24)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_qwum7"]
-radius = 12.0
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ya5mb"]
 animation = &"idle_down"
@@ -288,12 +272,10 @@ states/Move/node = SubResource("AnimationNodeBlendSpace2D_4yy8b")
 states/Move/position = Vector2(511, 208)
 graph_offset = Vector2(-136.08, 29.6309)
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_adw7s"]
-
 [sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_uvyvc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pwfmn"]
-size = Vector2(10, 14)
+size = Vector2(14, 5.5)
 
 [sub_resource type="Animation" id="Animation_iahto"]
 length = 0.001
@@ -443,51 +425,6 @@ size = Vector2(16, 12)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kp6ml"]
 bg_color = Color(0, 0, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_msqeh"]
-bg_color = Color(0, 0, 0, 1)
-border_color = Color(1, 1, 1, 1)
-
-[sub_resource type="Animation" id="Animation_tki2i"]
-length = 0.001
-
-[sub_resource type="Animation" id="Animation_tx0tv"]
-resource_name = "fade_in"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Panel:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_7c51y"]
-resource_name = "fade_out"
-length = 1.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Panel:modulate")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1.5),
-"transitions": PackedFloat32Array(1, 2),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_dshb3"]
-_data = {
-"RESET": SubResource("Animation_tki2i"),
-"fade_in": SubResource("Animation_tx0tv"),
-"fade_out": SubResource("Animation_7c51y")
-}
-
 [node name="home" type="Node2D"]
 
 [node name="Sequences" type="Node" parent="."]
@@ -505,10 +442,9 @@ script = ExtResource("3_q0eu1")
 
 [node name="intro" type="Node" parent="Sequences/IntroSequence/Dialogue"]
 script = ExtResource("4_3qmkm")
-text = Array[String](["Hi sweetie.", "Something important came up with the relatives. They want me to be there, too.", "I won't be back until tomorrow, so I've left some food in the fridge.", "I'll be off now. Stay safe, okay?"])
+text = Array[String](["Yes.", "Mm-hm.", "Okay.", "I got it. I'll see you there."])
 image = Array[SpriteFrames]([ExtResource("5_mn3dc")])
 names = Array[String](["Mom"])
-sfx = Array[AudioStreamOggVorbis]([ExtResource("5_wlynh")])
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sequences/IntroSequence"]
 libraries = {
@@ -559,44 +495,7 @@ layer_5/y_sort_origin = 0
 layer_5/z_index = 1
 layer_5/tile_data = PackedInt32Array(-1703935, 524291, 7, -1703934, 589827, 7, -1703933, 786435, 7, -1703936, 589827, 32, -1572861, 65538, 11, -1507325, 65538, 12, -1310720, 393219, 16, -1245184, 393219, 17, -1310719, 458755, 16, -1245183, 458755, 17, -1310718, 524291, 16, -1245182, 524291, 17)
 
-[node name="Player" type="CharacterBody2D" parent="TileMap" groups=["Persist"]]
-y_sort_enabled = true
-position = Vector2(-48, -624)
-collision_layer = 2
-script = ExtResource("7_rhnc0")
-speed = 150
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/Player"]
-position = Vector2(0, 18)
-shape = SubResource("RectangleShape2D_pvn8g")
-
-[node name="Detector" type="Area2D" parent="TileMap/Player"]
-collision_mask = 4
-
-[node name="DetectorShape" type="CollisionShape2D" parent="TileMap/Player/Detector"]
-shape = SubResource("CircleShape2D_qwum7")
-
-[node name="Sprite2D" type="Sprite2D" parent="TileMap/Player"]
-texture = ExtResource("8_u1gko")
-hframes = 56
-vframes = 20
-frame = 1
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="TileMap/Player"]
-libraries = {
-"": ExtResource("9_re25r")
-}
-
-[node name="AnimationTree" type="AnimationTree" parent="TileMap/Player"]
-tree_root = SubResource("AnimationNodeStateMachine_2feuv")
-anim_player = NodePath("../AnimationPlayer")
-active = true
-parameters/playback = SubResource("AnimationNodeStateMachinePlayback_adw7s")
-parameters/Idle/blend_position = Vector2(0, -1)
-parameters/Move/blend_position = Vector2(-0.00399679, 1)
-
-[node name="Camera2D" type="Camera2D" parent="TileMap/Player"]
-zoom = Vector2(1.75, 1.75)
+[node name="Player" parent="TileMap" instance=ExtResource("6_1d2ru")]
 
 [node name="MomNPC" type="AnimatableBody2D" parent="TileMap" groups=["Persist"]]
 y_sort_enabled = true
@@ -669,6 +568,7 @@ shape = SubResource("RectangleShape2D_pwfmn")
 
 [node name="Sprite2D" type="Sprite2D" parent="TileMap/LivingRoom-Bedroom"]
 modulate = Color(1, 1, 1, 0.784314)
+z_index = 1
 texture = ExtResource("11_8c1r5")
 hframes = 5
 
@@ -690,11 +590,12 @@ collision_layer = 5
 script = ExtResource("12_5v4fv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/MomRoom"]
-position = Vector2(0, -5.5)
+position = Vector2(0, -5.25)
 shape = SubResource("RectangleShape2D_pwfmn")
 
 [node name="Sprite2D" type="Sprite2D" parent="TileMap/MomRoom"]
 modulate = Color(1, 1, 1, 0.784314)
+z_index = 1
 texture = ExtResource("11_8c1r5")
 hframes = 5
 
@@ -935,20 +836,3 @@ script = ExtResource("20_2pl4c")
 
 [node name="SFX" type="AudioStreamPlayer" parent="."]
 volume_db = -20.0
-
-[node name="Effects" type="CanvasLayer" parent="."]
-visible = false
-script = ExtResource("25_umur4")
-
-[node name="Panel" type="Panel" parent="Effects"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_msqeh")
-
-[node name="EffectPlayer" type="AnimationPlayer" parent="Effects"]
-libraries = {
-"": SubResource("AnimationLibrary_dshb3")
-}
