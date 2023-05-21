@@ -548,6 +548,7 @@ script = ExtResource("12_m4tlo")
 linked_door = "Home-Apt"
 linked_scene = "home"
 animated = true
+spawn_direction = Vector2(0, -1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/Apt-Home"]
 position = Vector2(-0.25, -5.25)
@@ -575,6 +576,7 @@ script = ExtResource("12_m4tlo")
 linked_door = "Out-Apt"
 linked_scene = "outside"
 animated = true
+spawn_direction = Vector2(1, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/Apt-Out"]
 position = Vector2(7, 0)
@@ -715,6 +717,34 @@ libraries = {
 modulate = Color(1, 1, 1, 0.784314)
 position = Vector2(-16, -560)
 texture = ExtResource("31_mwj6n")
+
+[node name="Door" type="StaticBody2D" parent="TileMap"]
+z_index = 1
+position = Vector2(1232, -368)
+scale = Vector2(2, 2)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/Door"]
+position = Vector2(-0.25, -5.25)
+shape = SubResource("RectangleShape2D_4ha4l")
+
+[node name="Sprite2D" type="Sprite2D" parent="TileMap/Door"]
+modulate = Color(1, 1, 1, 0.784314)
+texture = ExtResource("16_apfo4")
+hframes = 5
+
+[node name="Door2" type="StaticBody2D" parent="TileMap"]
+z_index = 1
+position = Vector2(1040, -368)
+scale = Vector2(2, 2)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/Door2"]
+position = Vector2(-0.25, -5.25)
+shape = SubResource("RectangleShape2D_4ha4l")
+
+[node name="Sprite2D" type="Sprite2D" parent="TileMap/Door2"]
+modulate = Color(1, 1, 1, 0.784314)
+texture = ExtResource("16_apfo4")
+hframes = 5
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
 energy = 0.0

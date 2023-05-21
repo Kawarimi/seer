@@ -8,22 +8,22 @@ extends Node
 @onready var item_container = $ItemsPanel/ScrollContainer/VBoxContainer
 @onready var item_display = $ItemsPanel/ItemDisplay
 
-var items_list : Dictionary
+const notes_max_length = 12
 
 var enabled = true
 var confirm = false
 var current_menu = 0
+var current_page = 0
 
-var inventory : Array[String]
-var notes : Array[String]
+var pages_text = [""]
+
+var inventory = []
+var notes = []
 
 signal opened
 
 func _ready():
-	for item_dir in DirAccess.open("res://game/items").get_files():
-		var item = load("res://game/items/%s"%item_dir)
-		items_list[item.get("name")] = item
-	print(items_list)
+	pass
 
 func _process(_delta):
 	if enabled:
@@ -34,9 +34,9 @@ func _process(_delta):
 				menu_open()
 		if note_panel.has_focus():
 			if Input.is_action_just_pressed("ui_right"):
-				pass #NOTES SCROLL HERE
+				page_turn(1)
 			if Input.is_action_just_pressed("ui_left"):
-				pass #NOTES SCROLL HERE
+				page_turn(-1)
 
 func inventory_load():
 	inventory.sort()
@@ -44,7 +44,7 @@ func inventory_load():
 		var new_item = menu_item.instantiate()
 		item_container.add_child(new_item)
 		new_item.connect("focus_entered", _on_item_focus_entered.bind(item))
-		new_item.set("text", item)
+		new_item.set("text", item.get("name"))
 	if(len(inventory)>0):
 		var items_button = $TopPanel/ItemsButton
 		item_container.get_child(0).focus_neighbor_top = items_button.get_path()
@@ -95,22 +95,45 @@ func hide_all():
 	note_panel.hide()
 	item_display.hide()
 
-func _on_item_focus_entered(item_name):
-	var item = items_list[item_name]
+func _on_item_focus_entered(item):
 	item_display.display(item.get("desc"),item.get("price"),item.get("img"))
 	item_display.show()
 
-func inventory_add(item):
+func inventory_add(item_dir):
+	var item = load("res://game/items/%s.tres"%item_dir)
 	inventory.append(item)
 	inventory_load()
 
-func inventory_remove(item):
-	inventory.remove_at(inventory.find(item))
+func inventory_remove(item_name):
+	inventory.remove_at(inventory.find(item_name))
 	inventory_load()
 
+func note_add(note_text):
+	notes.append(note_text)
+	pages_sort()
+	page_load()
+	
+func pages_sort():
+	for note in notes:
+		var page = pages_text[current_page]
+		if((page + note + "\n").count("\n") > notes_max_length):
+			current_page += 1
+			pages_text[current_page] = note+"\n"
+
+func page_load():
+	note_panel.get_node("Text").text = pages_text[current_page]
+
+func page_turn(dir):
+	if(current_page+dir >= 0 && current_page+dir<len(pages_text)):
+		current_page += dir
+		page_load()
+
 func on_save():
-	return [inventory, notes]
+	return [inventory, notes, current_page]
 
 func on_load(data):
 	inventory = data[0]
 	notes = data[1]
+	current_page = data[2]
+	pages_sort()
+	inventory_load()

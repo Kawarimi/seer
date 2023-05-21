@@ -19,6 +19,8 @@ func _physics_process(_delta):
 		var input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 		velocity = input_dir * speed
 		
+		move_and_slide()
+		
 		if(velocity == Vector2.ZERO): #Animation setting
 			if(input_dir != Vector2.ZERO):
 				anim.set("parameters/Idle/blend_position", input_dir)
@@ -36,8 +38,8 @@ func _physics_process(_delta):
 			
 			anim.set("parameters/Idle/blend_position", input_dir)
 		
+		#print(velocity)
 		move_detector()
-		move_and_slide()
 		
 		if(Input.is_action_just_pressed("interact")): #Raycasting
 			if target_node is AnimatableBody2D: #for NPC
@@ -75,10 +77,14 @@ func on_save():
 func on_load(data):
 	global_position = data
 	
-func lock():
-	locked = !locked
+func lock(state):
+	if(state):
+		locked = state
+	else:
+		locked = !locked
 	print("Lock set to:",locked)
 		
 func face_to(dir : Vector2):
 	anim.set("parameters/Idle/blend_position", dir)
 	anim.get("parameters/playback").travel("Idle")
+	print("Facing player to ",dir)

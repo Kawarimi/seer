@@ -12,6 +12,8 @@ var player
 var text_locked = false
 var menu_locked = false
 
+var last_used_door
+
 @onready var fx = $/root/Control/Effects
 
 func _ready():
@@ -60,20 +62,25 @@ func player_to_point(point: Vector2):
 	player.global_position = point
 
 func player_to_door(door_name: String):
-	var door_spawn = find_child(door_name).get("spawn")
-	player_to_point(door_spawn.global_position)
+	var door = find_child(door_name)
+	player_to_point(door.get("spawn").global_position)
+	player.face_to(door.get("spawn_direction"))
+	last_used_door = door
 
 func player_activated(state):
 	if not text_locked or not menu_locked:
 		player.set("ui_locked", state)
 		print("UI Lock set to: ", state)
 
+func player_lock(state : bool):
+	player.lock(state)
+
 func load_game(idx):
 	print("Loading game")
-	var onload_level = FileAccess.open(SaveFile.meta_path, FileAccess.READ).get_var()[idx]["onload"]
+	var meta = FileAccess.open(SaveFile.meta_path, FileAccess.READ).get_var()[idx]
 	save = FileAccess.open(SaveFile.save_path % idx, FileAccess.READ).get_var()
 
-	load_level(onload_level)
+	load_level(meta["onload"])
 
 func save_nodes():
 	var nodes = get_tree().get_nodes_in_group("Persist")
@@ -92,7 +99,9 @@ func _on_save_menu_save_game(save_idx : int):
 	var meta : Dictionary
 	if(FileAccess.open(SaveFile.meta_path, FileAccess.READ)):
 		meta = FileAccess.open(SaveFile.meta_path, FileAccess.READ).get_var()
-	meta[save_idx] = {"date": timedate, "onload": current_level.name}
+	meta[save_idx] = {
+	"date": timedate, 
+	"onload": current_level.name}
 	
 	FileAccess.open(SaveFile.save_path % save_idx, FileAccess.WRITE).store_var(save)
 	FileAccess.open(SaveFile.meta_path, FileAccess.WRITE).store_var(meta)

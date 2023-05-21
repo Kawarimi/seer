@@ -49,6 +49,7 @@ func hide_menu():
 		container.get_child(n).queue_free()
 	$MenuPanel.hide()
 	active = false
+	await get_tree().physics_frame
 	opened.emit(false)
 	if get_node_or_null("/root/Control/LevelManager/home/TileMap/Diary"):
 		$/root/Control/LevelManager/home/TileMap/Diary.close_diary()

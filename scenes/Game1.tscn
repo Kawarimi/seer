@@ -41,6 +41,7 @@ border_width_left = 4
 border_width_top = 4
 border_width_right = 4
 border_width_bottom = 4
+border_color = Color(0.882353, 0.882353, 0.882353, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_okey6"]
 bg_color = Color(0, 0, 0, 1)
@@ -228,9 +229,9 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -456.5
-offset_top = -208.0
+offset_top = -193.0
 offset_right = 456.5
-offset_bottom = -42.9998
+offset_bottom = -27.9998
 grow_horizontal = 2
 grow_vertical = 0
 
@@ -297,17 +298,17 @@ sprite_frames = ExtResource("6_f78pm")
 
 [node name="OptionsContainer" type="MarginContainer" parent="Textbox"]
 visible = false
-anchors_preset = 7
+anchors_preset = 8
 anchor_left = 0.5
-anchor_top = 1.0
+anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 1.0
+anchor_bottom = 0.5
 offset_left = -400.0
-offset_top = -308.0
+offset_top = 57.0
 offset_right = 400.0
-offset_bottom = -228.0
+offset_bottom = 117.0
 grow_horizontal = 2
-grow_vertical = 0
+grow_vertical = 2
 
 [node name="Panel" type="Panel" parent="Textbox/OptionsContainer"]
 layout_mode = 2
@@ -496,7 +497,20 @@ offset_right = 1031.0
 offset_bottom = 457.0
 theme_override_fonts/normal_font = ExtResource("4_77ac3")
 theme_override_font_sizes/normal_font_size = 32
-text = "I set off from home this morning."
+bbcode_enabled = true
+text = "I set off from home this morning.
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+scroll_active = false
 
 [node name="ItemsPanel" type="Panel" parent="Menu"]
 visible = false
@@ -598,7 +612,7 @@ script = ExtResource("10_dbfyb")
 
 [node name="Panel" type="Sprite2D" parent="Effects"]
 material = SubResource("ShaderMaterial_f7cbb")
-position = Vector2(576, 323)
+position = Vector2(576, 324)
 texture = ExtResource("12_dc5wa")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Effects/Panel"]

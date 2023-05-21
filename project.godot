@@ -20,6 +20,7 @@ config/icon="res://icon.png"
 [autoload]
 
 SaveFile="*res://game/SaveFile.gd"
+Globals="*res://game/Globals.gd"
 
 [display]
 

@@ -16,4 +16,4 @@ func on_interact():
 		else:
 			if anim and on_interact_anim != "":
 				anim.play(on_interact_anim)
-	
+		

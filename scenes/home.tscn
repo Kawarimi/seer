@@ -1,5 +1,6 @@
-[gd_scene load_steps=57 format=3 uid="uid://0jktuolqn3qn"]
+[gd_scene load_steps=62 format=3 uid="uid://0jktuolqn3qn"]
 
+[ext_resource type="Script" path="res://game/SequencesBehaviour.gd" id="1_2hvag"]
 [ext_resource type="Script" path="res://game/Sequence.gd" id="2_mwcwe"]
 [ext_resource type="Script" path="res://ui/DialogueTree.gd" id="3_q0eu1"]
 [ext_resource type="Script" path="res://ui/Dialogue.gd" id="4_3qmkm"]
@@ -102,15 +103,25 @@ tracks/1/path = NodePath("../../TileMap/Player")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1),
+"times": PackedFloat32Array(0.1, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "values": [{
-"args": [],
-"method": &"lock"
-}, {
 "args": [Vector2(0, -1)],
 "method": &"face_to"
+}, {
+"args": [],
+"method": &"lock"
 }]
+}
+tracks/2/type = "animation"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../../Foreground/AnimationPlayer")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"clips": PackedStringArray("fade_out"),
+"times": PackedFloat32Array(0)
 }
 
 [sub_resource type="Animation" id="Animation_esx1s"]
@@ -205,6 +216,34 @@ tracks/4/loop_wrap = true
 tracks/4/keys = {
 "clips": PackedStringArray("door_open", "door_close"),
 "times": PackedFloat32Array(1.6, 2.5)
+}
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("..")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"intro_mom"],
+"method": &"note_load"
+}]
+}
+tracks/6/type = "method"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("..")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"bank_card"],
+"method": &"add_item"
+}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_p453c"]
@@ -425,9 +464,50 @@ size = Vector2(16, 12)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kp6ml"]
 bg_color = Color(0, 0, 0, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lmpve"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_rn8ug"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_4o051"]
+resource_name = "fade_out"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(2, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lfau0"]
+_data = {
+"RESET": SubResource("Animation_rn8ug"),
+"fade_out": SubResource("Animation_4o051")
+}
+
 [node name="home" type="Node2D"]
 
 [node name="Sequences" type="Node" parent="."]
+script = ExtResource("1_2hvag")
 
 [node name="IntroSequence" type="Node" parent="Sequences" groups=["Persist"]]
 script = ExtResource("2_mwcwe")
@@ -442,7 +522,7 @@ script = ExtResource("3_q0eu1")
 
 [node name="intro" type="Node" parent="Sequences/IntroSequence/Dialogue"]
 script = ExtResource("4_3qmkm")
-text = Array[String](["Yes.", "Mm-hm.", "Okay.", "I got it. I'll see you there."])
+text = Array[String](["I'm going out, like I said.", "Here's the [color=#0096FF]list[/color] of things I need you to buy.", "I'll be back tonight.", "See you later, sweetie-pie."])
 image = Array[SpriteFrames]([ExtResource("5_mn3dc")])
 names = Array[String](["Mom"])
 
@@ -535,6 +615,7 @@ collision_layer = 5
 script = ExtResource("9_rpkrh")
 linked_door = "LivingRoom-Bedroom"
 animated = true
+spawn_direction = Vector2(0, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/Bedroom-LivingRoom"]
 shape = SubResource("RectangleShape2D_pwfmn")
@@ -561,6 +642,7 @@ collision_layer = 5
 script = ExtResource("9_rpkrh")
 linked_door = "Bedroom-LivingRoom"
 animated = true
+spawn_direction = Vector2(0, -1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/LivingRoom-Bedroom"]
 position = Vector2(0, -5)
@@ -615,6 +697,7 @@ script = ExtResource("9_rpkrh")
 linked_door = "Apt-Home"
 linked_scene = "apartment"
 animated = true
+spawn_direction = Vector2(0, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/Home-Apt"]
 shape = SubResource("RectangleShape2D_pwfmn")
@@ -659,6 +742,7 @@ collision_layer = 5
 script = ExtResource("9_rpkrh")
 linked_door = "Bathroom-LRoom"
 animated = true
+spawn_direction = Vector2(1, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/LRoom-Bathroom"]
 shape = SubResource("RectangleShape2D_pwfmn")
@@ -683,6 +767,7 @@ collision_layer = 5
 script = ExtResource("9_rpkrh")
 linked_door = "LRoom-Bathroom"
 animated = true
+spawn_direction = Vector2(-1, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/Bathroom-LRoom"]
 shape = SubResource("RectangleShape2D_ituba")
@@ -829,6 +914,22 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_kp6ml")
+
+[node name="Foreground" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="Panel" parent="Foreground"]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_lmpve")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Foreground"]
+libraries = {
+"": SubResource("AnimationLibrary_lfau0")
+}
 
 [node name="BGM" type="AudioStreamPlayer" parent="."]
 volume_db = -24.0

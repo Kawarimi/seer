@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://jn8w5kwc58yp"]
+
+[ext_resource type="Script" path="res://game/Item.gd" id="1_0o4x4"]
+[ext_resource type="Texture2D" uid="uid://2hlych2tjjnh" path="res://art/items/card_blue.png" id="1_58jpk"]
+
+[resource]
+script = ExtResource("1_0o4x4")
+name = "Bank Card"
+desc = "Mom's debit card."
+price = 100
+img = ExtResource("1_58jpk")
