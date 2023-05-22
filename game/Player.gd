@@ -30,8 +30,9 @@ func _physics_process(_delta):
 			facing_dir = input_dir
 			if Input.is_action_pressed("run"):
 				velocity = input_dir * run_speed
-				anim.set("parameters/Run/blend_position", input_dir)
-				anim.get("parameters/playback").travel("Run")
+				#anim.set("parameters/Run/blend_position", input_dir)
+				#anim.get("parameters/playback").travel("Run")
+				move_and_slide()
 			else:
 				anim.set("parameters/Move/blend_position", input_dir)
 				anim.get("parameters/playback").travel("Move")
@@ -78,10 +79,10 @@ func on_load(data):
 	global_position = data
 	
 func lock(state):
-	if(state):
+	locked = !locked
+	if state:
 		locked = state
-	else:
-		locked = !locked
+		
 	print("Lock set to:",locked)
 		
 func face_to(dir : Vector2):

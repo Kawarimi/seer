@@ -45,6 +45,7 @@ func on_load(data : Array):
 		destroy()
 
 func destroy():
+	print("Destroying ",name)
 	visible = false
 	if(status == NPCState.Destroyed):
 		queue_free()

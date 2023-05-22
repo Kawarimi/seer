@@ -2,7 +2,7 @@
 extends Node
 class_name Sequence
 
-const sequence_flags = ["text_finished", "trigger"]
+const sequence_flags = ["text_finished", "trigger", "param_check"]
 
 @onready var anim = $AnimationPlayer
 @export var on_advance : Dictionary
@@ -26,10 +26,11 @@ func on_load(data):
 	on_init()
 
 func on_init():
-	if(on_new != ""):
-		anim.play(on_new)
-		on_new = ""
-	play_triggers()
+	if active:
+		if(on_new != ""):
+			anim.play(on_new)
+			on_new = ""
+		play_triggers()
 
 func advance_seq(key : String):
 	if active and len(on_advance[key]) > 0:
@@ -58,3 +59,6 @@ func play_triggers():
 	print("Playing triggers")
 	for i in len(on_advance["trigger"]):
 		anim.play(on_advance["trigger"][i])
+
+func _on_checked():
+	advance_seq("param_check")

@@ -17,6 +17,5 @@ func on_interact():
 	else:
 		close_diary()
 
-
 func close_diary():
 	anim.play_backwards("diary_open")

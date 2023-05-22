@@ -10,10 +10,9 @@ class_name Interactable
 func on_interact():
 	if enabled:
 		if dialogue:
-			var selected_idx = dialogue.play()[1]
+			var selected_idx = dialogue.play()[1] #Gets selected option index
 			if anim:
 				anim.play(dialogue_anims[selected_idx])
 		else:
 			if anim and on_interact_anim != "":
 				anim.play(on_interact_anim)
-		

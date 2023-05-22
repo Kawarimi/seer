@@ -70,6 +70,7 @@ func player_to_door(door_name: String):
 func player_activated(state):
 	if not text_locked or not menu_locked:
 		player.set("ui_locked", state)
+		player.get("anim").get("parameters/playback").travel("Idle")
 		print("UI Lock set to: ", state)
 
 func player_lock(state : bool):
@@ -100,7 +101,7 @@ func _on_save_menu_save_game(save_idx : int):
 	if(FileAccess.open(SaveFile.meta_path, FileAccess.READ)):
 		meta = FileAccess.open(SaveFile.meta_path, FileAccess.READ).get_var()
 	meta[save_idx] = {
-	"date": timedate, 
+	"date": timedate,
 	"onload": current_level.name}
 	
 	FileAccess.open(SaveFile.save_path % save_idx, FileAccess.WRITE).store_var(save)

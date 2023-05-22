@@ -13,7 +13,7 @@ func on_interact():
 		if animated:
 			anim.play("door_open")
 			if(linked_scene != ""):
-				await Globals.fx.fade_out()
+				await Globals.global_fx.fade_out()
 			else:
 				await anim.animation_finished
 			transition()

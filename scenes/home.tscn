@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://0jktuolqn3qn"]
+[gd_scene load_steps=67 format=3 uid="uid://0jktuolqn3qn"]
 
 [ext_resource type="Script" path="res://game/SequencesBehaviour.gd" id="1_2hvag"]
 [ext_resource type="Script" path="res://game/Sequence.gd" id="2_mwcwe"]
@@ -7,6 +7,7 @@
 [ext_resource type="SpriteFrames" uid="uid://diai4rq1kyrt2" path="res://art/dialogue/intro/mom.tres" id="5_mn3dc"]
 [ext_resource type="PackedScene" uid="uid://cdv78m5m13ovb" path="res://game/player.tscn" id="6_1d2ru"]
 [ext_resource type="TileSet" uid="uid://6gy6nlqqr6ns" path="res://art/world/interior.tres" id="6_7vfif"]
+[ext_resource type="Script" path="res://game/ParamCheck.gd" id="6_406bt"]
 [ext_resource type="Script" path="res://game/NPC.gd" id="9_fno1b"]
 [ext_resource type="AnimationLibrary" uid="uid://clwtv2pq0yhac" path="res://art/characters/Character.res" id="9_re25r"]
 [ext_resource type="Script" path="res://game/Door.gd" id="9_rpkrh"]
@@ -103,14 +104,14 @@ tracks/1/path = NodePath("../../TileMap/Player")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.1, 0.2),
+"times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "values": [{
+"args": [null],
+"method": &"lock"
+}, {
 "args": [Vector2(0, -1)],
 "method": &"face_to"
-}, {
-"args": [],
-"method": &"lock"
 }]
 }
 tracks/2/type = "animation"
@@ -174,7 +175,7 @@ tracks/1/path = NodePath("../../TileMap/MomNPC")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(2.4),
+"times": PackedFloat32Array(2.3),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -203,7 +204,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(2.8),
 "transitions": PackedFloat32Array(1),
 "values": [{
-"args": [],
+"args": [null],
 "method": &"lock"
 }]
 }
@@ -253,6 +254,69 @@ _data = {
 "diary_saved_door_unlock": SubResource("Animation_esx1s"),
 "fade": SubResource("Animation_mwh8v")
 }
+
+[sub_resource type="Animation" id="Animation_yiqq4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../TileMap/AptDoor:collision_layer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../../TileMap/Home-Apt:collision_layer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_5p5xd"]
+resource_name = "door_unlock"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../TileMap/AptDoor:collision_layer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../../TileMap/Home-Apt:collision_layer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tpyhg"]
+_data = {
+"RESET": SubResource("Animation_yiqq4"),
+"door_unlock": SubResource("Animation_5p5xd")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q6r35"]
+size = Vector2(50, 50)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pvn8g"]
 size = Vector2(24, 24)
@@ -531,6 +595,29 @@ libraries = {
 "": SubResource("AnimationLibrary_p453c")
 }
 
+[node name="DoorUnlock" type="Node" parent="Sequences"]
+script = ExtResource("2_mwcwe")
+on_advance = {
+"param_check": PackedStringArray("door_unlock"),
+"text_finished": PackedStringArray(),
+"trigger": PackedStringArray()
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sequences/DoorUnlock"]
+libraries = {
+"": SubResource("AnimationLibrary_tpyhg")
+}
+
+[node name="SaveCheck" type="Node" parent="Sequences/DoorUnlock"]
+script = ExtResource("6_406bt")
+
+[node name="Area2D" type="Area2D" parent="Sequences/DoorUnlock/SaveCheck"]
+position = Vector2(-103, -679)
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sequences/DoorUnlock/SaveCheck/Area2D"]
+shape = SubResource("RectangleShape2D_q6r35")
+
 [node name="TileMap" type="TileMap" parent="."]
 y_sort_enabled = true
 tile_set = ExtResource("6_7vfif")
@@ -635,6 +722,7 @@ position = Vector2(0, 14)
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="TileMap/Bedroom-LivingRoom"]
 
 [node name="LivingRoom-Bedroom" type="StaticBody2D" parent="TileMap"]
+z_index = 1
 y_sort_enabled = true
 position = Vector2(-80, -464)
 scale = Vector2(2, 2)
@@ -665,6 +753,7 @@ position = Vector2(0, -16)
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="TileMap/LivingRoom-Bedroom"]
 
 [node name="MomRoom" type="StaticBody2D" parent="TileMap"]
+z_index = 1
 y_sort_enabled = true
 position = Vector2(80, -464)
 scale = Vector2(2, 2)
@@ -937,3 +1026,6 @@ script = ExtResource("20_2pl4c")
 
 [node name="SFX" type="AudioStreamPlayer" parent="."]
 volume_db = -20.0
+
+[connection signal="checked" from="Sequences/DoorUnlock/SaveCheck" to="Sequences/DoorUnlock" method="_on_checked"]
+[connection signal="detected" from="Sequences/DoorUnlock/SaveCheck" to="Sequences/DoorUnlock/SaveCheck" method="_on_detected" binds= ["save_check"]]
