@@ -11,6 +11,8 @@ func _ready():
 	if FileAccess.open(SaveFile.meta_path, FileAccess.READ) == null:
 		continue_button.disabled = true
 		load_button.disabled = true
+	if !DirAccess.dir_exists_absolute(SaveFile.path):
+		DirAccess.make_dir_absolute(SaveFile.path)
 	$"New Game".grab_focus()
 		
 func _process(_delta):
@@ -44,9 +46,9 @@ func _on_settings_pressed():
 	$SettingsPanel.show()
 
 func _on_continue_pressed():
-	var meta = FileAccess.open(SaveFile.meta_path, FileAccess.READ).get_var()
-	var unix_dates = []
-	for save in meta:
-		unix_dates.append(Time.get_unix_time_from_datetime_string(meta[save]["date"]))
-	var latest = unix_dates.find(unix_dates.max())
-	load_game(latest)
+#	var meta = FileAccess.open(SaveFile.meta_path, FileAccess.READ).get_var()
+#	var unix_dates = []
+#	for save in meta:
+#		unix_dates.append(Time.get_unix_time_from_datetime_string(meta[save]["date"]))
+#	var latest = unix_dates.find(unix_dates.max())
+	load_game(-1)

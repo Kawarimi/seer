@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://nw8qgs6rkle"]
+[gd_scene load_steps=30 format=3 uid="uid://nw8qgs6rkle"]
 
 [ext_resource type="Script" path="res://game/LevelManager.gd" id="1_4d807"]
 [ext_resource type="PackedScene" uid="uid://0jktuolqn3qn" path="res://scenes/home.tscn" id="2_wpagl"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" path="res://ui/ItemDisplay.gd" id="10_hr5ac"]
 [ext_resource type="Shader" path="res://art/shaders/transition.gdshader" id="11_fk6pa"]
 [ext_resource type="Texture2D" uid="uid://cw0q7nmem52op" path="res://art/shaders/blackscreen.png" id="12_dc5wa"]
+[ext_resource type="Script" path="res://game/GlobalParams.gd" id="14_gvedo"]
 [ext_resource type="Script" path="res://ui/SaveMenu.gd" id="19_h4x73"]
 
 [sub_resource type="GDScript" id="GDScript_5ixi2"]
@@ -578,6 +579,7 @@ grow_vertical = 2
 theme_override_fonts/font = ExtResource("5_18yfw")
 theme_override_font_sizes/font_size = 38
 theme_override_styles/normal = SubResource("StyleBoxFlat_bq620")
+disabled = true
 text = "USE"
 
 [node name="DiscardButton" type="Button" parent="Menu/ItemsPanel/ItemDisplay"]
@@ -593,6 +595,7 @@ grow_vertical = 2
 theme_override_fonts/font = ExtResource("5_18yfw")
 theme_override_font_sizes/font_size = 38
 theme_override_styles/normal = SubResource("StyleBoxFlat_jhe7e")
+disabled = true
 text = "DISCARD"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Menu/ItemsPanel"]
@@ -623,6 +626,13 @@ sprite_frames = ExtResource("6_f78pm")
 [node name="EffectPlayer" type="AnimationPlayer" parent="Effects"]
 libraries = {
 "": SubResource("AnimationLibrary_bwusr")
+}
+
+[node name="GlobalParams" type="Node" parent="." groups=["Persist"]]
+script = ExtResource("14_gvedo")
+params = {
+"game_load": true,
+"intro_food_got": false
 }
 
 [node name="LevelManager" type="Node" parent="."]

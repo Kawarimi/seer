@@ -39,6 +39,5 @@ func on_save():
 	return mode
 	
 func on_load(data):
-	print("LIGHT IS:",data)
 	mode = !data
 	light()

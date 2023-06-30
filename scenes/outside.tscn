@@ -1,5 +1,6 @@
-[gd_scene load_steps=50 format=3 uid="uid://c2uhopjmnt3aw"]
+[gd_scene load_steps=52 format=3 uid="uid://c2uhopjmnt3aw"]
 
+[ext_resource type="Script" path="res://game/Sequence.gd" id="1_78ae0"]
 [ext_resource type="Texture2D" uid="uid://jjbtmkyy0wp7" path="res://art/world/Outside/1_Terrains_and_Fences_32x32.png" id="1_g536i"]
 [ext_resource type="Texture2D" uid="uid://d20p6xkhatkck" path="res://art/world/Outside/9_Shopping_Center_and_Markets_32x32.png" id="1_oq6u5"]
 [ext_resource type="Texture2D" uid="uid://qn4knboiclyb" path="res://art/world/Outside/2_City_Terrains_32x32.png" id="2_ad3pu"]
@@ -57186,10 +57187,22 @@ size = Vector2(148, 1788)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0hs20"]
 size = Vector2(148, 4569)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qx27d"]
+size = Vector2(62, 52)
+
 [node name="outside" type="Node2D"]
 metadata/_edit_horizontal_guides_ = []
 
 [node name="Sequences" type="Node" parent="."]
+
+[node name="AngelIntro" type="Node" parent="Sequences"]
+script = ExtResource("1_78ae0")
+on_advance = {
+"param_check": PackedStringArray("intro_food_got"),
+"text_finished": PackedStringArray()
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sequences/AngelIntro"]
 
 [node name="TileMap" type="TileMap" parent="."]
 y_sort_enabled = true
@@ -57285,7 +57298,6 @@ script = ExtResource("8_sxgot")
 linked_door = "Apt-Out"
 linked_scene = "apartment"
 animated = true
-spawn_direction = Vector2(0, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/Out-Apt"]
 shape = SubResource("RectangleShape2D_hmdkg")
@@ -57319,6 +57331,28 @@ shape = SubResource("RectangleShape2D_0hs20")
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TileMap/RoadColliders/StaticBody2D"]
 position = Vector2(756, -224)
 polygon = PackedVector2Array(-277, -83, -277, 60, -78, 59, -78, 224, 70, 224, 70, 60, 268, 60, 268, -84)
+
+[node name="Out-Market" type="StaticBody2D" parent="TileMap"]
+z_index = 1
+y_sort_enabled = true
+position = Vector2(640, -1034)
+collision_layer = 5
+script = ExtResource("8_sxgot")
+linked_door = "Market-Out"
+linked_scene = "supermarket"
+animated = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/Out-Market"]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_qx27d")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TileMap/Out-Market"]
+libraries = {
+"": SubResource("AnimationLibrary_u4162")
+}
+
+[node name="SpawnPoint" type="Node2D" parent="TileMap/Out-Market"]
+position = Vector2(-1, 52)
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
 energy = 0.0

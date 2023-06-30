@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Item" load_steps=2 format=3 uid="uid://1xordfcbgkp8"]
+
+[ext_resource type="Script" path="res://game/Item.gd" id="1_mf4v0"]
+
+[resource]
+script = ExtResource("1_mf4v0")
+name = "Chicken"
+desc = ""
+price = 0

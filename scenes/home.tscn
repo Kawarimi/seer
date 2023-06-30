@@ -55,30 +55,6 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector2(-48, -656)]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../../TileMap/AptDoor:collision_layer")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [5]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("../../TileMap/Home-Apt:collision_layer")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
-}
 
 [sub_resource type="Animation" id="Animation_b1kn1"]
 resource_name = "dialogue1"
@@ -123,34 +99,6 @@ tracks/2/loop_wrap = true
 tracks/2/keys = {
 "clips": PackedStringArray("fade_out"),
 "times": PackedFloat32Array(0)
-}
-
-[sub_resource type="Animation" id="Animation_esx1s"]
-resource_name = "diary_saved_door_unlock"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../../TileMap/AptDoor:collision_layer")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../../TileMap/Home-Apt:collision_layer")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [5]
 }
 
 [sub_resource type="Animation" id="Animation_mwh8v"]
@@ -247,12 +195,29 @@ tracks/6/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_5r0kg"]
+resource_name = "start"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": ["game_load"],
+"method": &"advance_seq"
+}]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_p453c"]
 _data = {
 "RESET": SubResource("Animation_3rxpj"),
 "dialogue1": SubResource("Animation_b1kn1"),
-"diary_saved_door_unlock": SubResource("Animation_esx1s"),
-"fade": SubResource("Animation_mwh8v")
+"fade": SubResource("Animation_mwh8v"),
+"start": SubResource("Animation_5r0kg")
 }
 
 [sub_resource type="Animation" id="Animation_yiqq4"]
@@ -260,53 +225,44 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../../TileMap/AptDoor:collision_layer")
+tracks/0/path = NodePath("../../TileMap/Home-Apt:locked")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [5]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../../TileMap/Home-Apt:collision_layer")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_5p5xd"]
 resource_name = "door_unlock"
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../../TileMap/AptDoor:collision_layer")
+tracks/0/path = NodePath("../../TileMap/Home-Apt:locked")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [1]
+"values": [false]
 }
-tracks/1/type = "value"
+tracks/1/type = "method"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../../TileMap/Home-Apt:collision_layer")
+tracks/1/path = NodePath("..")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [5]
+"values": [{
+"args": ["game_load", false],
+"method": &"param_change"
+}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tpyhg"]
@@ -378,7 +334,7 @@ graph_offset = Vector2(-136.08, 29.6309)
 [sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_uvyvc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pwfmn"]
-size = Vector2(14, 5.5)
+size = Vector2(14, 11)
 
 [sub_resource type="Animation" id="Animation_iahto"]
 length = 0.001
@@ -576,15 +532,15 @@ script = ExtResource("1_2hvag")
 [node name="IntroSequence" type="Node" parent="Sequences" groups=["Persist"]]
 script = ExtResource("2_mwcwe")
 on_advance = {
-"text_finished": PackedStringArray("fade"),
-"trigger": PackedStringArray()
+"game_load": "dialogue1",
+"on_new": "start",
+"text_finished": PackedStringArray("fade")
 }
-on_new = "dialogue1"
 
 [node name="Dialogue" type="Node" parent="Sequences/IntroSequence"]
 script = ExtResource("3_q0eu1")
 
-[node name="intro" type="Node" parent="Sequences/IntroSequence/Dialogue"]
+[node name="intro1" type="Node" parent="Sequences/IntroSequence/Dialogue"]
 script = ExtResource("4_3qmkm")
 text = Array[String](["I'm going out, like I said.", "Here's the [color=#0096FF]list[/color] of things I need you to buy.", "I'll be back tonight.", "See you later, sweetie-pie."])
 image = Array[SpriteFrames]([ExtResource("5_mn3dc")])
@@ -598,9 +554,7 @@ libraries = {
 [node name="DoorUnlock" type="Node" parent="Sequences"]
 script = ExtResource("2_mwcwe")
 on_advance = {
-"param_check": PackedStringArray("door_unlock"),
-"text_finished": PackedStringArray(),
-"trigger": PackedStringArray()
+"param_check": PackedStringArray("door_unlock")
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sequences/DoorUnlock"]
@@ -702,7 +656,6 @@ collision_layer = 5
 script = ExtResource("9_rpkrh")
 linked_door = "LivingRoom-Bedroom"
 animated = true
-spawn_direction = Vector2(0, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/Bedroom-LivingRoom"]
 shape = SubResource("RectangleShape2D_pwfmn")
@@ -730,7 +683,6 @@ collision_layer = 5
 script = ExtResource("9_rpkrh")
 linked_door = "Bedroom-LivingRoom"
 animated = true
-spawn_direction = Vector2(0, -1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/LivingRoom-Bedroom"]
 position = Vector2(0, -5)
@@ -782,13 +734,15 @@ text = Array[String](["Mom's room. It's locked."])
 y_sort_enabled = true
 position = Vector2(-112, -720)
 scale = Vector2(2, 2)
+collision_layer = 5
 script = ExtResource("9_rpkrh")
 linked_door = "Apt-Home"
 linked_scene = "apartment"
 animated = true
-spawn_direction = Vector2(0, 1)
+locked = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/Home-Apt"]
+position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_pwfmn")
 
 [node name="Sprite2D" type="Sprite2D" parent="TileMap/Home-Apt"]
@@ -805,21 +759,10 @@ position = Vector2(0, 17)
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="TileMap/Home-Apt"]
 
-[node name="AptDoor" type="StaticBody2D" parent="TileMap"]
-y_sort_enabled = true
-position = Vector2(-112, -720)
-scale = Vector2(2, 2)
-collision_layer = 5
-script = ExtResource("12_5v4fv")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="TileMap/AptDoor"]
-position = Vector2(0, 1)
-shape = SubResource("RectangleShape2D_pwfmn")
-
-[node name="DialogueTree" type="Node" parent="TileMap/AptDoor"]
+[node name="DialogueTree" type="Node" parent="TileMap/Home-Apt"]
 script = ExtResource("3_q0eu1")
 
-[node name="DialogueSet" type="Node" parent="TileMap/AptDoor/DialogueTree"]
+[node name="DialogueSet" type="Node" parent="TileMap/Home-Apt/DialogueTree"]
 script = ExtResource("4_3qmkm")
 looping = true
 text = Array[String](["You should write in your [color=yellow]diary[/color] before you leave."])
@@ -831,7 +774,6 @@ collision_layer = 5
 script = ExtResource("9_rpkrh")
 linked_door = "Bathroom-LRoom"
 animated = true
-spawn_direction = Vector2(1, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/LRoom-Bathroom"]
 shape = SubResource("RectangleShape2D_pwfmn")
@@ -856,7 +798,6 @@ collision_layer = 5
 script = ExtResource("9_rpkrh")
 linked_door = "LRoom-Bathroom"
 animated = true
-spawn_direction = Vector2(-1, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/Bathroom-LRoom"]
 shape = SubResource("RectangleShape2D_ituba")
@@ -1027,5 +968,6 @@ script = ExtResource("20_2pl4c")
 [node name="SFX" type="AudioStreamPlayer" parent="."]
 volume_db = -20.0
 
+[connection signal="reading" from="Sequences/IntroSequence/Dialogue" to="Sequences/IntroSequence" method="_on_dialogue_reading"]
 [connection signal="checked" from="Sequences/DoorUnlock/SaveCheck" to="Sequences/DoorUnlock" method="_on_checked"]
 [connection signal="detected" from="Sequences/DoorUnlock/SaveCheck" to="Sequences/DoorUnlock/SaveCheck" method="_on_detected" binds= ["save_check"]]

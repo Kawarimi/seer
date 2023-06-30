@@ -49,6 +49,7 @@ func inventory_load():
 		var items_button = $TopPanel/ItemsButton
 		item_container.get_child(0).focus_neighbor_top = items_button.get_path()
 		items_button.focus_neighbor_bottom = item_container.get_child(0).get_path()
+	print("Inventory: ",inventory)
 
 func inventory_clean():
 	for child in item_container.get_children():
@@ -108,17 +109,20 @@ func inventory_remove(item_name):
 	inventory.remove_at(inventory.find(item_name))
 	inventory_load()
 
-func note_add(note_text):
-	notes.append(note_text)
+func note_add(note_name):
+	notes.append(note_name)
 	pages_sort()
 	page_load()
 	
 func pages_sort():
 	for note in notes:
+		var text = FileAccess.open(Globals.note_dir % note, FileAccess.READ).get_as_text()
 		var page = pages_text[current_page]
-		if((page + note + "\n").count("\n") > notes_max_length):
+		if((page + text + "\n").count("\n") > notes_max_length):
 			current_page += 1
-			pages_text[current_page] = note+"\n"
+			pages_text[current_page] = text+"\n"
+		else:
+			pages_text[current_page] = text+"\n"
 
 func page_load():
 	note_panel.get_node("Text").text = pages_text[current_page]

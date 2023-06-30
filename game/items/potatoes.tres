@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Item" load_steps=2 format=3 uid="uid://dth5x5ry3oipn"]
+
+[ext_resource type="Script" path="res://game/Item.gd" id="1_1vjx1"]
+
+[resource]
+script = ExtResource("1_1vjx1")
+name = "Potatoes"
+desc = ""
+price = 0

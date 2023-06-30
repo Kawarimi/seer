@@ -1,5 +1,6 @@
 extends Node
 
+const path = "user://save/"
 const save_path = "user://save/save_%s.sav"
 const meta_path = "user://save/saves.meta"
 

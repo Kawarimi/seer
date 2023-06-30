@@ -9,6 +9,7 @@ var selected : Node
 
 var option_index = 0
 signal option_chosen
+signal reading
 
 func _ready():
 	selected = $"."
@@ -23,6 +24,8 @@ func play(): #returns false on tree end, and index
 		selected.get("options_text"),selected.get("sfx"), self)
 	if selected.get_options_length() > 0:
 		await option_chosen
+	
+	reading.emit()
 
 	return [adv, option_index]
 		
